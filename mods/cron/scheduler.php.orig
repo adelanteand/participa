@@ -1,0 +1,16 @@
+<?php
+
+$carpeta   = realpath(dirname(__FILE__));
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once ($carpeta . "/../../config.php");
+
+use GO\Scheduler;
+
+$scheduler = new Scheduler();
+//$scheduler -> php($carpeta . '/tareas/reloj.php','/usr/bin/php')->at("*/2 * * * *")->onlyOne();
+$scheduler -> php($carpeta . '/tareas/radio.php', '/usr/bin/php', ['emisora' => 1], 'SER_1') -> at("50 6 * * * *") -> onlyOne();
+$scheduler -> php($carpeta . '/tareas/radio.php', '/usr/bin/php', ['emisora' => 2], 'CANALSUR_2') -> at("5 1 * * * *") -> onlyOne();
+//$scheduler -> php($carpeta . '/tareas/radio.php','/usr/bin/php',['emisora' => 2],'emisora1')->at("* * * * * *")->onlyOne();
+//$scheduler -> php($carpeta . '/tareas/radio.php','/usr/bin/php',['emisora' => 1],'emisora2')->at("* * * * * *")->onlyOne();
+$scheduler -> run();
+//var_dump($scheduler);

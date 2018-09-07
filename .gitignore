@@ -1,1 +1,15 @@
+.project
+config.php
+/stats
+.htpasswd
+awstats-icon
+awstatsicons
+/data/*
+!/data/keep.txt
+youtube_key.txt
+sql.txt
+/vendor/
+/html/plugins/
 /nbproject/private/
+composer.lock
+/html/vendor/

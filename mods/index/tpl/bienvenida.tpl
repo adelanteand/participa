@@ -1,0 +1,1 @@
+<h2>Bienvenida a la aplicación</h2>

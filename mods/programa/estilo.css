@@ -1,0 +1,140 @@
+
+.nivel-1.titulo {
+    /* PATIO X: TITULO */
+    color: #38423f;  
+    font-size: 1.6em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo:hover {
+    cursor: pointer;
+}
+
+.nivel-1.titulo:hover {
+    color: black;
+}
+
+.nivel-2.titulo:hover {
+    color: black;
+}
+
+.nivel-3.titulo:hover {
+    color: black;
+}
+
+.nivel-1.descripcion {
+    text-align: center;
+}
+
+.nivel-2.titulo {
+    /* Subcategoría */
+    padding: 0.5em;
+    padding-left: 2em;
+    margin: 1em;
+    color: #38423f;   
+    background: rgba(36, 200, 126, 0.4);
+}
+
+.nivel-3.titulo {
+    /* Subcategoría */
+    margin: 1em;
+    padding: 0.5em;
+    padding-left: 3em;
+    color: #38423f;  
+    background: rgba(36, 200, 126, 0.1);
+}
+
+.propuesta {
+    padding: 1em 0em 1em 4em;
+}
+
+
+.engloba.nivel-1 {
+    background: #f7f7f7;
+    padding: 1em;
+    margin: 1em;
+}
+
+.titulo, .engloba.nivel-1 {
+    border-radius: 5px;
+}
+
+.separador {
+    border-width: 0.5px;
+    color: gray;
+}
+
+
+
+/* VISALUZACION DE FUENTES  */
+html {
+    text-rendering: optimizeLegibility;
+}
+
+.stick{
+    position : fixed;
+    top: 3.9rem;
+    left: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#sticky{
+    padding : 10px;
+    background : #38423f;
+    color : #fff;
+}
+
+body {
+    padding-top: 8rem;
+}
+
+
+/* MOVILES */ 
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .nivel-1.titulo  {
+        font-size: 1.2em;
+    }
+    
+    .nivel-3.titulo  {
+        margin: 0.4em;
+    }    
+    
+    .nivel-1.descripcion {
+        padding-top: 0.9em;
+        font-size: 0.8em;
+    }
+    
+    .engloba.categoria.nivel-1{
+        margin: 0.1em 1em 0.1em 1em;
+    }
+    
+   .propuesta {
+         font-size: 0.8em;
+    }
+    
+    .nivel-2.titulo  {
+        padding-left: 0.5em;
+        margin-left: 0px;
+        margin-right: 0px;            
+    }
+    .nivel-3.titulo  {
+        padding-left: 0.5em;
+        margin-left: 0px;
+        margin-right: 0px;            
+    }   
+    .propuesta {
+        padding-left: 0.5em;
+        margin-left: 0px;
+        margin-right: 0px;            
+    }        
+    body {
+        padding-left: 0em;
+        padding-right: 0em;
+        padding-bottom: 0em;
+    }
+}

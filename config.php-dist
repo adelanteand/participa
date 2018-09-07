@@ -1,0 +1,79 @@
+<?php
+
+define('CONFIG_DEBUG',1); = false; //adicionalmente se requiere parametro GET debug = 1 (clases/funciones.php)
+
+////////////////////
+///// BASE DE DATOS/
+////////////////////
+define('DB_HOST','');
+define('DB_DB','');
+define('DB_USER','');
+define('DB_PWD','');
+define('DB_PREFIX','pre_');
+
+/////////////////////
+///// CONFIGURACION /
+////////////////////
+
+define('CONF_TITULOPAGINA_POS',' | ');
+define('CONF_TITULOPAGINA','(dev) ' . CONF_TITULOPAGINA_POS);
+define('CONF_DESCRIPCION','');
+define('CONF_ORGANIZACION','');
+define('CONF_FB_IMG','img/img.jpg');
+define('CONF_TW_IMG','img/img.jpg');
+define('CONF_TW_USER','');
+define('CONF_SITEADMIN','');
+define('CONF_HOME','');
+define('CONF_BASEURL','');
+define('CONF_URLREF','');
+define('CONF_TIMEZONE','Europe/Madrid');
+define('CONF_LOCALE','es_ES.utf8');
+define('CONF_PUBLICOS',['index', 'usuario', 'ajax', 'js', 'comentarios', 'cron', 'fichero']);
+define('CONF_INDEX_MODULO','index');
+define('CONF_UPLOAD_EXTENSIONES',array("doc","docx","xls","xlsx","odt","odf","zip","rar","7z","tar.gz","jpg","jpeg","png","jpg","gif","psd","ai","mp3","mp4","avi","mov","flv","mkv","pdf","tiff"));
+define('CONF_UPLOAD_MAX',8);
+define('CONF_UPLOAD_DATA','');
+
+///////////////
+///// SMTP ////
+///////////////
+define("SMTP_SERVER","");
+define("SMTP_PORT",25);
+define("SMTP_USERNAME","");
+define("SMTP_PASSWORD","");
+
+///////////////
+///// LDAP ////
+///////////////
+define("LDAP_SERVER", "");
+define("LDAP_IDATRIBUTE", "");
+define("LDAP_BASEDN", "");
+define("LDAP_ADMINUSER", "");
+define("LDAP_ADMINPWD", "");
+
+
+
+//////////////////
+///// API GOOGLE /
+/////////////////
+define("GOOGLE_API_OAUTH2_CLIENT_ID", "");
+define("GOOGLE_API_OAUTH2_CLIENT_SECRET", "");
+define("GOOGLE_API_REDIRECT", "");
+define("GOOGLE_API_APPNAME", "");
+
+//////////////////
+///// API FACEBOOK /
+/////////////////
+define("FB_API_APP_ID", "");
+define("FB_API_APP_SECRET", "");
+define("FB_API_REDIRECT", "");
+define("FB_API_APPNAME", "");
+
+//////////////////////
+///// AUTOMODERACION
+//////////////////////
+$propuesta_min_votos = 10;
+$propuesta_controvertida = 0.25; //porcentaje
+$propuesta_invalida = 0.5; //porcentaje
+
+

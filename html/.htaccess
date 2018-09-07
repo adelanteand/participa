@@ -1,0 +1,8 @@
+Header add Access-Control-Allow-Origin "*"
+
+RewriteEngine on
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)/$ /?carpeta=$1 [L,qsa]
+#nc
+AddDefaultCharset UTF-8
+ErrorDocument 404 /index.php?carpeta=error&op=404

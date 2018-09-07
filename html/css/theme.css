@@ -1,0 +1,60 @@
+
+body {
+  font-size: 1.175rem;
+  font-family: 'Nunito', sans-serif;
+  padding: 6.5rem 2rem 2rem 2rem;
+}
+
+/* NAVBAR */
+.navbar-custom {
+    background-color: #3EC574;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
+}
+
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
