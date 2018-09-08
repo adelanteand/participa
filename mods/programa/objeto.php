@@ -33,8 +33,10 @@ class Programa_Propuesta extends Entidad {
         )
     );
 
-    function __construct($id = 0) {
+    function __construct($id = 0) {        
         parent::__construct($id, $this->datos);
+        $array_codigo = str_split($this->id, 2);
+        $this->referencia = implode(".",array_map(function($v) { return ltrim($v, '0'); }, $array_codigo));
     }
 
 }
@@ -70,6 +72,7 @@ class Programa_Categoria_Controladora {
         global $db;
 
         $cols = array('id', 'codigo', 'nombre', 'padre', 'intro', 'icono');
+        $db->orderBy("orden", "ASC");
         $res = $db->get('programa_categorias', null, $cols);
         $out = Array();
         foreach ($res as $row) {
@@ -139,17 +142,17 @@ class Programa_Categoria_Controladora {
         if ($nivel == 1) {
             $out .= "<div class=\"programa-electoral\">";
         } else {
-            $out .= "<div class=\"engloba sub categoria nivel-" . $nivel . "\" data-nivel=".$nivel.">";
+            $out .= "<div class=\"engloba sub categoria nivel-" . $nivel . "\" data-nivel=" . $nivel . ">";
         }
 
         foreach ($arr as $val) {
-            $out .= "<div class=\"engloba categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=".$nivel." data-categoria=".$val->id.">";
-            $out .= "<div class=\"titulo categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=".$nivel." data-categoria=".$val->id.">";
-            $out .= "<span>".$val->nombre."</span>";
+            $out .= "<div class=\"engloba categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
+            $out .= "<div class=\"titulo categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
+            $out .= "<span><i class=\"despliegue fas fa-angle-right\"></i> " . $val->nombre . "</span>";
             $out .= "</div>";
 
             if ($val->intro) {
-                $out .= "<div class=\"descripcion categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=".$nivel." data-categoria=".$val->id.">";
+                $out .= "<div class=\"descripcion categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . "><hr>";
                 $out .= $val->intro;
                 $out .= "</div>";
             }
@@ -159,12 +162,22 @@ class Programa_Categoria_Controladora {
             } else {
                 if ($getPropuestas) {
                     if (($val->propuestas)) {
-                        $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=".$nivel." data-categoria=".$val->id.">";
+                        $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
                         foreach ($val->propuestas as $p) {
-                            $out .= "<div class=\"propuesta propuesta-" . $p->id . "\" >";
-                            $out .= $p->texto;
+                            $out .= "<div class=\"propuesta propuesta-" . $p->id . "\" data-referencia='".$p->referencia."'>";
+                            $out .= "<span data-propuesta=\"" . $p->id . "\" class='badge badge-secondary codigo_propuesta' >" . $p->referencia . "</span> <span class=\"textprop\">" . $p->texto;
+                            $out .= "</span><div class='opciones'>";
+                            $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='mod'><i class='fas fa-sync-alt'></i> Cambio redacción</button>";
+                            $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='sup'><i class='fas fa-trash-alt'></i> Sugerir eliminación</button>";
                             $out .= "</div>";
+                            $out .= "</div><hr class=\"divpropuesta\">";
                         }
+                        $out .= "</div>";
+                    } else {
+                        $out .= "<div class=\"grupo-propuestas gruposinpropuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
+                        $out .= "<div class=\"propuesta sinpropuestas\" >";
+                        $out .= "Nada por aquí";
+                        $out .= "</div>";
                         $out .= "</div>";
                     }
                 }

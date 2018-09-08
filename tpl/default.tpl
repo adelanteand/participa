@@ -42,6 +42,9 @@
         <script src="/vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
         <script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="/vendor/@fortawesome/fontawesome-free/js/all.min.js" type="text/javascript"></script>
+        <script src='/vendor/tinymce/tinymce.min.js'></script>
+        <script src='/vendor/tinymce-i18n/langs/es.js'></script>
+        
 
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
