@@ -31,17 +31,23 @@ $(document).ready(function () {
 
     $('.opciones > .btn').on('click', function () {
         ref = $(this).closest('.propuesta').data('referencia');
+        idPropuesta = $(this).closest('.propuesta').data('idpropuesta');
+        idCategoria = $(this).closest('.propuesta').data('idcategoria');
         act = $(this).data('accion');
         tex = $(this).closest('.propuesta').find('.textprop').text();
+        
         //console.log(tex);
         $("#codigo_propuesta").text(ref);
         $("#texto_original").text(tex);
+        $("#tipo").val(act);
+        $("#idPropuesta").val(idPropuesta);
+        $("#idCategoria").val(idCategoria);
         openNav();
     });
 
 
     tinymce.init({
-        selector: '#texto_nuevo',
+        selector: '#texto_nuevo,#motivacion',
         language: 'es',
         statusbar: false,
         plugins: "lists",

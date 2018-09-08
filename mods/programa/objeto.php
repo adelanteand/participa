@@ -164,7 +164,7 @@ class Programa_Categoria_Controladora {
                     if (($val->propuestas)) {
                         $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
                         foreach ($val->propuestas as $p) {
-                            $out .= "<div class=\"propuesta propuesta-" . $p->id . "\" data-referencia='".$p->referencia."'>";
+                            $out .= "<div class=\"propuesta\" data-idPropuesta=\"" . $p->id . "\" data-referencia='".$p->referencia."' data-idCategoria=\"".$val->id."\">";
                             $out .= "<span data-propuesta=\"" . $p->id . "\" class='badge badge-secondary codigo_propuesta' >" . $p->referencia . "</span> <span class=\"textprop\">" . $p->texto;
                             $out .= "</span><div class='opciones'>";
                             $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='mod'><i class='fas fa-sync-alt'></i> Cambio redacción</button>";

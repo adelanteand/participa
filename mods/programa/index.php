@@ -16,6 +16,7 @@ function programa() {
     $lista = $cats->getLista($res, $getPropuestas);
     $divs =  $cats->getDIVS($res, $getPropuestas);
 
+    $html->asignar("ip",getIPv4());
     $html->asignar("programa",$divs);
     $html->plantilla("index.tpl");
     $html->ver();
@@ -55,3 +56,4 @@ function patio() {
     $html->plantilla("nivel.tpl");
     $html->ver();
 }
+

@@ -292,6 +292,18 @@ function getIP($external = true) {
     return $last_seen;
 }
 
+function getIPv4(){
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+      $ip=$_SERVER['HTTP_CLIENT_IP'];
+    }elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+      $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+      $ip=$_SERVER['REMOTE_ADDR'];
+    }
+    $ip = ip2long($ip);
+    return $ip;
+}
+
 function isIPIn($ip, $net, $mask) {
     $lnet      = ip2long($net);
     $lip       = ip2long($ip);
