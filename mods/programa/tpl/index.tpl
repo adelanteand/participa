@@ -15,7 +15,7 @@
 
     <div class="contenido_barra">
 
-        <form action="/enviar/" name="formEnmienda" method="POST">
+        <form action="/enviar/" name="formEnmienda" id="formEnmienda" method="POST">
 
             <h4><strong><span id="codigo_propuesta"></span></strong></h4>
 
@@ -127,8 +127,8 @@
             <div class="col">
                 <div class="btn-group" role="group">
                     <button type="button" data-destino="0" id="botonPrev" class="botonEnmienda btn btn-light">Volver</button>
-                    <button type="button" data-destino="2" id="botonNext" class="botonEnmienda btn btn-light">Siguiente</button>
-                </div>   
+                    <button type="button" data-destino="2" id="botonNext" class="botonEnmienda btn btn-light">Siguiente</button>                    
+                </div> 
             </div>
         </div>                
     </div>  

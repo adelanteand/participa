@@ -24,7 +24,9 @@ $(document).ready(function () {
     
     $(".botonEnmienda").on("click",function(){
         destino = $(this).data('destino');
-        setFase(destino);
+        if (destino != 4) {
+           setFase(destino);
+        }
     })
 
     $(".titulo").click(function () {
@@ -103,59 +105,9 @@ $(document).ready(function () {
         $("#formEnmienda").submit();
     });
     
-    function enviarFormulario(){
-        console.log("llego");
-    }
-    $("#formEnmienda").submit(function(e) {
-        var form = $(this); 
-        var url = form.attr('action');
-        $.ajax({
-           type: "POST",
-           url: url,
-           data: form.serialize(), // serializes the form's elements.
-           success: function(data)  {
-               alert(data); // show response from the php script.
-           }
-         });
-        e.preventDefault(); // avoid to execute the actual submit of the form.        
-    });
     
 
 
-    function setFase(numero){
-        $(".fase:not(#fase"+numero+")").hide();
-        $("#fase"+numero).show();
-
-        if (numero==1){
-            $("#botonPrev").prop('disabled', true);
-            $("#botonNext").prop('disabled', false);
-        } else if (numero==4) {
-            $("#botonPrev").prop('disabled', false);
-            $("#botonNext").prop('disabled', true);
-        } else {
-            $("#botonPrev").prop('disabled', false);
-            $("#botonNext").prop('disabled', false);
-        }
-
-        if (numero==3) {
-            $("#botonNext").addClass('btn-success');
-            $("#botonNext").addClass('enviarEnmienda');
-            $("#botonNext").removeClass('btn-light');   
-            $("#botonNext").text('Enviar');
-        } else {
-            $("#botonNext").removeClass('enviarEnmienda');
-            $("#botonNext").removeClass('btn-success');
-            $("#botonNext").addClass('btn-light');   
-            $("#botonNext").click('');
-            $("#botonNext").text('Siguiente');        
-        }
-
-        $("#botonPrev").data('destino',numero-1);
-        $("#botonNext").data('destino',numero+1);
-
-        fase = numero;
-
-    }    
 
 });
 
@@ -212,4 +164,69 @@ function openNav() {
 function closeNav() {
     $("#barra_enmiendas").width("0px");
     $("#barra_enmiendas").css('box-shadow','0px 0px 0px 0px #aaaaaa');
+}
+
+
+
+
+    function setFase(numero){
+        $(".fase:not(#fase"+numero+")").hide();
+        $("#fase"+numero).show();
+
+        if (numero==1){
+            clearAllContentEditor();
+            $("#botonPrev").prop('disabled', true);
+            $("#botonNext").prop('disabled', false);
+            
+        } else if (numero==4) {
+            $("#botonPrev").prop('disabled', true);
+            $("#botonNext").prop('disabled', true);
+        } else {
+            $("#botonPrev").prop('disabled', false);
+            $("#botonNext").prop('disabled', false);
+        }
+
+        if (numero==3) {
+            $("#botonNext").addClass('btn-success');
+            $("#botonNext").addClass('enviarEnmienda');
+            $("#botonNext").removeClass('btn-light');   
+            $("#botonNext").attr("onclick","enviarFormulario()");
+            $("#botonNext").text('Enviar');
+        } else {
+            $("#botonNext").removeClass('enviarEnmienda');
+            $("#botonNext").removeClass('btn-success');
+            $("#botonNext").addClass('btn-light');   
+            $("#botonNext").click('');
+            $("#botonNext").removeAttr("onclick");
+            $("#botonNext").text('Siguiente');        
+        }
+
+        $("#botonPrev").data('destino',numero-1);
+        $("#botonNext").data('destino',numero+1);
+
+        fase = numero;
+
+    }    
+    
+
+function enviarFormulario(){
+    console.log($("#formEnmienda").serialize());
+    $.ajax({                        
+        type: "POST",                 
+        url: '/enviar/',                     
+        data: $("#formEnmienda").serialize(), 
+        success: function(data) {
+            console.log(data);     
+            setFase(4);
+            fase = 1;
+        }
+    });    
+}
+
+
+function clearAllContentEditor(){
+    for(i=0; i<tinymce.editors.length; i++){
+        tinymce.editors[i].setContent("");
+        $("[name='" + tinymce.editors[i].targetElm.name + "']").val("");
+    }
 }

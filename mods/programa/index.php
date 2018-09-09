@@ -57,3 +57,11 @@ function patio() {
     $html->ver();
 }
 
+function pdf() {
+    echo "Disponible próximamente.";
+}
+
+
+function enviar() {
+    echo "Formulario de envio";
+}
