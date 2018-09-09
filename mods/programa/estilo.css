@@ -23,9 +23,27 @@
     color: black;
 }
 
-.nivel-1.descripcion {
-    text-align: center;
+.descripcion {
+    text-align: left;
+    font-size: 0.9em;
+    color: #818181;
 }
+
+.nivel-2.descripcion {
+    padding-left: 2em;
+}
+
+.nivel-3.descripcion {
+    padding-left: 2em;
+    margin-left: 3em;
+}
+
+.nivel-4.descripcion {
+    padding-left: 2em;
+    margin-left: 6em;
+}
+
+
 
 .nivel-2.titulo {
     /* Subcategoría */
@@ -46,6 +64,28 @@
     background: rgba(36, 200, 126, 0.1);
 }
 
+.nivel-4.titulo {
+    /* Subcategoría */
+    margin: 1em;
+    margin-left: 5em;
+    padding: 0.5em;
+    padding-left: 2em;
+    background: rgba(255,255,255, 0.7);
+    border: 1px solid #38423f;
+}
+
+.nivel-5.titulo {
+    /* Subcategoría */
+    margin: 1em;
+    margin-left: 7em;
+    padding: 0.5em;
+    padding-left: 2em;
+    border: 1px solid gray;
+}
+
+
+
+
 .propuesta {
     margin: 1em 0em 1em 4em;
     padding-left: 1em;
@@ -59,6 +99,8 @@
 .opciones{
     visibility: hidden;
 }
+
+
 
 .engloba.sub, .descripcion, .grupo-propuestas {
     display:none;
@@ -120,16 +162,16 @@ body {
 
 
 
+
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 2000; /* Stay on top */
+    z-index: 4000; /* Stay on top */
     top: 0; /* Stay at the top */
     right: 0;
-    background-color: Thistle; /* Black*/
-    box-shadow: -10px 0px 10px 1px #aaaaaa;
+    background-color: Thistle; /* Black*/    
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
@@ -187,10 +229,20 @@ label{
     display:none; 
 }
 
+.btn {
+    white-space: normal;
+    text-align: left;
+}
 
 /* MOVILES */ 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    
+    .opciones{
+        visibility: visible;
+    }
+
+
     .nivel-1.titulo  {
         font-size: 1.2em;
     }
@@ -199,10 +251,28 @@ label{
         margin: 0.4em;
     }    
 
-    .nivel-1.descripcion {
-        padding-top: 0.9em;
+    .nivel-1.descripcion,.nivel-2.descripcion,.nivel-3.descripcion,.nivel-4.descripcion {
+
         font-size: 0.8em;
+        padding-left: 0.5em;
     }
+    .nivel-3.descripcion{
+        margin-left: 0.3em;
+    }
+    
+    .nivel-4.descripcion{
+        margin-left: 0.5em;
+    }    
+    
+    .nivel-4.titulo {
+        padding-left: 0.5em;
+        margin-left: 0em;
+    }
+    
+    .nivel-5.titulo {
+        padding-left: 0.5em;
+        margin-left: 0em;
+    }    
 
     .engloba.categoria.nivel-1{
         margin: 0.1em 1em 0.1em 1em;
@@ -240,3 +310,32 @@ label{
 }
 
 
+
+
+#volverArriba {
+  display: inline-block;
+  background-color: #3EC574;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  color: white;
+  z-index: 3000;
+}
+
+#volverArriba:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+
+#volverArriba.show {
+  opacity: 1;
+  visibility: visible;
+}

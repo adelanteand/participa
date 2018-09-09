@@ -35,8 +35,8 @@ class Programa_Propuesta extends Entidad {
 
     function __construct($id = 0) {        
         parent::__construct($id, $this->datos);
-        $array_codigo = str_split($this->id, 2);
-        $this->referencia = implode(".",array_map(function($v) { return ltrim($v, '0'); }, $array_codigo));
+        //$array_codigo = str_split($this->id, 2);
+        //$this->referencia = implode(".",array_map(function($v) { return ltrim($v, '0'); }, $array_codigo));
     }
 
 }
@@ -148,7 +148,11 @@ class Programa_Categoria_Controladora {
         foreach ($arr as $val) {
             $out .= "<div class=\"engloba categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
             $out .= "<div class=\"titulo categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
-            $out .= "<span><i class=\"despliegue fas fa-angle-right\"></i> " . $val->nombre . "</span>";
+            $out .= "<span><i class=\"despliegue fas fa-angle-right\"></i> ";
+            if ($val->icono){
+                $out .= "<i class=\"fas ".$val->icono."\"></i> ";
+            }
+            $out .= $val->nombre . "</span>";
             $out .= "</div>";
 
             if ($val->intro) {
@@ -163,23 +167,28 @@ class Programa_Categoria_Controladora {
                 if ($getPropuestas) {
                     if (($val->propuestas)) {
                         $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
+                        
+                        $out .= "<div>";
+                        $out .= "<button type='button' class='btn btnadd btn-link btn-sm' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "</div>";
+                        
+                        
                         foreach ($val->propuestas as $p) {
-                            $out .= "<div class=\"propuesta\" data-idPropuesta=\"" . $p->id . "\" data-referencia='".$p->referencia."' data-idCategoria=\"".$val->id."\">";
-                            $out .= "<span data-propuesta=\"" . $p->id . "\" class='badge badge-secondary codigo_propuesta' >" . $p->referencia . "</span> <span class=\"textprop\">" . $p->texto;
+                            $out .= "<div class=\"propuesta\" data-idPropuesta=\"" . $p->id . "\" data-idCategoria=\"".$val->id."\">";
+                            $out .= "<span data-propuesta=\"" . $p->id . "\" class='badge badge-secondary codigo_propuesta' >Propuesta " . $p->id . "</span> <span class=\"textprop\">" . $p->texto;
                             $out .= "</span><div class='opciones'>";
                             $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='mod'><i class='fas fa-sync-alt'></i> Cambio redacción</button>";
                             $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='sup'><i class='fas fa-trash-alt'></i> Sugerir eliminación</button>";
                             $out .= "</div>";
                             $out .= "</div><hr class=\"divpropuesta\">";
                         }
+                        
+                        $out .= "<div>";
+                        $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "</div>";                 
+                        
                         $out .= "</div>";
-                    } else {
-                        $out .= "<div class=\"grupo-propuestas gruposinpropuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
-                        $out .= "<div class=\"propuesta sinpropuestas\" >";
-                        $out .= "Nada por aquí";
-                        $out .= "</div>";
-                        $out .= "</div>";
-                    }
+                    } 
                 }
             }
 
@@ -198,7 +207,7 @@ class Programa_Propuesta_Controladora {
     function getPropuestasCategoria($id) {
 
         global $db;
-        $cols = array('id', 'cat', 'texto');
+        $cols = array('cast(id as unsigned) as id', 'cat', 'texto');
         $db->where('cat', $id);
         $res = $db->get('programa_propuestas', null, $cols);
 
