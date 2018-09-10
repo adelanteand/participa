@@ -197,7 +197,6 @@ function enviarFormulario() {
     $("#telefono").val();
     $("#cp").val();
     
-    
     if (!validarEmail($("#email").val()) || !$("#email").val()){
         validado = false
         msg.push("Revise el correo electrónico");
