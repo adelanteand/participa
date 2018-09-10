@@ -6,6 +6,15 @@
 <a id="volverArriba"><i class="fas fa-chevron-up fa-2x"></i></a>
 
 <div id="container">
+    <strong>¡CÓMO ESTÁ EL PATIO!</strong> Os  presentamos  las  principales  líneas  del  
+        programa  a  través  de  10  patios  que  simbolizan  los  principales  
+        ejes  políticos.  En  Andalucía  han  sido  los  patios  una  de  
+las expresiones de la vida de la gente en los pueblos y ciudades, entendidos 
+como núcleos fundamentales para la socialización, el apoyo mutuo y el bien común.
+Por esta razón, la participación ciudadana es indispensable para marcar la hoja 
+de ruta de este proyecto político. Abrimos un proceso participativo en el que 
+cualquier persona podrá presentar enmiendas en estos patios para convertir el
+programa de Adelante Andalucía en su programa, el que responde a sus necesidades
     {$programa}
 </div>
 
@@ -47,13 +56,12 @@
             </div>
 
             <div id="fase2" class="fase fase-2" fase="2">
-                <!--
+
                 <div class="form-group add mod">
                     <label>Si lo desea, puede adjuntar un fichero</label>
                     <label for="adjunto" class="btn btn-info">Pulse para adjuntar fichero</label>
                     <input type="file" id="adjunto" name="adjunto" class="hide">
                 </div>         
-                -->
 
                 <div class="form-group">
                     <label for="motivacion" class="add mod">Motivación de la enmienda</label>
@@ -65,11 +73,12 @@
 
             <div id="fase3" class="fase fase-3" fase="3">
                 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger hide" id="error" name="error" role="alert">
                     <h4 class="alert-heading">Errores</h4>
-                    <p>Se  han detectado los siguientes errores en el formulario. Navegue con los botones de "Volver" y "Siguiente" para solucionarlos antes de enviarlo. </p>
+                    <p>Se  han detectado los siguientes errores en el formulario. </p>
                     <hr>
-                    <p class="mb-0">¡Acude al próximo <strong>patio provincial</strong>!</p>
+                    <span id="lista_errores" name="lista_errores"></span>
+                    
                 </div>               
 
                 <div class="row">
@@ -120,7 +129,7 @@
 
     <div id="fase4" class="fase fase-4" fase="4">
         <div class="container">
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" id="error" name="error" role="alert">
                 <h4 class="alert-heading">¡Gracias!</h4>
                 <p>Tu enmienda al texto ha sido recibida correctamente que será revisada por el equipo de redacción. </p>
                 <hr>

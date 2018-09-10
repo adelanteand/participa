@@ -108,7 +108,7 @@
                     </li>-->
                 </ul>                
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                       <a href="/pdf/" class="btn btn-danger"><i class="fas fa-file-alt"></i> Descargar borrador PDF</a>
+                       <a href="https://adelanteandalucia.org/sites/default/files/ProgramaBorrador.pdf" class="btn btn-danger"><i class="fas fa-file-alt"></i> Descargar borrador PDF</a>
                 </form>
             </div>
         </nav>

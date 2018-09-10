@@ -122,8 +122,6 @@ Abstract Class Entidad {
             }
         }
 
-        
-
         return $db->insert($datos['tabla'], $valores);
     }
 

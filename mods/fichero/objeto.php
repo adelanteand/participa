@@ -44,14 +44,21 @@ class Fichero {
             //move_uploaded_file($id['tmp_name'], $rutaNew);
             copy($id['tmp_name'], $rutaNew);
 
-            
 
             $id['nombre'] = (pathinfo($rutaNew, PATHINFO_FILENAME) . "." . pathinfo($rutaNew, PATHINFO_EXTENSION));
             $id['filetype'] = $id['type'];
             $id['path'] = $rutaNew;
             $id['usuario'] = null;
+            $id['size'] = $id['size'];
 
-            $id = $db->insert('ficheros', $id);
+            $data['nombre'] = $id['nombre'];
+            $data['filetype'] = $id['filetype'];
+            $data['path'] = $id['path'];
+            $data['usuario'] = $id['usuario'];
+            $data['usuario'] = $id['usuario'];
+
+
+            $id = $db->insert('ficheros', $data);
         }
 
         $db->where('id', $id);
@@ -68,7 +75,7 @@ class Fichero {
             } else {
                 $this->usuario = null;
             }
-            $this->subida = $row['subida'];
+            $this->created_at = $row['created_at'];
             return 1;
         } else {
             return 0;

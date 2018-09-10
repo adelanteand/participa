@@ -14,6 +14,8 @@ $(document).ready(function () {
         }
         );
     }
+    
+    $("#error").hide();
 
     $("<hr class=\"separador\">").insertBefore(".engloba.nivel-1");
     $(".titulo").on("click", function () {
@@ -188,14 +190,8 @@ function enviarFormulario() {
     var validado = true;
     var msg = [];
 
-    $('#motivacion').tinymce().save();
-    $('#texto_nuevo').tinymce().save();
-    
-    $("#nombre").val();
-    $("#apellidos").val();
-    $("#email").val();
-    $("#telefono").val();
-    $("#cp").val();
+    $("#error").hide();
+    $("#lista_errores").empty();
     
     if (!validarEmail($("#email").val()) || !$("#email").val()){
         validado = false
@@ -229,10 +225,7 @@ function enviarFormulario() {
         formdata = new FormData(form[0]);
     }	
     
-    $("#botonNext").prop('disabled','disabled');
-    $("#botonNext").html('Enviando...');
     
-       
     if (validado) {
         $.ajax({
             url: '/enviar/',
@@ -241,6 +234,10 @@ function enviarFormulario() {
             contentType: false,
             processData: false,
             type: 'POST',
+            beforeSend: function (data) {
+                $("#botonNext").prop('disabled','disabled');
+                $("#botonNext").html('Enviando...');                
+            },
             success: function (data) {
                 //console.log(data);
                 $("#idPropuesta").val('');
@@ -249,11 +246,19 @@ function enviarFormulario() {
                 fase = 1;
             }
         });
-    }
-    
+    } else {        
+        msg.forEach(function(el) {
+          $("#lista_errores").append(el+"<br>");
+        });
+        $("#error").show();
+    }    
     
 }
 
+function validarEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 function clearAllContentEditor() {
     for (i = 0; i < tinymce.editors.length; i++) {

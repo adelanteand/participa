@@ -7,6 +7,6 @@
     <body>
         <div class="txt">
             {$txt}
-        </div>v>
+        </div>
     </body>
 </html>

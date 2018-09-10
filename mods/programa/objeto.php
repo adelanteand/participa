@@ -57,11 +57,13 @@ class Programa_Enmienda extends Entidad {
             'tipo',
             'motivacion',
             'redaccion',
-            'fichero'
         ),
         'fk' => array(
             'idCategoria' => 'Programa_Categoria',
             'idPropuesta' => 'Programa_Propuesta'
+        ),
+        'file' => array(
+            'fichero'
         )
     );   
     
@@ -87,7 +89,7 @@ class Programa_Categoria_Controladora {
         } else {
             $db->where('padre', $padre);
         }
-
+        $db->where('activa',1);
         $res = $db->get('programa_categorias', null, $cols);
         $out = Array();
         foreach ($res as $row) {
@@ -102,6 +104,7 @@ class Programa_Categoria_Controladora {
 
         $cols = array('id', 'codigo', 'nombre', 'padre', 'intro', 'icono');
         $db->orderBy("orden", "ASC");
+        $db->where('activa',1);
         $res = $db->get('programa_categorias', null, $cols);
         $out = Array();
         foreach ($res as $row) {
@@ -238,6 +241,7 @@ class Programa_Propuesta_Controladora {
         global $db;
         $cols = array('id', 'cat', 'texto');
         $db->where('cat', $id);
+        $db->where('activa',1);
         $res = $db->get('programa_propuestas', null, $cols);
 
         $out = Array();
