@@ -44,6 +44,7 @@ Abstract Class Entidad {
         $out['mysql'] = array('created_at', 'updated_at');
         $out['id'] = array('id');
         $out['pwd'] = array();
+        $out['file'] = array();
 
         foreach ($out as $campo => $val) {
             if (isset($datos[$campo])) {
@@ -53,7 +54,7 @@ Abstract Class Entidad {
 
         $out['campos'] = array_unique(
                 array_merge(
-                        $out['id'], $out['manuales'], $out['mysql'], $out['pwd']
+                        $out['id'], $out['manuales'], $out['mysql'], $out['pwd'],$out['file']
                 )
         );
 
@@ -110,6 +111,18 @@ Abstract Class Entidad {
         foreach ($datos['pwd'] as $campo) {
             $valores[$campo] = password_hash($id[$campo], PASSWORD_DEFAULT);
         }
+        
+        foreach ($datos['file'] as $campo) {
+            $ficheros = $id[$campo] ;
+            foreach ($ficheros as $file) {
+                if ($file['size'] > 0) {
+                    $fichero = new Fichero($file);
+                }
+                $valores[$campo] = $fichero->id;
+            }
+        }
+
+        
 
         return $db->insert($datos['tabla'], $valores);
     }
