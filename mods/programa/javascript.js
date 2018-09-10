@@ -185,30 +185,70 @@ function setFase(numero) {
 
 function enviarFormulario() {
 
+    var validado = true;
+    var msg = [];
+
+    $('#motivacion').tinymce().save();
+    $('#texto_nuevo').tinymce().save();
+    
+    $("#nombre").val();
+    $("#apellidos").val();
+    $("#email").val();
+    $("#telefono").val();
+    $("#cp").val();
+    
+    
+    if (!validarEmail($("#email").val()) || !$("#email").val()){
+        validado = false
+        msg.push("Revise el correo electrónico");
+    }
+    
+    if (!$("#nombre").val()){
+        validado = false
+        msg.push("Revise su nombre");        
+    }
+    
+    if (!$("#apellidos").val()){
+        validado = false
+        msg.push("Revise sus apellidos");
+    }
+    
+    if (!$("#telefono").val()){
+        validado = false
+        msg.push("Revise el teléfono");        
+    }    
+
+    if (!$("#cp").val()){
+        validado = false
+        msg.push("Revise el código postal");        
+    }
+    
 //  data: $("#formEnmienda").serialize(), 
     var form = $("#formEnmienda");
     var formdata = false;
     if (window.FormData) {
         formdata = new FormData(form[0]);
-    }
+    }	
     
-    $("#botonNext").prop('disabled','disabled');
-    $("#botonNext").html('Enviando...');    
-    $.ajax({
-        url: '/enviar/',
-        data: formdata ? formdata : form.serialize(),
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function (data) {
-            //console.log(data);
-            $("#idPropuesta").val('');
-            $("#idCategoria").val('');            
-            setFase(4);
-            fase = 1;
-        }
-    });
+    if (validado) {
+        $.ajax({
+            url: '/enviar/',
+            data: formdata ? formdata : form.serialize(),
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function (data) {
+                //console.log(data);
+                $("#idPropuesta").val('');
+                $("#idCategoria").val('');            
+                setFase(4);
+                fase = 1;
+            }
+        });         
+    } else {
+        console.log(msg);
+    }
 }
 
 

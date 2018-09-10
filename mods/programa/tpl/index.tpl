@@ -15,7 +15,7 @@
 
     <div class="contenido_barra">
 
-        <form action="/enviar/" name="formEnmienda" id="formEnmienda" method="POST">
+        <form action="/enviar/" name="formEnmienda" id="formEnmienda" enctype="multipart/form-data" method="POST">
 
             <h4><strong><span id="codigo_propuesta"></span></strong></h4>
 
@@ -46,8 +46,6 @@
 
             </div>
 
-
-
             <div id="fase2" class="fase fase-2" fase="2">
                 <!--
                 <div class="form-group add mod">
@@ -66,6 +64,13 @@
             </div>                
 
             <div id="fase3" class="fase fase-3" fase="3">
+                
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Errores</h4>
+                    <p>Se  han detectado los siguientes errores en el formulario. Navegue con los botones de "Volver" y "Siguiente" para solucionarlos antes de enviarlo. </p>
+                    <hr>
+                    <p class="mb-0">¡Acude al próximo <strong>patio provincial</strong>!</p>
+                </div>               
 
                 <div class="row">
                     <div class="col">
@@ -73,6 +78,7 @@
                         <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre">
                     </div>
                 </div>
+                
                 <div class="row">                       
                     <div class="col">
                         <label for="apellidos">Apellidos:</label>   
