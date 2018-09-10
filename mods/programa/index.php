@@ -99,7 +99,7 @@ function enviar() {
 
         $email->asunto="ENMIENDA " . $id->tipo;
         $email->from="soporte@adelanteandalucia.org";
-        $email->to="acf@yingo.es";
+        $email->to="soporte@adelanteandalucia.org";
         $email->enviar($html);
         //var_dump($id);        
         
