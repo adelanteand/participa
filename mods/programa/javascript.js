@@ -229,6 +229,12 @@ function enviarFormulario() {
         formdata = new FormData(form[0]);
     }	
     
+    $("#botonNext").prop('disabled','disabled');
+    $("#botonNext").html('Enviando...');
+    
+    
+    
+       
     if (validado) {
         $.ajax({
             url: '/enviar/',
@@ -244,10 +250,10 @@ function enviarFormulario() {
                 setFase(4);
                 fase = 1;
             }
-        });         
-    } else {
-        console.log(msg);
+        });
     }
+    
+    
 }
 
 
