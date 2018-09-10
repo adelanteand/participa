@@ -69,11 +69,9 @@ define("FB_API_APP_SECRET", "");
 define("FB_API_REDIRECT", "");
 define("FB_API_APPNAME", "");
 
-//////////////////////
-///// AUTOMODERACION
-//////////////////////
-$propuesta_min_votos = 10;
-$propuesta_controvertida = 0.25; //porcentaje
-$propuesta_invalida = 0.5; //porcentaje
 
-
+//////////////////
+///// TELEGRAM BOT /
+/////////////////
+define("TELEGRAM_BOT_API", "");
+define("TELEGRAM_BOT", "");
