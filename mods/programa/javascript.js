@@ -232,8 +232,6 @@ function enviarFormulario() {
     $("#botonNext").prop('disabled','disabled');
     $("#botonNext").html('Enviando...');
     
-    
-    
        
     if (validado) {
         $.ajax({
