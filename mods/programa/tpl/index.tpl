@@ -33,9 +33,9 @@
                 </div>
 
                 <div class="add mod form-group">
-                    <label for="texto_nuevo" class="mod">Redacción sugerida</label>
-                    <label for="texto_nuevo" class="add">Texto de la nueva propuesta</label>
-                    <textarea id="texto_nuevo" rows="4"></textarea> 
+                    <label for="redaccion" class="mod">Redacción sugerida</label>
+                    <label for="redaccion" class="add">Texto de la nueva propuesta</label>
+                    <textarea id="redaccion" name="redaccion" rows="4"></textarea> 
                 </div>
 
                 <div class="sup form-group">
@@ -49,16 +49,18 @@
 
 
             <div id="fase2" class="fase fase-2" fase="2">
+                <!--
                 <div class="form-group add mod">
                     <label>Si lo desea, puede adjuntar un fichero</label>
                     <label for="adjunto" class="btn btn-info">Pulse para adjuntar fichero</label>
                     <input type="file" id="adjunto" name="adjunto" class="hide">
-                </div>             
+                </div>         
+                -->
 
                 <div class="form-group">
-                    <label for="texto_nuevo" class="add mod">Motivación de la enmienda</label>
-                    <label for="texto_nuevo" class="sup">¿Por qué sugiere eliminarla?</label>
-                    <textarea id="motivacion" rows="4"></textarea> 
+                    <label for="motivacion" class="add mod">Motivación de la enmienda</label>
+                    <label for="motivacion" class="sup">¿Por qué sugiere eliminarla?</label>
+                    <textarea id="motivacion" name="motivacion" rows="4"></textarea> 
                 </div>  
 
             </div>                
@@ -91,8 +93,8 @@
                 </div>                
                 <div class="row">              
                     <div class="col">
-                        <label for="CP">Código postal:</label>
-                        <input type="text" class="form-control" placeholder="CP">
+                        <label for="cp">Código postal:</label>
+                        <input type="text" name="cp" id="cp" class="form-control" placeholder="CP">
                     </div>
                 </div>                                
                 <!--

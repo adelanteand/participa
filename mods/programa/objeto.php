@@ -41,6 +41,35 @@ class Programa_Propuesta extends Entidad {
 
 }
 
+class Programa_Enmienda extends Entidad {
+    var $id = 0;
+    private $datos = array(
+        'tabla' => "programa_enmiendas",
+        'manuales' => array(
+            'nombre',
+            'apellidos',
+            'idPropuesta',
+            'idCategoria',
+            'cp',
+            'email',
+            'telefono',
+            'ip',
+            'tipo',
+            'motivacion',
+            'redaccion',
+            'fichero'
+        ),
+        'fk' => array(
+            'idCategoria' => 'Programa_Categoria',
+            'idPropuesta' => 'Programa_Propuesta'
+        )
+    );   
+    
+    function __construct($id = 0) {        
+        parent::__construct($id, $this->datos);
+    }    
+}
+
 class Programa_Categoria_Controladora {
 
     public $nivel = 0;
@@ -166,10 +195,10 @@ class Programa_Categoria_Controladora {
             } else {
                 if ($getPropuestas) {
                     if (($val->propuestas)) {
-                        $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
+                        $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=\"" . $val->id ."\">";
                         
                         $out .= "<div>";
-                        $out .= "<button type='button' class='btn btnadd btn-link btn-sm' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btnadd btn-link btn-sm btnadd' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
                         $out .= "</div>";
                         
                         
@@ -184,7 +213,7 @@ class Programa_Categoria_Controladora {
                         }
                         
                         $out .= "<div>";
-                        $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btn-link btn-sm btnadd' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
                         $out .= "</div>";                 
                         
                         $out .= "</div>";
@@ -207,7 +236,7 @@ class Programa_Propuesta_Controladora {
     function getPropuestasCategoria($id) {
 
         global $db;
-        $cols = array('cast(id as unsigned) as id', 'cat', 'texto');
+        $cols = array('id', 'cat', 'texto');
         $db->where('cat', $id);
         $res = $db->get('programa_propuestas', null, $cols);
 

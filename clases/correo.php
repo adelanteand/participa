@@ -1,4 +1,6 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 Class Correo {
     var $titulo, $from, $fromtxt, $to, $totxt, $asunto, $oculto;
@@ -22,11 +24,11 @@ Class Correo {
 
         $html -> assign("asunto", $this -> asunto);
         $html -> assign("txt", $txt);
+//
+//        $mail -> AddEmbeddedImage($home.'html/img/mainlogo120.jpg', 'mainlogo');
+//        $mail -> AddEmbeddedImage($home.'html/img/footlogo140.jpg', 'footlogo');
 
-        $mail -> AddEmbeddedImage($home.'html/img/mainlogo120.jpg', 'mainlogo');
-        $mail -> AddEmbeddedImage($home.'html/img/footlogo140.jpg', 'footlogo');
-
-        $mail -> MsgHTML(mostrartpl("email.tpl", true));
+        $mail -> MsgHTML(mostrartpl("email_simple.tpl", true));
 
         if (strpos($this -> to, ',') !== false) {
             $addresses = explode(',', $this -> to);

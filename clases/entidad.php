@@ -12,10 +12,11 @@ Abstract Class Entidad {
     function __construct($id, $datos) {
         global $db;
         $datos = $this->setData($datos);
+        
         if (is_array($id)) {
             //Lo consideramos un registros a crear en la base de datos
             $id = $this->insert($id, $datos);
-            var_dump($db->getLastQuery());
+            //var_dump($db->getLastQuery());
         }
         $this->id = $id;
         //Seleccionamos el registro creado o especificado

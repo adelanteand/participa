@@ -20,7 +20,7 @@ Class Correo {
             $mail -> SetFrom($this -> from, $this -> fromtxt);
         else
             $mail -> SetFrom($this -> from);
-        $mail -> Subject = $this -> titulo;
+        $mail -> Subject = $this -> asunto;
 
         $html -> assign("asunto", $this -> asunto);
         $html -> assign("txt", $txt);
