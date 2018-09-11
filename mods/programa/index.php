@@ -80,7 +80,7 @@ function enviar() {
         switch ($id->tipo){
             case 'sup': $tipo = "SUPRESIÓN " . $id->idPropuesta->id; break;
             case 'add': $tipo = "ADICIÓN"; break;
-            case 'mod': $tipo = "MODIFICACIÓN" . $id->idPropuesta->id; break;
+            case 'mod': $tipo = "MODIFICACIÓN " . $id->idPropuesta->id; break;
         }
 
         $html .= "<strong>ID ENMIENDA: </strong>".$id->id."<br>";

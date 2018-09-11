@@ -8,6 +8,7 @@ Class Correo {
     var $titulo, $from, $fromtxt, $to, $totxt, $asunto, $oculto;
 
     function __construct() {
+        $this->adjunto = null;
         $this->oculto = false;
     }
 
@@ -19,12 +20,21 @@ Class Correo {
 
             if (SMTP_SERVER) {
                 $mail->isSMTP();
+                //$mail->SMTPDebug = 2;
                 $mail->Host = SMTP_SERVER;
                 $mail->SMTPAuth = true;
                 $mail->SMTPSecure = false;
                 $mail->Username = SMTP_USERNAME;
                 $mail->Password = SMTP_PASSWORD;
                 $mail->Port = SMTP_PORT;
+
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
             }
 
 
@@ -63,18 +73,17 @@ Class Correo {
                     $mail->AddAddress($this->to);
                 }
             }
-            
-            
-            if ($this->adjunto){
-                $fichero = new Fichero ($this->adjunto);
+
+
+            if ($this->adjunto) {
+                $fichero = new Fichero($this->adjunto);
                 $mail->addAttachment($fichero->path);
             }
-            
-            $mail->addBCC('soporte@andalanteandalucia.org');
+
+            $mail->addBCC('soporte@adelanteandalucia.org');
 
             $mail->Send();
             //var_dump($mail);
-            
         } catch (Exception $e) {
             echo 'No se pudo enviar el email: ', $mail->ErrorInfo;
         }
