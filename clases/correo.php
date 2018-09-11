@@ -70,7 +70,7 @@ Class Correo {
                 $mail->addAttachment($fichero->path);
             }
             
-            $mail->addBCC('soporte@andaluciapodemos.info');
+            $mail->addBCC('soporte@andalanteandalucia.org');
 
             $mail->Send();
             //var_dump($mail);

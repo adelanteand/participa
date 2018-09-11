@@ -41,7 +41,7 @@ Abstract Class Entidad {
         $out['tabla'] = null;
         $out['manuales'] = array();
         $out['fk'] = array();
-        $out['mysql'] = array('created_at', 'updated_at');
+        $out['mysql'] = array('created_at');
         $out['id'] = array('id');
         $out['pwd'] = array();
         $out['file'] = array();
