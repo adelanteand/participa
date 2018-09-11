@@ -16,7 +16,7 @@ Abstract Class Entidad {
         if (is_array($id)) {
             //Lo consideramos un registros a crear en la base de datos
             $id = $this->insert($id, $datos);
-            //var_dump($db->getLastQuery());
+            //print_r($db->getLastQuery());
         }
         $this->id = $id;
         //Seleccionamos el registro creado o especificado
@@ -75,18 +75,18 @@ Abstract Class Entidad {
             if (isset($id[$campo])) {
                 $valores[$campo] = $id[$campo];
             } else {
-                $valores[$campo] = null;
+                $valores[$campo] = NULL;
             }
         }
 
         foreach ($datos['manuales'] as $campo) {
             if (!isset($id[$campo])) {
-                $id[$campo] = "NULL";
+                $id[$campo] = NULL;
             } else {
                 if (isset($id[$campo]) && $id[$campo] != "") {
                     if (ctype_digit($id[$campo])) {
                         if (array_key_exists($campo, $datos['fk']) && ($id[$campo] == 0)) {
-                            $id[$campo] = 'NULL';
+                            $id[$campo] = NULL;
                         } else {
                             $id[$campo] = addslashes($id[$campo]);
                         }
@@ -94,15 +94,14 @@ Abstract Class Entidad {
                         $id[$campo] = addslashes($id[$campo]);
                     }
                 } else {
-                    $id[$campo] = "NULL";
+                    $id[$campo] = NULL;
                 }
             }
         }
-
         
         foreach ($datos['manuales'] as $campo) {
             if ($id[$campo] == 'NULL') {
-                $valores[$campo] = null;
+                $valores[$campo] = NULL;
             } else {
                 $valores[$campo] = $id[$campo];
             }
@@ -123,7 +122,7 @@ Abstract Class Entidad {
                 }
             }
         }
-
+        
         return $db->insert($datos['tabla'], $valores);
     }
 

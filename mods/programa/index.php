@@ -6,7 +6,7 @@ if (isset($c)) {
     call_user_func('programa');
 }
 
-function programa() {
+function programa_off() {
     global $html;
 
     $html->plantilla("off.tpl");
@@ -14,7 +14,7 @@ function programa() {
 }
 
 
-function programa_off() {
+function programa() {
     global $html;
 
     $cats = new Programa_Categoria_Controladora();
@@ -69,6 +69,7 @@ function pdf() {
 }
 
 function enviar() {
+    global $db;
     
     //ADJUNTAR FICHERO
     importclass("fichero");
@@ -79,9 +80,10 @@ function enviar() {
     }
 
     $id = new Programa_Enmienda($_POST);
-
-
+    //print_r($db->getLastError());
+    
     if ($id) {
+        
         $email = new Correo();
         $html = "";
         

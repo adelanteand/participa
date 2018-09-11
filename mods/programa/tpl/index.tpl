@@ -6,16 +6,19 @@
 <a id="volverArriba"><i class="fas fa-chevron-up fa-2x"></i></a>
 
 <div id="container">
-    <strong>¡CÓMO ESTÁ EL PATIO!</strong> Os  presentamos  las  principales  líneas  del  
+    <div style="padding: 1em;">
+        <strong>¡CÓMO ESTÁ EL PATIO!</strong> Os  presentamos  las  principales  líneas  del  
         programa  a  través  de  10  patios  que  simbolizan  los  principales  
         ejes  políticos.  En  Andalucía  han  sido  los  patios  una  de  
-las expresiones de la vida de la gente en los pueblos y ciudades, entendidos 
-como núcleos fundamentales para la socialización, el apoyo mutuo y el bien común.
-Por esta razón, la participación ciudadana es indispensable para marcar la hoja 
-de ruta de este proyecto político. Abrimos un proceso participativo en el que 
-cualquier persona podrá presentar enmiendas en estos patios para convertir el
-programa de Adelante Andalucía en su programa, el que responde a sus necesidades
-    {$programa}
+        las expresiones de la vida de la gente en los pueblos y ciudades, entendidos 
+        como núcleos fundamentales para la socialización, el apoyo mutuo y el bien común.
+        Por esta razón, la participación ciudadana es indispensable para marcar la hoja 
+        de ruta de este proyecto político. Abrimos un proceso participativo en el que 
+        cualquier persona podrá presentar enmiendas en estos patios para convertir el
+        programa de Adelante Andalucía en su programa, el que responde a sus necesidades
+        {$programa}
+        
+    </div>
 </div>
 
 <div id="barra_enmiendas" class="sidenav">
@@ -72,44 +75,36 @@ programa de Adelante Andalucía en su programa, el que responde a sus necesidade
             </div>                
 
             <div id="fase3" class="fase fase-3" fase="3">
-                
-                <div class="alert alert-danger hide" id="error" name="error" role="alert">
-                    <h4 class="alert-heading">Errores</h4>
-                    <p>Se  han detectado los siguientes errores en el formulario. </p>
-                    <hr>
-                    <span id="lista_errores" name="lista_errores"></span>
-                    
-                </div>               
 
                 <div class="row">
                     <div class="col">
                         <label for="nombre">Nombre:</label>   
-                        <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre">
+                        <input type="text" class="form-control" maxlength="150" placeholder="Nombre" id="nombre" name="nombre">
                     </div>
                 </div>
-                
+
                 <div class="row">                       
                     <div class="col">
                         <label for="apellidos">Apellidos:</label>   
-                        <input type="text" class="form-control" placeholder="Apellidos" id="apellidos" name="apellidos">
+                        <input type="text" class="form-control" maxlength="150" placeholder="Apellidos" id="apellidos" name="apellidos">
                     </div>                    
                 </div>                      
                 <div class="row">                    
                     <div class="col">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                        <input type="email" class="form-control" maxlength="100" placeholder="Email" id="email" name="email">
                     </div>
                 </div>
                 <div class="row">                     
                     <div class="col">
                         <label for="telefono">Teléfono:</label>
-                        <input type="text" class="form-control" placeholder="Telefono" id="telefono" name="telefono">
+                        <input type="text" class="form-control" maxlength="50" placeholder="Telefono" id="telefono" name="telefono">
                     </div>                
                 </div>                
                 <div class="row">              
                     <div class="col">
                         <label for="cp">Código postal:</label>
-                        <input type="text" name="cp" id="cp" class="form-control" placeholder="CP">
+                        <input type="text" name="cp" id="cp" maxlength="50" class="form-control" placeholder="CP">
                     </div>
                 </div>                                
                 <!--
@@ -128,6 +123,25 @@ programa de Adelante Andalucía en su programa, el que responde a sus necesidade
 
 
     <div id="fase4" class="fase fase-4" fase="4">
+
+        <div class="alert alert-danger hide" id="error" name="error" role="alert">
+            <h4 class="alert-heading">Errores</h4>
+            <p>Se  han detectado los siguientes errores en el formulario. </p>
+            <hr>
+            <span id="lista_errores" name="lista_errores"></span>
+        </div>               
+
+        <div class="container">
+            <div class="alert alert-info" id="error" name="error" role="alert">
+                <input type="checkbox" name="terminos" id="terminos"><label for="terminos">He leído y acepto la <a href="https://adelanteandalucia.org/legal" class="btn btn-link" target="_blank">Política de Privacidad</a> y las condiciones y tratamientos de los datos personales que en ella se indican. Mediante la marcación de esta casilla doy mi consentimiento expreso al tratamiento de los datos personales que estoy facilitando en este formulario.</label>
+            </div>
+             
+        </div>
+    </div> 
+
+
+
+    <div id="fase5" class="fase fase-5" fase="5">
         <div class="container">
             <div class="alert alert-success" id="error" name="error" role="alert">
                 <h4 class="alert-heading">¡Gracias!</h4>

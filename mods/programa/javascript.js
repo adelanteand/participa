@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
     $(".botonEnmienda").on("click", function () {
         destino = $(this).data('destino');
-        if (destino != 4) {
+        if (destino != 5) {
             setFase(destino);
         }
     })
@@ -63,6 +63,16 @@ $(document).ready(function () {
         $("." + act).show();
         openNav();
     });
+
+    
+    $(document).on('change', '#terminos', function(){
+        if($(this).is(':checked')) {                        
+            $("#botonNext").prop('disabled', false);
+        }
+        else {
+            $("#botonNext").prop('disabled', true);
+        }
+    });    
     
     
     tinymce.init({
@@ -156,7 +166,7 @@ function setFase(numero) {
         clearAllContentEditor();
         $("#botonPrev").prop('disabled', true);
         $("#botonNext").prop('disabled', false);
-    } else if (numero == 4) {
+    } else if (numero == 5) {
         $("#botonPrev").prop('disabled', true);
         $("#botonNext").prop('disabled', true);
     } else {
@@ -164,7 +174,15 @@ function setFase(numero) {
         $("#botonNext").prop('disabled', false);
     }
 
-    if (numero == 3) {
+    if (numero == 4) {
+
+        if($("#terminos").is(':checked')) {                        
+            $("#botonNext").prop('disabled', false);
+        }
+        else {
+            $("#botonNext").prop('disabled', true);
+        }
+
         $("#botonNext").addClass('btn-success');
         $("#botonNext").addClass('enviarEnmienda');
         $("#botonNext").removeClass('btn-light');
@@ -242,7 +260,7 @@ function enviarFormulario() {
                 //console.log(data);
                 $("#idPropuesta").val('');
                 $("#idCategoria").val('');            
-                setFase(4);
+                setFase(5);
                 fase = 1;
             }
         });

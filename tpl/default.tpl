@@ -108,7 +108,10 @@
                     </li>-->
                 </ul>                
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                       <a href="https://adelanteandalucia.org/sites/default/files/ProgramaBorrador.pdf" class="btn btn-danger"><i class="fas fa-file-alt"></i> Descargar borrador PDF</a>
+                    <a href="https://adelanteandalucia.org/sites/default/files/ReglamentoPatios.pdf" target="_blank" class="btn btn-info"><i class="fas fa-file-alt"></i> Reglamento</a>
+                </form>                
+                <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
+                    <a href="https://adelanteandalucia.org/sites/default/files/ProgramaBorrador.pdf" target="_blank" class="btn btn-danger"><i class="fas fa-file-alt"></i> Descargar borrador PDF</a>
                 </form>
             </div>
         </nav>

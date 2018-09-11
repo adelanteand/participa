@@ -201,7 +201,7 @@ class Programa_Categoria_Controladora {
                         $out .= "<div class=\"grupo-propuestas categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=\"" . $val->id ."\">";
                         
                         $out .= "<div>";
-                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btnadd btn-link btn-sm btnadd' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btnadd btn-link btn-sm btnadd' data-accion='add'><i  class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
                         $out .= "</div>";
                         
                         
@@ -216,7 +216,7 @@ class Programa_Categoria_Controladora {
                         }
                         
                         $out .= "<div>";
-                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btn-link btn-sm btnadd' data-accion='add'><i class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
+                        $out .= "<button type='button' data-categoria=\"" . $val->id ."\" class='btn btn-link btn-sm btnadd' data-accion='add'><i data-accion='add' class='fas fa-plus'></i> Añadir propuesta a ".$val->nombre."</button>";
                         $out .= "</div>";                 
                         
                         $out .= "</div>";
