@@ -118,7 +118,9 @@ Abstract Class Entidad {
                 if ($file['size'] > 0) {
                     $fichero = new Fichero($file);
                 }
-                $valores[$campo] = $fichero->id;
+                if ($fichero->id) {
+                    $valores[$campo] = $fichero->id;
+                }
             }
         }
 
