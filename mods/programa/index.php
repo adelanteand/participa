@@ -9,6 +9,13 @@ if (isset($c)) {
 function programa() {
     global $html;
 
+    $html->plantilla("off.tpl");
+    $html->ver();
+}
+
+
+function programa_off() {
+    global $html;
 
     $cats = new Programa_Categoria_Controladora();
     $getPropuestas = true;
