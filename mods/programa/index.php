@@ -62,6 +62,7 @@ function pdf() {
 }
 
 function enviar() {
+    
     //ADJUNTAR FICHERO
     importclass("fichero");
     if ($_FILES) {
