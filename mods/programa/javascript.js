@@ -162,8 +162,7 @@ function closeNav() {
 function setFase(numero) {
     $(".fase:not(#fase" + numero + ")").hide();
     $("#fase" + numero).show();
-    if (numero == 1) {
-        clearAllContentEditor();
+    if (numero == 1) {        
         $("#botonPrev").prop('disabled', true);
         $("#botonNext").prop('disabled', false);
     } else if (numero == 5) {
@@ -258,6 +257,7 @@ function enviarFormulario() {
             },
             success: function (data) {
                 //console.log(data);
+                clearAllContentEditor();
                 $("#idPropuesta").val('');
                 $("#idCategoria").val('');            
                 setFase(5);
