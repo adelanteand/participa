@@ -80,7 +80,7 @@ Class Correo {
                 $mail->addAttachment($fichero->path);
             }
 
-            $mail->addBCC('soporte@adelanteandalucia.org');
+            $mail->addBCC(MAIL_ADMIN);
 
             $mail->Send();
             //var_dump($mail);
