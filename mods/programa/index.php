@@ -116,8 +116,8 @@ function enviar() {
 
         $email->fromtxt = "Adelante Andalucía";
         $email->asunto="ENMIENDA " . ($tipo);
-        $email->from="soporte@adelanteandalucia.org";
-        $email->to="enmiendas@adelanteandalucia.org";
+        $email->from=MAIL_ADMIN;
+        $email->to=MAIL_ENMIENDAS;
         $email->enviar($html);
         //var_dump($id);        
         
