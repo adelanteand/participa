@@ -1,6 +1,7 @@
 <?php
 
-define('CONFIG_DEBUG',1); = false; //adicionalmente se requiere parametro GET debug = 1 (clases/funciones.php)
+define('CONFIG_DEBUG',1); //adicionalmente se requiere parametro GET debug = 1 (clases/funciones.php)
+define("BASEAPP","/home/????/public_html/");
 
 ////////////////////
 ///// BASE DE DATOS/
@@ -9,30 +10,32 @@ define('DB_HOST','');
 define('DB_DB','');
 define('DB_USER','');
 define('DB_PWD','');
-define('DB_PREFIX','pre_');
+define('DB_PORT','');
+define('DB_PREFIX','');
 
 /////////////////////
 ///// CONFIGURACION /
 ////////////////////
 
-define('CONF_TITULOPAGINA_POS',' | ');
+define('CONF_TITULOPAGINA_POS','');
 define('CONF_TITULOPAGINA','(dev) ' . CONF_TITULOPAGINA_POS);
 define('CONF_DESCRIPCION','');
+define('CONF_LOGO','/img/Logo.png');
 define('CONF_ORGANIZACION','');
-define('CONF_FB_IMG','img/img.jpg');
-define('CONF_TW_IMG','img/img.jpg');
+define('CONF_FB_IMG','img/img.png');
+define('CONF_TW_IMG','img/img.png');
 define('CONF_TW_USER','');
 define('CONF_SITEADMIN','');
-define('CONF_HOME','');
-define('CONF_BASEURL','');
-define('CONF_URLREF','');
+define('CONF_HOME','/home/???/public_html/');
+define('CONF_BASEURL','http:///');
+define('CONF_URLREF','http:///');
 define('CONF_TIMEZONE','Europe/Madrid');
 define('CONF_LOCALE','es_ES.utf8');
-define('CONF_PUBLICOS',['index', 'usuario', 'ajax', 'js', 'comentarios', 'cron', 'fichero']);
-define('CONF_INDEX_MODULO','index');
+define('CONF_PUBLICOS',array('index', 'usuario', 'ajax', 'js', 'css', 'comentarios', 'cron', 'fichero'));
+define('CONF_INDEX_MODULO','programa');
 define('CONF_UPLOAD_EXTENSIONES',array("doc","docx","xls","xlsx","odt","odf","zip","rar","7z","tar.gz","jpg","jpeg","png","jpg","gif","psd","ai","mp3","mp4","avi","mov","flv","mkv","pdf","tiff"));
 define('CONF_UPLOAD_MAX',8);
-define('CONF_UPLOAD_DATA','');
+define('CONF_UPLOAD_DATA','/home/???/public_html/data/uploads/');
 
 ///////////////
 ///// SMTP ////
@@ -41,6 +44,13 @@ define("SMTP_SERVER","");
 define("SMTP_PORT",25);
 define("SMTP_USERNAME","");
 define("SMTP_PASSWORD","");
+
+///////////////
+///// MAIL ////
+///////////////
+define("MAIL_ADMIN", "");
+define("MAIL_ENMIENDAS", "");
+
 
 ///////////////
 ///// LDAP ////
