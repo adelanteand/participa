@@ -145,7 +145,7 @@ function propuesta($tipo = 'Propuesta') {
     $html->asignar("actual", $propuesta->cat);
     $html->asignar("padres", $padres);
     $html->titulo('Propuesta ' . $propuesta->id . CONF_TITULOPAGINA_POS);
-    $html->descripcion('Mi descripcion');
+    $html->descripcion($propuesta->texto);
     $propuesta->getEnmiendas();    
     $html->plantilla("propuesta.tpl");
     $html->ver();
