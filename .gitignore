@@ -13,3 +13,4 @@ sql.txt
 /nbproject/private/
 composer.lock
 /html/vendor/
+node_modules

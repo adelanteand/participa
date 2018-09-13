@@ -12,7 +12,7 @@ Abstract Class Entidad {
     function __construct($id, $datos) {
         global $db;
         $datos = $this->setData($datos);
-        
+
         if (is_array($id)) {
             //Lo consideramos un registros a crear en la base de datos
             $id = $this->insert($id, $datos);
@@ -54,7 +54,7 @@ Abstract Class Entidad {
 
         $out['campos'] = array_unique(
                 array_merge(
-                        $out['id'], $out['manuales'], $out['mysql'], $out['pwd'],$out['file']
+                        $out['id'], $out['manuales'], $out['mysql'], $out['pwd'], $out['file']
                 )
         );
 
@@ -69,6 +69,10 @@ Abstract Class Entidad {
     function insert($id, $datos) {
 
         global $db;
+        
+
+        //ADJUNTAR FICHERO
+        importclass("fichero");        
 
         $valores = array();
         foreach ($datos['id'] as $campo) {
@@ -98,7 +102,7 @@ Abstract Class Entidad {
                 }
             }
         }
-        
+
         foreach ($datos['manuales'] as $campo) {
             if ($id[$campo] == 'NULL') {
                 $valores[$campo] = NULL;
@@ -110,9 +114,9 @@ Abstract Class Entidad {
         foreach ($datos['pwd'] as $campo) {
             $valores[$campo] = password_hash($id[$campo], PASSWORD_DEFAULT);
         }
-        
+
         foreach ($datos['file'] as $campo) {
-            $ficheros = $id[$campo] ;
+            $ficheros = $id[$campo];
             foreach ($ficheros as $file) {
                 if ($file['size'] > 0) {
                     $fichero = new Fichero($file);
@@ -122,7 +126,7 @@ Abstract Class Entidad {
                 }
             }
         }
-        
+
         return $db->insert($datos['tabla'], $valores);
     }
 
@@ -174,9 +178,11 @@ Abstract Class Entidad {
                 }
             }
 
-            foreach ($datos['pwd'] as $campo) {
-                if (isset($id[$campo])) {
-                    $valores[$campo] = password_hash($id[$campo], PASSWORD_DEFAULT);
+            if (array_key_exists('pwd', $datos)) {
+                foreach ($datos['pwd'] as $campo) {
+                    if (isset($id[$campo])) {
+                        $valores[$campo] = password_hash($id[$campo], PASSWORD_DEFAULT);
+                    }
                 }
             }
 

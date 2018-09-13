@@ -75,6 +75,15 @@ class Plantilla extends Smarty {
     function asignar($variable, $valor) {
         $this->assign($variable, $valor);
     }
+    
+    function titulo($titulo){
+        $this->assign("titulopagina",$titulo);
+        $this->assign("app_titulopagina",$titulo);
+    }
+    
+    function descripcion($titulo){
+        $this->assign("app_descripcion",$titulo);
+    }    
 
     function ver($baseTPL = NULL) {
         global $baseMod;

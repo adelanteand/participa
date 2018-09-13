@@ -43,9 +43,7 @@
     margin-left: 6em;
 }
 
-
-
-.nivel-2.titulo {
+.nivel-2.titulo, .nivel.patios {
     /* Subcategoría */
     padding: 0.5em;
     padding-left: 2em;
@@ -53,6 +51,16 @@
     color: #38423f;   
     background: rgba(36, 200, 126, 0.4);
 }
+
+ .nivel.patios{
+    list-style-type: none;
+    margin: 1em 1em 1em 0em;
+    padding-left: 1em;
+}
+
+ .nivel.patios a{
+     color: #38423f;
+ }
 
 .nivel-3.titulo {
     /* Subcategoría */
@@ -123,7 +131,7 @@
     margin: 1em;
 }
 
-.titulo, .engloba.nivel-1 {
+.titulo, .engloba.nivel-1, .patios.nivel {
     border-radius: 5px;
 }
 
@@ -239,7 +247,7 @@ label{
 }
 
 /* MOVILES */ 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
     /* For mobile phones: */
     
     .opciones{
@@ -313,8 +321,9 @@ label{
     .sidenav a {font-size: 18px;}
 }
 
-
-
+.codigo_propuesta a{
+    color: white;
+}
 
 #volverArriba {
   display: inline-block;

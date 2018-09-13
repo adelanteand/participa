@@ -9,19 +9,21 @@ if (isset($c)) {
 function programa_off() {
     global $html;
 
-    $html->plantilla("off.tpl");
+    $html->asignar("msg", "Estamos ajustando la página. Volvemos en unos minutos.");
+    $html->plantilla("error.tpl");
     $html->ver();
 }
-
 
 function programa() {
     global $html;
 
+    $html->asignar("version", "default");
+
     $cats = new Programa_Categoria_Controladora();
-    $getPropuestas = true;
-    $res = $cats->getCategorias($getPropuestas);
-    $lista = $cats->getLista($res, $getPropuestas);
-    $divs = $cats->getDIVS($res, $getPropuestas);
+
+    $res = $cats->getCategorias();
+    $lista = $cats->getLista($res);
+    $divs = $cats->getDIVS($res);
 
     $html->asignar("ip", getIPv4());
     $html->asignar("programa", $divs);
@@ -29,39 +31,180 @@ function programa() {
     $html->ver();
 }
 
-function patio() {
-    global $html, $c;
+function formulario() {
+    global $html, $op, $subop;
+
+    $html->asignar("version", "patios");
+    $html->asignar("ip", getIPv4());
+
+    switch ($op) {
+        case 'add':
+        case 'sup':
+        case 'mod':
+            $accion = $op;
+            break;
+        default:
+            $html->asignar("msg", "No existe la acción indicada");
+            $html->plantilla("error.tpl");
+            $html->ver();
+            exit;
+    }
+
+    $elementotipo = 'propuesta';
+    if ($accion == 'add') {        
+        $categoria = new Programa_Categoria($subop);
+        if (!($categoria->existe)) {
+            $html->asignar("msg", "No existe la categoría indicada");
+            $html->plantilla("error.tpl");
+            $html->ver();
+            exit;
+        }
+        $html->asignar("categoria", $categoria);
+    }
+
+    if ($accion == 'mod' || $accion == 'sup') {
+        $propuesta = new Programa_Propuesta($subop);
+        if (!$propuesta->existe) {
+            $html->asignar("msg", "No existe la propuesta indicada");
+            $html->plantilla("error.tpl");
+            $html->ver();
+            exit;
+        }
+        $html->asignar("elemento", $propuesta);
+        if ($propuesta->tipo == 'propuesta') {
+            $elementotipo = 'propuesta';
+        } else {
+            $elementotipo = 'párrafo';
+        }
+    }
+
+    $html->asignar("op", $op);
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $url_anterior = $_SERVER['HTTP_REFERER'];
+    } else {
+        $url_anterior = "javascript:window.history.back();";
+    }
+    $html->asignar("url_anterior", $url_anterior);
+    $html->asignar("elementotipo", $elementotipo);
+    $html->asignar("accion", $accion);
+
+    $html->plantilla("formulario.tpl");
+    $html->ver();
+}
+
+function propuesta($tipo = 'Propuesta') {
+    global $op, $html;
+
+    $html->asignar("version", "patios");
+    $html->asignar("tipo", $tipo);
+
+    $propuesta = new Programa_Propuesta($op);
+
+    if (!$propuesta->existe) {
+        $html->asignar("msg", "No existe la propuesta indicada");
+        $html->plantilla("error.tpl");
+        $html->ver();
+        exit;
+    }
+
+    if ($propuesta->tipo == 'propuesta') {
+        $elementotipo = 'propuesta';
+    } else {
+        $elementotipo = 'párrafo';
+    }
+
+    $tienePadre = true;
+    $padres = array();
+    $categoria = $propuesta->cat;
+    while ($tienePadre) {
+        //var_dump($categoria);
+        if (isset($categoria->padre->id)) {
+            $padres[] = $categoria->padre;
+            $categoria = $categoria->padre;
+        } else {
+            $tienePadre = false;
+        }
+    }
+    $padres = array_reverse($padres);
+    //var_dump($padres);
+    //var_dump($propuesta);
+
+    $in = strip_tags($propuesta->texto);
+    $propuesta->textoplano = Html2Text\Html2Text::convert($propuesta->texto);
+    $propuesta->textoplano = preg_replace("/\r|\n/", "", $propuesta->textoplano);
+    $propuesta->acortada = strlen($in) > 220 ? substr($in, 0, 220) . "..." : $in;
+    $html->asignar("ip", getIPv4());
+    $html->asignar("elementotipo", $elementotipo);
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $url_anterior = $_SERVER['HTTP_REFERER'];
+    } else {
+        $url_anterior = "javascript:window.history.back();";
+    }    
+    $html->asignar("url_anterior", $url_anterior);
+    $html->asignar("propuesta", $propuesta);
+    $html->asignar("actual", $propuesta->cat);
+    $html->asignar("padres", $padres);
+    $html->titulo('Propuesta ' . $propuesta->id . CONF_TITULOPAGINA_POS);
+    $html->descripcion('Mi descripcion');
+    $propuesta->getEnmiendas();    
+    $html->plantilla("propuesta.tpl");
+    $html->ver();
+}
+
+function categoria() {
+    global $html, $c, $op;
+
+    $html->asignar("version", "patios");
 
     if (isset($c[1])) {
         $id = $c[1];
     } else {
         $id = 0;
     }
-    $cats = new Programa_Categoria_Controladora();
-    $cats = $cats->getNivel($id);
-    $padre = new Programa_Categoria($id);
-    if ($padre->existe) {
-        if ($padre->padre->id) {
-            $anterior = $padre->padre->id;
+
+    $tienePadre = true;
+    $padres = array();
+    $categoria = new Programa_Categoria($op);
+    while ($tienePadre) {
+        //var_dump($categoria);
+        if (isset($categoria->padre->id)) {
+            $padres[] = $categoria->padre;
+            $categoria = $categoria->padre;
         } else {
-            $anterior = "ROOT";
+            $tienePadre = false;
         }
+    }
+
+    $categoria = new Programa_Categoria($op);
+    $categoria->getIntro();
+    $padres = array_reverse($padres);
+
+    if (isset(end($padres)->id)) {
+        $anterior = end($padres)->id;
     } else {
-        $anterior = NULL;
+        $anterior = 'ROOT';
     }
-
-    $propuestas = NULL;
-
-    if (!$cats) {
-        $propuestas = new Programa_Propuesta_Controladora();
-        $propuestas = $propuestas->getPropuestasCategoria($id);
-    }
-
+    $hijos = new Programa_Categoria_Controladora();
+    $propuestas = new Programa_Propuesta_Controladora();
+    $propuestas = $propuestas->getPropuestasCategoria($categoria->id);
+    $html->asignar("ip", getIPv4());
+    $html->asignar("categoria", $categoria);
     $html->asignar("propuestas", $propuestas);
+    $html->asignar("actual", $categoria);
     $html->asignar("anterior", $anterior);
-    $html->asignar("cats", $cats);
+    $html->asignar("padres", $padres);
+    $html->asignar("hijos", $hijos->getNivel($categoria->id));
+    $categoria->getEnmiendas();
     $html->plantilla("nivel.tpl");
     $html->ver();
+}
+
+function patios() {
+    categoria();
+}
+
+function parrafo() {
+    propuesta('Párrafo');
 }
 
 function pdf() {
@@ -70,9 +213,8 @@ function pdf() {
 
 function enviar() {
     global $db;
+
     
-    //ADJUNTAR FICHERO
-    importclass("fichero");
     if ($_FILES) {
         $_POST['fichero'] = $_FILES; //añadimos a POST lo enviado por FILES
     } else {
@@ -80,48 +222,66 @@ function enviar() {
     }
 
     $id = new Programa_Enmienda($_POST);
-    //print_r($db->getLastError());
     
     if ($id) {
-        
+
         $email = new Correo();
         $html = "";
-        
-        switch ($id->tipo){
-            case 'sup': $tipo = "SUPRESIÓN " . $id->idPropuesta->id; break;
-            case 'add': $tipo = "ADICIÓN"; break;
-            case 'mod': $tipo = "MODIFICACIÓN " . $id->idPropuesta->id; break;
+
+        switch ($id->tipo) {
+            case 'sup': $tipo = "SUPRESIÓN " . $id->idPropuesta->id;
+                break;
+            case 'add': $tipo = "ADICIÓN";
+                break;
+            case 'mod': $tipo = "MODIFICACIÓN " . $id->idPropuesta->id;
+                break;
         }
 
-        $html .= "<strong>ID ENMIENDA: </strong>".$id->id."<br>";
-        $html .= "<strong>TIPO: </strong>".$tipo."<br>";
-        $html .= "<strong>PROPUESTA Nº: </strong>".$id->idPropuesta->id."<br>";
-        $html .= "<strong>CATEGORIA: </strong>".$id->idCategoria->id."<br>";
-        $html .= "<strong>NOMBRE: </strong>".$id->nombre."<br>";
-        $html .= "<strong>APELLIDOS: </strong>".$id->apellidos."<br>";
-        $html .= "<strong>CP: </strong>".$id->cp."<br>";
-        $html .= "<strong>EMAIL: </strong>".$id->email."<br>";
-        $html .= "<strong>TELEFONO: </strong>".$id->telefono."<br>";
-        $html .= "<strong>MOTIVACION: </strong><br>".$id->motivacion."<br><br>";
-        $html .= "<strong>REDACCION: </strong>".$id->redaccion."<br>";
-        
-        if (property_exists($id->idPropuesta,'texto')) {
+        $html .= "<strong>ID ENMIENDA: </strong>" . $id->id . "<br>";
+        $html .= "<strong>TIPO: </strong>" . $tipo . "<br>";
+        $html .= "<strong>PROPUESTA Nº: </strong>" . $id->idPropuesta->id . "<br>";
+        $html .= "<strong>CATEGORIA: </strong>" . $id->idCategoria->id . "<br>";
+        $html .= "<strong>CATEGORIA NOMBRE: </strong>" . $id->idCategoria->nombre . "<br>";
+        $html .= "<strong>NOMBRE: </strong>" . $id->nombre . "<br>";
+        $html .= "<strong>APELLIDOS: </strong>" . $id->apellidos . "<br>";
+        $html .= "<strong>CP: </strong>" . $id->cp . "<br>";
+        $html .= "<strong>EMAIL: </strong>" . $id->email . "<br>";
+        $html .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
+        $html .= "<strong>VALIDAR: </strong> <a href=".CONF_BASEURL."enmienda/validar/".$id->id."/".$id->random."/>Validar ahora</a><br>";
+        $html .= "<strong>MOTIVACION: </strong><br>" . $id->motivacion . "<br><br>";
+        $html .= "<strong>REDACCION: </strong>" . $id->redaccion . "<br>";        
+
+        if (property_exists($id->idPropuesta, 'texto')) {
             $html .= "<hr>";
             $html .= $id->idPropuesta->texto;
         }
-        
+
         if (property_exists($id, 'fichero') && $id->fichero) {
             $email->adjunto = $id->fichero;
         }
 
-        $email->fromtxt = "Adelante Andalucía";
-        $email->asunto="ENMIENDA " . ($tipo);
-        $email->from=MAIL_ADMIN;
-        $email->to=MAIL_ENMIENDAS;
+        $email->fromtxt = $id->nombre. " " . $id->apellidos;
+        $email->asunto = "ENMIENDA " . ($tipo);
+        $email->from = MAIL_ADMIN;
+        $email->to = MAIL_ENMIENDAS;
         $email->enviar($html);
         //var_dump($id);        
-        
     }
-    
+}
 
+function enmienda_validar(){    
+    global $html, $c;
+    $html->asignar("version","patios");
+
+    $enmienda = new Programa_Enmienda($c[2]);
+    if ($c[3]==$enmienda->random){        
+        $id['publica']= 1;
+        $enmienda->editar($id);
+        $accion = "OK";
+    } else {
+        $accion = "NO";
+    }
+    $html->asignar("accion",$accion);
+    $html->plantilla("validar_enmienda.tpl");
+    $html->ver();    
 }

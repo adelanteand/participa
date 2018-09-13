@@ -59,6 +59,7 @@ class Fichero {
 
 
             $id = $db->insert('ficheros', $data);
+            //print_r($db->getLastQuery());
         }
 
         $db->where('id', $id);

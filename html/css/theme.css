@@ -1,8 +1,8 @@
 
 body {
-  font-size: 1.175rem;
-  font-family: 'Nunito', sans-serif;
-  padding: 6.5rem 2rem 2rem 2rem;
+    font-size: 1.175rem;
+    font-family: 'Nunito', sans-serif;
+    padding: 6.5rem 2rem 2rem 2rem;
 }
 
 /* NAVBAR */
@@ -30,31 +30,45 @@ body {
 
 
 .form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
 }
 .form-signin .checkbox {
-  font-weight: 400;
+    font-weight: 400;
 }
 .form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
 }
 .form-signin .form-control:focus {
-  z-index: 2;
+    z-index: 2;
 }
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
+
+
+.btn-primary.whatsapp {
+    background-color: rgb(30, 190, 165);
+    border-color: rgb(30, 190, 165);
+    margin-right: 5px;
+}
+
+.btn-primary.whatsapp:hover {
+    background-color: rgb(30, 190, 165);
+    border-color: rgb(30, 190, 165);
+}
+
+.twitter-share-button[style] { vertical-align: text-bottom !important; }

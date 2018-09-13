@@ -89,17 +89,26 @@
         {/if}        
 
 
-
+        
         <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
+            
+            {if ($version=='default')}
             <a class="navbar-brand" href="/"><img class="img-responsive" width="150" src="{$conf_logo}"/></a>
+            {else}
+            <a class="navbar-brand" href="/patios/"><img class="img-responsive" width="150" src="{$conf_logo}"/></a>
+            {/if}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto"><!--
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
+                        {if ($version=='default')}
+                        <a class="nav-link" href="/patios/">Versión navegable<span class="sr-only"></span></a>
+                        {else}
+                        <a class="nav-link" href="/">Versión interactiva<span class="sr-only"></span></a>
+                        {/if}
+                    </li><!--
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
