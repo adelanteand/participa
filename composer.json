@@ -11,7 +11,8 @@
         "abraham/twitteroauth": "*",
         "onesignal/emoji-picker": "*",
         "libchart/libchart": "^1.4",
-        "joshcam/mysqli-database-class": "dev-master"      
+        "joshcam/mysqli-database-class": "dev-master",
+        "soundasleep/html2text": "~0.5"
     },
     "config": {
         "discard-changes": true,        
