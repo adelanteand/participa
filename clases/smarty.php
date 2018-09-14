@@ -53,7 +53,7 @@ class Plantilla extends Smarty {
         $this->assign("app_titulopagina", CONF_TITULOPAGINA);
         $this->assign("app_autor", CONF_ORGANIZACION);
         $this->assign("app_descripcion", CONF_DESCRIPCION);
-        $this->assign("app_full_url", "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $this->assign("app_full_url",  CONF_BASEURL . $_SERVER['REQUEST_URI']);
         list($app_fb_img_w, $app_fb_img_h) = getimagesize(CONF_FB_IMG);
         $this->assign("app_fb_image", CONF_BASEURL . CONF_FB_IMG);
         $this->assign("app_fb_image_w", $app_fb_img_w);
