@@ -285,3 +285,22 @@ function enmienda_validar(){
     $html->plantilla("validar_enmienda.tpl");
     $html->ver();    
 }
+
+function enmienda() {
+    global $op, $html;
+
+    $html->asignar("version", "patios");
+
+    $enmienda = new Programa_Enmienda($op);
+
+    if (!$enmienda->existe) {
+        $html->asignar("msg", "No existe la enmienda indicada");
+        $html->plantilla("error.tpl");
+        $html->ver();
+        exit;
+    }
+    $html->asignar("url",CONF_BASEURL);
+    $html->asignar("e", $enmienda);
+    $html->plantilla("enmienda_web.tpl");
+    $html->ver();
+}
