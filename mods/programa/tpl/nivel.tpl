@@ -22,7 +22,11 @@
             de ruta de este proyecto político. Abrimos un proceso participativo en el que 
             cualquier persona podrá presentar enmiendas en estos patios para convertir el
             programa de Adelante Andalucía en su programa, el que responde a sus necesidades</p>
+        <div class="alert alert-info">
+          <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Acude a tu patio más cercano</a>.
+        </div>        
         {/if}
+    
 
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}

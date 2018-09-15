@@ -207,6 +207,14 @@ function parrafo() {
     propuesta('Párrafo');
 }
 
+function patios_listado() {
+    global $html;
+    $html->asignar("version","patios");
+    $html->plantilla("patios_listado.tpl");
+    $html->ver();        
+}
+
+
 function pdf() {
     echo "Disponible próximamente.";
 }
