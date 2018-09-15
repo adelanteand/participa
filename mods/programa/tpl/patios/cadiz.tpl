@@ -5,7 +5,12 @@
     <strong>Lugar:</strong> Centra Tartessos en Calle Trille
 </p><hr>
 
-
+<h4>El Puerto de Santa María</h4>
+<p>
+    <strong>Día:</strong> 18 de septiembre<br>
+    <strong>Hora:</strong> 18:00<br>
+    <strong>Lugar:</strong> Parque del Juncal
+</p><hr>
 <h4>Bornos</h4>
 <p>
     <strong>Día:</strong> 18 de septiembre<br>
