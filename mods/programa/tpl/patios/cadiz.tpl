@@ -8,8 +8,8 @@
 <h4>El Puerto de Santa María</h4>
 <p>
     <strong>Día:</strong> 18 de septiembre<br>
-    <strong>Hora:</strong> 18:00<br>
-    <strong>Lugar:</strong> Parque del Juncal
+    <strong>Hora:</strong> 19:00<br>
+    <strong>Lugar:</strong> Casa nº 6. C/San Bartolomé, 14
 </p><hr>
 <h4>Bornos</h4>
 <p>
