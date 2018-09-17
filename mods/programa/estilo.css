@@ -144,6 +144,10 @@
     background-color: Thistle ;
 }
 
+.badge-secondary.codigo_parrafo{
+    background-color: #aaa ;
+}
+
 
 /* VISALUZACION DE FUENTES  */
 html {

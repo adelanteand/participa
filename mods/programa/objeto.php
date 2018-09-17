@@ -270,6 +270,7 @@ class Programa_Categoria_Controladora {
                 $out .= "<div class=\"descripcion categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
                 foreach ($val->intro as $intro) {
                     $out .= "<p class=\"parrafo\"  data-idPropuesta=\"" . $intro->id . "\" data-idCategoria=\"" . $val->id . "\">";
+                    $out .=  "<span data-propuesta=\"" . $intro->id . "\" class='badge badge-secondary codigo_parrafo' >" . $intro->id . "</span> ";
                     $out .= "<span class='textprop'>".$intro->texto."</span>";
                     $out .= "<span class='opciones'>";
                     $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='mod' data-tipo='parrafo'><i class='fas fa-sync-alt'></i> Cambio redacción</button>";
@@ -332,10 +333,11 @@ class Programa_Propuesta_Controladora {
     function getPropuestasCategoria($id, $tipo = 'propuesta') {
 
         global $db;
-        $cols = array('id', 'cat', 'texto', 'tipo');
+        $cols = array('id', 'cat', 'texto', 'tipo', 'CONVERT(substring(id,2),UNSIGNED INTEGER) id_numero');
         $db->where('cat', $id);
         $db->where('tipo', $tipo);
         $db->where('activa', 1);
+        $db->orderBy('id_numero','asc');
         $res = $db->get('programa_propuestas', null, $cols);
 
         $out = Array();
