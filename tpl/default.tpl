@@ -117,7 +117,7 @@
                     </li>-->
                 </ul>     
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                    <a href="https://adelanteandalucia.org/" class="btn btn-light"><i class="fas fa-file-alt"></i> Adelante Andalucía</a>
+                    <a href="https://adelanteandalucia.org/" class="btn btn-light"><i class="fas fa-external-link-alt"></i> Adelante Andalucía</a>
                 </form>                 
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
                     <a href="https://adelanteandalucia.org/sites/default/files/ReglamentoPatios.pdf" target="_blank" class="btn btn-info"><i class="fas fa-file-alt"></i> Reglamento</a>
