@@ -23,10 +23,10 @@
             cualquier persona podrá presentar enmiendas en estos patios para convertir el
             programa de Adelante Andalucía en su programa, el que responde a sus necesidades</p>
         <div class="alert alert-info">
-          <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Acude a tu patio más cercano</a>.
+            <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Acude a tu patio más cercano</a>.
         </div>        
-        {/if}
-    
+    {/if}
+
 
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}
@@ -34,6 +34,7 @@
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}
+                <span data-propuesta="{$e->id}" class='badge badge-secondary codigo_parrafo' >{$e->id}</span>
                 <span class='textprop'>{$e->texto}</span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
