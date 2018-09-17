@@ -307,8 +307,16 @@ function enmienda() {
         $html->ver();
         exit;
     }
+    
+    $fichero = null;
+    if ($enmienda->fichero){
+        importclass("fichero");
+        $fichero = new Fichero($enmienda->fichero);
+    }
+    
+    $html->asignar("fichero",$fichero);
     $html->asignar("url",CONF_BASEURL);
-    $html->asignar("e", $enmienda);
+    $html->asignar("e", $enmienda);    
     $html->plantilla("enmienda_web.tpl");
     $html->ver();
 }

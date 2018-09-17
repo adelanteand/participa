@@ -27,16 +27,30 @@
                         <td><a href="{$url}categoria/{$e->idCategoria->id}/" target="_blank">Ver</a> - {$e->idCategoria->nombre}</td>
                     </tr>                    
                     {/if}
+                    {if (isset($e->tipo))}
+                    <tr>
+                        <th scope="row">Tipo</th>
+                        <td>{$e->tipo}</td>
+                    </tr>                    
+                    {/if}                    
                 </tbody>
             </table>
 
             <hr>
-            <h3>Motivación</h3>
+            <h3><i class="fas fa-align-left"></i> Motivación</h3>
             {$e->motivacion}
 
             <hr>
-            <h3>Texto</h3>
+            <h3><i class="fas fa-align-left"></i> Texto</h3>
             {$e->redaccion}            
+            
+            <hr>
+            <h3><i class="fas fa-paperclip"></i> Adjuntos</h3>
+            {if ($fichero)}
+                <a href="/fichero/{$fichero->id}/download/">{$fichero->nombre}</a>
+            {else}
+                No hay ficheros adjuntos
+            {/if}
 
         </div>        
 
