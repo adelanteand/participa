@@ -34,7 +34,7 @@
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}
-                <span data-propuesta="{$e->id}" class='badge badge-secondary codigo_parrafo' >{$e->id}</span>
+                <span data-propuesta="{$e->id}" class='badge badge-secondary codigo_parrafo' >{$e->id}</span> 
                 <span class='textprop'>{$e->texto}</span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
