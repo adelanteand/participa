@@ -57,7 +57,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <label for="nombre">Nombre:</label>   
+                        <label for="nombre">Nombre/Entidad/Colectivo/Formación:</label>   
                         <input type="text" class="form-control" maxlength="150" placeholder="Nombre" id="nombre" name="nombre">
                     </div>
                 </div>

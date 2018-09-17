@@ -245,10 +245,7 @@ function enviarFormulario() {
         msg.push("Revise su nombre");        
     }
     
-    if (!$("#apellidos").val()){
-        validado = false
-        msg.push("Revise sus apellidos");
-    }
+
     
     if (!$("#telefono").val()){
         validado = false

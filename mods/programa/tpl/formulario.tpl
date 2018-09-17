@@ -84,7 +84,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="nombre">Nombre:</label>   
+                <label for="nombre">Nombre/Entidad/Colectivo/Formación:</label>   
                 <input type="text" class="form-control" maxlength="150" placeholder="Nombre" id="nombre" name="nombre">
             </div>
             <div class="form-group col-md-6">
