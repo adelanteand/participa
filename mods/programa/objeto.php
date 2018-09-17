@@ -77,6 +77,7 @@ class Programa_Propuesta extends Entidad {
 class Programa_Enmienda extends Entidad {
 
     var $id = 0;
+    
     private $datos = array(
         'tabla' => "programa_enmiendas",
         'manuales' => array(
@@ -96,7 +97,8 @@ class Programa_Enmienda extends Entidad {
         ),
         'fk' => array(
             'idCategoria' => 'Programa_Categoria',
-            'idPropuesta' => 'Programa_Propuesta'
+            'idPropuesta' => 'Programa_Propuesta',
+            'cp' => 'CP'
         ),
         'file' => array(
             'fichero'
@@ -104,6 +106,7 @@ class Programa_Enmienda extends Entidad {
     );
 
     function __construct($id = 0) {
+        importclass("geografico");
         if (is_array($id)) {
             $id['publica'] = "0";
             $id['random'] = generateRandomString(256);

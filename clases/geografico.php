@@ -13,39 +13,39 @@ class Lugar {
 
         switch ($tipo) {
             case 'municipio' :
-                $sql            = "select id_provincia,id_municipio,municipio from geo_Municipios where id_municipio = $id and id_provincia = $superior";
-                $campo_id       = "id_municipio";
-                $campo_nombre   = "municipio";
+                $sql = "select id_provincia,id_municipio,municipio from geo_Municipios where id_municipio = $id and id_provincia = $superior";
+                $campo_id = "id_municipio";
+                $campo_nombre = "municipio";
                 $campo_superior = "id_provincia";
-                $tipo_superior  = "provincia";
+                $tipo_superior = "provincia";
                 break;
 
             case 'provincia' :
-                $sql            = "select id,provincia,id_ccaa from geo_Provincias where id = $id";
-                $campo_id       = "id";
-                $campo_nombre   = "provincia";
+                $sql = "select id,provincia,id_ccaa from geo_Provincias where id = $id";
+                $campo_id = "id";
+                $campo_nombre = "provincia";
                 $campo_superior = "id_ccaa";
-                $tipo_superior  = "comunidad";
+                $tipo_superior = "comunidad";
                 break;
 
             case 'comunidad' :
-                $sql            = "select id,comunidad from geo_CCAA where id = $id";
-                $campo_id       = "id";
-                $campo_nombre   = "comunidad";
+                $sql = "select id,comunidad from geo_CCAA where id = $id";
+                $campo_id = "id";
+                $campo_nombre = "comunidad";
                 $campo_superior = NULL;
-                $tipo_superior  = NULL;
+                $tipo_superior = NULL;
                 break;
         }
 
         $res = mysqli_query($cnx, $sql);
         //var_dump($sql);
         if ($row = mysqli_fetch_array($res)) {
-            $this -> id       = $row[$campo_id];
-            $this -> nombre   = utf8_encode($row[$campo_nombre]);
+            $this->id = $row[$campo_id];
+            $this->nombre = utf8_encode($row[$campo_nombre]);
             if ($tipo_superior !== NULL)
-                $this -> superior = new Lugar($tipo_superior, $row[$campo_superior]);
+                $this->superior = new Lugar($tipo_superior, $row[$campo_superior]);
             else
-                $this -> superior = NULL;
+                $this->superior = NULL;
         }
     }
 
@@ -62,7 +62,7 @@ class Geografia {
         $res = mysqli_query($cnx, $sql);
         $out = Array();
         while ($row = mysqli_fetch_array($res)) {
-            $p     = new Lugar("comunidad", $row['id']);
+            $p = new Lugar("comunidad", $row['id']);
             $out[] = $p;
         }
         return $out;
@@ -82,7 +82,7 @@ class Geografia {
         $res = mysqli_query($cnx, $sql);
         $out = Array();
         while ($row = mysqli_fetch_array($res)) {
-            $p     = new Lugar("provincia", $row['id']);
+            $p = new Lugar("provincia", $row['id']);
             $out[] = $p;
         }
 
@@ -103,7 +103,7 @@ class Geografia {
         $res = mysqli_query($cnx, $sql);
         $out = Array();
         while ($row = mysqli_fetch_array($res)) {
-            $p     = new Lugar("municipio", $row['id_municipio'], $row['id_provincia']);
+            $p = new Lugar("municipio", $row['id_municipio'], $row['id_provincia']);
             $out[] = $p;
         }
 
@@ -130,14 +130,14 @@ class Provincia {
         $res = mysqli_query($cnx, $sql);
 
         if ($row = mysqli_fetch_array($res)) {
-            $this -> id     = $row['id'];
-            $this -> nombre = utf8_encode($row['nombre']);
+            $this->id = $row['id'];
+            $this->nombre = utf8_encode($row['nombre']);
         }
     }
 
     function __toString() {
-        if (!is_null($this -> nombre))
-            return $this -> nombre;
+        if (!is_null($this->nombre))
+            return $this->nombre;
         else
             return "";
     }
@@ -155,10 +155,31 @@ class Provincia_Controlador {
         $res = mysqli_query($cnx, $sql);
         $out = array();
         while ($row = mysqli_fetch_array($res)) {
-            $p     = new Provincia($row['id']);
+            $p = new Provincia($row['id']);
             $out[] = $p;
         }
         return $out;
+    }
+
+}
+
+class CP extends Entidad {
+
+    var $id = 0;
+    private $datos = array(
+        'tabla' => "cp",
+        'manuales' => array(
+            'codProvincia',
+            'codMunicipio',
+            'cp',
+            'municipio',
+        ),
+        'mysql' => array(),
+        'id' => array('cp')
+    );
+
+    function __construct($id = 0) {
+        parent::__construct($id, $this->datos);
     }
 
 }

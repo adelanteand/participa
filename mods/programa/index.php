@@ -316,7 +316,7 @@ function enmienda() {
     
     $html->asignar("fichero",$fichero);
     $html->asignar("url",CONF_BASEURL);
-    $html->asignar("e", $enmienda);    
+    $html->asignar("e", $enmienda);        
     $html->plantilla("enmienda_web.tpl");
     $html->ver();
 }

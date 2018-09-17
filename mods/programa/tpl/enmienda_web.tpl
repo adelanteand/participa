@@ -32,7 +32,13 @@
                         <th scope="row">Tipo</th>
                         <td>{$e->tipo}</td>
                     </tr>                    
-                    {/if}                    
+                    {/if}      
+                    {if (isset($e->cp->cp))}
+                    <tr>
+                        <th scope="row">Código postal</th>
+                        <td>{$e->cp->municipio}</td>
+                    </tr>                    
+                    {/if}                      
                 </tbody>
             </table>
 
