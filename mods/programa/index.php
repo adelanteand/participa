@@ -252,7 +252,7 @@ function enviar() {
         $html .= "<strong>CATEGORIA NOMBRE: </strong>" . $id->idCategoria->nombre . "<br>";
         $html .= "<strong>NOMBRE: </strong>" . $id->nombre . "<br>";
         $html .= "<strong>APELLIDOS: </strong>" . $id->apellidos . "<br>";
-        $html .= "<strong>CP: </strong>" . $id->cp . "<br>";
+        $html .= "<strong>CP: </strong>" . $id->cp->cp . "<br>";
         $html .= "<strong>EMAIL: </strong>" . $id->email . "<br>";
         $html .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
         $html .= "<strong>VALIDAR: </strong> <a href=".CONF_BASEURL."enmienda/validar/".$id->id."/".$id->random."/>Validar ahora</a><br>";
