@@ -51,7 +51,7 @@ function formulario() {
     }
 
     $elementotipo = 'propuesta';
-    if ($accion == 'add') {        
+    if ($accion == 'add') {
         $categoria = new Programa_Categoria($subop);
         if (!($categoria->existe)) {
             $html->asignar("msg", "No existe la categoría indicada");
@@ -139,14 +139,14 @@ function propuesta($tipo = 'Propuesta') {
         $url_anterior = $_SERVER['HTTP_REFERER'];
     } else {
         $url_anterior = "javascript:window.history.back();";
-    }    
+    }
     $html->asignar("url_anterior", $url_anterior);
     $html->asignar("propuesta", $propuesta);
     $html->asignar("actual", $propuesta->cat);
     $html->asignar("padres", $padres);
     $html->titulo('Propuesta ' . $propuesta->id . CONF_TITULOPAGINA_POS);
     $html->descripcion($propuesta->texto);
-    $propuesta->getEnmiendas();    
+    $propuesta->getEnmiendas();
     $html->plantilla("propuesta.tpl");
     $html->ver();
 }
@@ -209,11 +209,10 @@ function parrafo() {
 
 function patios_listado() {
     global $html;
-    $html->asignar("version","patios");
+    $html->asignar("version", "patios");
     $html->plantilla("patios_listado.tpl");
-    $html->ver();        
+    $html->ver();
 }
-
 
 function pdf() {
     echo "Disponible próximamente.";
@@ -222,7 +221,7 @@ function pdf() {
 function enviar() {
     global $db;
 
-    
+
     if ($_FILES) {
         $_POST['fichero'] = $_FILES; //añadimos a POST lo enviado por FILES
     } else {
@@ -230,7 +229,7 @@ function enviar() {
     }
 
     $id = new Programa_Enmienda($_POST);
-    
+
     if ($id) {
 
         $email = new Correo();
@@ -255,9 +254,9 @@ function enviar() {
         $html .= "<strong>CP: </strong>" . $id->cp->cp . "<br>";
         $html .= "<strong>EMAIL: </strong>" . $id->email . "<br>";
         $html .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
-        $html .= "<strong>VALIDAR: </strong> <a href=".CONF_BASEURL."enmienda/validar/".$id->id."/".$id->random."/>Validar ahora</a><br>";
+        $html .= "<strong>VALIDAR: </strong> <a href=" . CONF_BASEURL . "enmienda/validar/" . $id->id . "/" . $id->random . "/>Validar ahora</a><br>";
         $html .= "<strong>MOTIVACION: </strong><br>" . $id->motivacion . "<br><br>";
-        $html .= "<strong>REDACCION: </strong>" . $id->redaccion . "<br>";        
+        $html .= "<strong>REDACCION: </strong>" . $id->redaccion . "<br>";
 
         if (property_exists($id->idPropuesta, 'texto')) {
             $html .= "<hr>";
@@ -268,7 +267,7 @@ function enviar() {
             $email->adjunto = $id->fichero;
         }
 
-        $email->fromtxt = $id->nombre. " " . $id->apellidos;
+        $email->fromtxt = $id->nombre . " " . $id->apellidos;
         $email->asunto = "ENMIENDA " . ($tipo);
         $email->from = MAIL_ADMIN;
         $email->to = MAIL_ENMIENDAS;
@@ -277,21 +276,21 @@ function enviar() {
     }
 }
 
-function enmienda_validar(){    
+function enmienda_validar() {
     global $html, $c;
-    $html->asignar("version","patios");
+    $html->asignar("version", "patios");
 
     $enmienda = new Programa_Enmienda($c[2]);
-    if ($c[3]==$enmienda->random){        
-        $id['publica']= 1;
+    if ($c[3] == $enmienda->random) {
+        $id['publica'] = 1;
         $enmienda->editar($id);
         $accion = "OK";
     } else {
         $accion = "NO";
     }
-    $html->asignar("accion",$accion);
+    $html->asignar("accion", $accion);
     $html->plantilla("validar_enmienda.tpl");
-    $html->ver();    
+    $html->ver();
 }
 
 function enmienda() {
@@ -307,16 +306,42 @@ function enmienda() {
         $html->ver();
         exit;
     }
-    
+
     $fichero = null;
-    if ($enmienda->fichero){
+    if ($enmienda->fichero) {
         importclass("fichero");
         $fichero = new Fichero($enmienda->fichero);
     }
-    
-    $html->asignar("fichero",$fichero);
-    $html->asignar("url",CONF_BASEURL);
-    $html->asignar("e", $enmienda);        
+
+    $html->asignar("fichero", $fichero);
+    $html->asignar("url", CONF_BASEURL);
+    $html->asignar("e", $enmienda);
     $html->plantilla("enmienda_web.tpl");
+    $html->ver();
+}
+
+function enmiendas_provincias() {
+    
+    global $html;
+    
+    $provincias = array(
+        "Almería" => "04",
+        "Cádiz" => "11",
+        "Córdoba" => "14",
+        "Granada" => "18",
+        "Huelva" => "21",
+        "Málaga" => "29",
+        "Jaén" => "23",
+        "Sevilla" => "41"
+    );
+    
+    $codEnmiendas = new Programa_Enmienda_Controladora();
+    foreach ($provincias as $prov => $codprov){
+        $resultado = $codEnmiendas ->getEnmiendasProvincia($codprov);
+        $tabla[$prov] = sizeof($resultado);
+    }
+    $html->asignar("version", "patios");
+    $html->asignar("tabla",$tabla);
+    $html->plantilla("enmiendas_provincias.tpl");
     $html->ver();
 }

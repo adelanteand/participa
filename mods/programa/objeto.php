@@ -146,6 +146,20 @@ class Programa_Enmienda_Controladora {
         }
         return $out;
     }
+    
+    function getEnmiendasProvincia($idProvincia){
+        global $db;
+        $db->where('cp', $idProvincia."%", 'LIKE');
+        $res = $db->get('programa_enmiendas', null);
+
+        $out = Array();
+
+        foreach ($res as $row) {
+            $p = new Programa_Enmienda($row['id']);
+            $out[] = $p;
+        }
+        return $out;        
+    }
 }
 
 
