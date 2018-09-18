@@ -59,13 +59,14 @@
             {/foreach}
         </ul>
     {/if}
+    
+    <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
 
     {if ($propuestas)}
         <hr>
         <h3>Propuestas</h3>
         <p><i>Pulsa en el número de propuesta para ver más detalles</i></p>
-
-        <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+        
         <hr>
         {foreach from=$propuestas item=p}           
             <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
