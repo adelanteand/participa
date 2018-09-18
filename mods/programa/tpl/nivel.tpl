@@ -68,6 +68,9 @@
         <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
         <hr>
         {foreach from=$propuestas item=p}
+            {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
+                <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
+            {/if}            
             <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
             <p>{$p->texto}</p>    
         {/foreach}
