@@ -65,10 +65,11 @@
             </div>
         </div>
     {/if}
-
+    
+    <hr>
 
     {if $propuesta->enmiendas}
-        <h4><strong>Propuestas recibidas</strong></h4>
+        <h4><strong><i class="fas fa-comment-dots"></i> Enmiendas recibidas</strong></h4>
         {foreach from=$propuesta->enmiendas item=e}
             {include file="enmienda.tpl"}
         {/foreach}
