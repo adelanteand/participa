@@ -1,7 +1,7 @@
 <div class="container patio">
 
     {if isset($categoria->nombre)}
-        <h2>{$categoria->nombre}</h2>
+        <h2><strong>{$categoria->nombre}</strong></h2>
         {include file="breadcrumbs.tpl"}
         {if ($anterior)}
             {if ($anterior=='ROOT')}
@@ -35,7 +35,7 @@
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}                
-                <span class='textprop'>{$e->texto}</span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
+                <span class='textprop'><i>{$e->texto}</i></span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
     {/if}
@@ -47,7 +47,7 @@
                 <li class="patios nivel">
                     <a href="/categoria/{$e->id}/">
                         {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
-                            <span class="badge badge-warning">{$e->enmiendas|@count} propuesta/s</span> 
+                            <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                         {/if}                        
 
                         {if $e->icono}
@@ -64,16 +64,17 @@
     <hr>
     
     {if ($propuestas)}
-        <hr>
-        <h3>Propuestas</h3>
+        <h3><i class="far fa-lightbulb"></i> <strong>Propuestas</strong></h3>
         <p><i>Pulsa en el número de propuesta para ver más detalles</i></p>
     
-        {foreach from=$propuestas item=p}           
+        {foreach from=$propuestas item=p}      
+            <div class="cuadro-propuesta">
             <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
             {if isset($p->enmiendas) AND $p->enmiendas|@count > 0}
                 <span class="badge badge-warning">{$p->enmiendas|@count} enmienda/s</span> 
             {/if}             
             <p>{$p->texto}</p>    
+            </div>
         {/foreach}
         <hr>
         <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>

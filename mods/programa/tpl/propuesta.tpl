@@ -20,11 +20,11 @@
 
     <div class="row">
         <div class="col-md-10">
-            <h2>{$tipo} {$propuesta->id}</h2>
+            <h2><strong>{$tipo} {$propuesta->id}</strong></h2>
         </div>
 
         <div class="col-md-2">
-            <a class="btn btn-light" href="{$url_anterior}">Volver</a>
+            <a class="btn btn-light float-right" href="{$url_anterior}">Volver</a>
         </div>    
 
     </div>    
@@ -33,7 +33,7 @@
 
     {include file="breadcrumbs.tpl"}
 
-    <div>{$propuesta->texto}</div>
+    <div class="cuadro-propuesta">{$propuesta->texto}</div>
 
     <hr>
 

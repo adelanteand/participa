@@ -104,6 +104,12 @@
     border-left: 7px solid rgba(36, 200, 126, 0.4);
 }
 
+.cuadro-propuesta {
+    background: oldlace;
+    padding: 1em;
+    margin: 1em 0em 1em 0em;
+}
+
 .opciones{
     visibility: hidden;
 }
