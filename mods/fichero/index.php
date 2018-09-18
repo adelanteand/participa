@@ -1,16 +1,15 @@
 <?php
 
-if ($op == "download") {
+if ($subop == "download") {
 
-    $f        = new Fichero($subop);
+    $f        = new Fichero($op);
     $file_url = $f -> path;
     $size     = filesize($file_url);
-    var_dump($file_url);
-    
-//    header('Content-Type: application/octet-stream');
-//    header("Content-Transfer-Encoding: Binary");
-//    header("Content-length: $size");
-//    header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\"");
+
+    header('Content-Type: application/octet-stream');
+    header("Content-Transfer-Encoding: Binary");
+    header("Content-length: $size");
+    header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\"");
     
     
     readfile($file_url); // do the double-download-dance (dirty but worky)    
