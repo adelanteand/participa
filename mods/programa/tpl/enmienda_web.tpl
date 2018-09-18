@@ -63,15 +63,15 @@
                 </table>
 
                 <hr>
-                <h3><i class="fas fa-align-left"></i> Motivación</h3>
+                <h3><i class="fas fa-align-left"></i> <strong>Motivación</strong></h3>
                 {$e->motivacion}
 
                 <hr>
-                <h3><i class="fas fa-align-left"></i> Texto</h3>
+                <h3><i class="fas fa-align-left"></i> <strong>Texto</strong></h3>
                 {$e->redaccion}            
 
                 <hr>
-                <h3><i class="fas fa-paperclip"></i> Adjuntos</h3>
+                <h3><i class="fas fa-paperclip"></i> <strong>Adjuntos</strong></h3>
                 {if ($fichero)}
                     <a href="/fichero/{$fichero->id}/download/">{$fichero->nombre}</a>
                 {else}
