@@ -31,7 +31,7 @@
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}
             <p class="parrafo" data-idPropuesta="{$e->id}" data-idCategoria="{$categoria->id}">
-                <a href="/parrafo/{$e->id}/" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parraf">{$e->id}</a>
+                <a href="/parrafo/{$e->id}/" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parrafo">{$e->id}</a>
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}                
