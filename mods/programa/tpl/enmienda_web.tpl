@@ -34,7 +34,7 @@
                                 <th scope="row">Tipo</th>
                                 <td>
                                     {if $e->tipo eq 'mod'}
-                                        <span class="badge badge-secondary">
+                                        <span class="badge badge-warning">
                                             Modificación 
                                         </span>
                                     {/if} 

@@ -2,7 +2,7 @@
     <span class="tipo">        
         <a href="/enmienda/{$e->id}/">
             {if $e->tipo eq 'mod'}
-                <span class="badge badge-secondary">
+                <span class="badge badge-warning">
                     Modificación (ID: {$e->id})
                 </span>
             {/if} 
