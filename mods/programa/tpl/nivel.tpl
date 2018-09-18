@@ -31,10 +31,10 @@
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}
             <p class="parrafo" data-idPropuesta="{$e->id}" data-idCategoria="{$categoria->id}">
+                <span data-propuesta="{$e->id}" class='badge badge-secondary codigo_parrafo' >{$e->id}</span> 
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
-                {/if}
-                <span data-propuesta="{$e->id}" class='badge badge-secondary codigo_parrafo' >{$e->id}</span> 
+                {/if}                
                 <span class='textprop'>{$e->texto}</span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
@@ -67,11 +67,11 @@
 
         <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
         <hr>
-        {foreach from=$propuestas item=p}
+        {foreach from=$propuestas item=p}           
+            <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
             {if isset($p->enmiendas) AND $p->enmiendas|@count > 0}
                 <span class="badge badge-warning">{$p->enmiendas|@count} enmienda/s</span> 
-            {/if}            
-            <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
+            {/if}             
             <p>{$p->texto}</p>    
         {/foreach}
         <hr>
