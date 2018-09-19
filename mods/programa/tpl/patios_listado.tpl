@@ -12,7 +12,7 @@
                 <div class="card-body">                    
                     <p class="card-text">
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
-                        <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
+                        <i class="fas fa-clock  text-secondary"></i> 11 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Vecinal Zapillo Calle Abrucena 85, Almería</p>
                     <a href="/patio/inscripcion/2/" class="btn btn-success">Inscríbete</a>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="card-body">                    
                     <p class="card-text">
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
-                        <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
+                        <i class="fas fa-clock  text-secondary"></i> 9:30 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Social La Térmica, Málaga</p>
                     <a href="/patio/inscripcion/7/" class="btn btn-success">Inscríbete</a>
                 </div>
