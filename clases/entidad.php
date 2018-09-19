@@ -1,6 +1,7 @@
 <?php
 
 importclass("media", BASEAPP);
+importclass("geografico", BASEAPP);
 
 Abstract Class Entidad {
 
@@ -17,6 +18,7 @@ Abstract Class Entidad {
             //Lo consideramos un registros a crear en la base de datos
             $id = $this->insert($id, $datos);
             //print_r($db->getLastQuery());
+            print_r($db->getLastError());
         }
         $this->id = $id;
         //Seleccionamos el registro creado o especificado
