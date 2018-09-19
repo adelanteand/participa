@@ -104,8 +104,8 @@
                 <div class="card-body">                    
                     <p class="card-text">
                         <i class="fas fa-calendar-alt text-secondary"></i> 23 de septiembre<br>
-                        <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
-                        <i class="fas fa-map-marker-alt text-secondary"></i> Parque Hacienda Porzuna, Mairena del Aljarafe</p>
+                        <i class="fas fa-clock  text-secondary"></i> 9:30 horas<br>
+                        <i class="fas fa-map-marker-alt text-secondary"></i> Hacienda Porzuna, Carretera San Juan Palomares S/N, Mairena del Aljarafe</p>
                     <a href="/patio/inscripcion/6/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>            
