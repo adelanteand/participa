@@ -24,5 +24,19 @@
     </div>
 </div>
         
-{include file="barraEnmiendas.tpl"}
+        
+
+<div id="barra_enmiendas" class="sidenav">
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="contenido_barra">
+
+        {include file="fuera_de_plazo.tpl"}
+        
+    </div>
+    
+</div>
+            
+
 </div>

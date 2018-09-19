@@ -88,7 +88,8 @@ function formulario() {
     $html->asignar("elementotipo", $elementotipo);
     $html->asignar("accion", $accion);
 
-    $html->plantilla("formulario.tpl");
+    //$html->plantilla("formulario.tpl");
+    $html->plantilla("fuera_de_plazo.tpl");
     $html->ver();
 }
 
