@@ -414,7 +414,7 @@ function patio_inscripcion_enviar() {
             $html .= "- " . $eje->id . " " . $eje->nombre . "<br>";
         }
 
-        echo $html;
+        //echo $html;
         $email->fromtxt = $id->nombre . " " . $id->apellidos;
         $email->asunto = "INSCRIPCION PATIO: " . $id->patio->ciudad;
         $email->from = MAIL_ADMIN;
