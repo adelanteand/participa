@@ -74,7 +74,7 @@
                 {/foreach}
             </div>
             <div class="form-group col-md-3">
-
+                Ludoteca
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="ludoteca" id="ludoteca_SI" value="1">
                     <label class="form-check-label" for="ludoteca_SI">
@@ -87,7 +87,21 @@
                         <strong>No</strong> necesita servicio de ludoteca
                     </label>
                 </div>
-
+                
+                <hr>
+                Patio Andaluz
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1">
+                    <label class="form-check-label" for="andaluzSI">
+                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ludoteca" id="andaluzNO" value="0">
+                    <label class="form-check-label" for="andaluzNO">
+                        <strong>No</strong>, no participaré en el Patio Andaluz
+                    </label>
+                </div>                
 
             </div>     
             <div class="form-group col-md-3">
