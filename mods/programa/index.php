@@ -372,7 +372,9 @@ function patio_inscripcion() {
     $html->asignar("patio", $patio);
     $html->asignar("ejes", $ejes);
     $html->asignar("ip", getIPv4());
-    $html->plantilla("patio_inscripcion.tpl");
+    $html->titulo('PATIOS PROVINCIALES - Inscríbete');
+    $html->descripcion('En los Patios Provinciales discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');    
+    $html->plantilla("patio_inscripcion.tpl");    
     $html->ver();
 }
 
