@@ -383,15 +383,8 @@ function patio_inscripcion() {
 function patio_inscripcion_enviar() {
     global $db;
 
-    $_POST['ejes'] = implode($_POST['ejes'], ",");
     $id = new Patio_Inscripcion($_POST);
-
-    $id->ejes = explode(",", $id->ejes);
-    $tmpejes = array();
-    foreach ($id->ejes as $eje) {
-        $tmpejes[] = new Programa_Categoria($eje);
-    }
-    $id->ejes = $tmpejes;
+    $id->ejes = new Programa_Categoria($id->ejes);
 
     if ($id) {
 
@@ -408,11 +401,8 @@ function patio_inscripcion_enviar() {
         $html .= "<strong>LUDOTECA: </strong>" . (($id->ludoteca) ? "Sí" : "No") . "<br>";
         $html .= "<strong>ANDALUZ: </strong>" . (($id->andaluz) ? "Sí" : "No") . "<br>";
         $html .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
-        $html .= "<strong>EJES: </strong><br>";
+        $html .= "<strong>EJE: </strong>". $id->ejes->id . " - ". $id->ejes->nombre ."<br>";
 
-        foreach ($id->ejes as $eje) {
-            $html .= "- " . $eje->id . " " . $eje->nombre . "<br>";
-        }
 
         //echo $html;
         $email->fromtxt = $id->nombre . " " . $id->apellidos;

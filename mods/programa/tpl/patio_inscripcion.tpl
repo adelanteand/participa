@@ -60,16 +60,16 @@
                 Marque los ejes de su interés
                 {$cuentaejes = 0}
                 {foreach $ejes as $eje}
-                    <div class="form-check">                        
-                        <label class="form-check-label" >                            
-                            <input class="form-check-input" type="checkbox" value="{$eje->id}" name="ejes[]">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="eje{$eje->id}" name="ejes" value="{$eje->id}">
+                        <label class="form-check-label" for="eje{$eje->id}">
                             {if $eje->icono}
                                 <i class="fas {$eje->icono}"></i>
                             {/if}                                                        
                             {$eje->nombre}
                             <strong>EJE {$cuentaejes}</strong>
                         </label>
-                    </div>
+                    </div>  
                     {$cuentaejes=$cuentaejes+1}                        
                 {/foreach}
             </div>

@@ -338,7 +338,8 @@ function enviarFormularioInscripcion() {
         msg.push("Revise el código postal");        
     }
 
-    if ($("input[name='ejes[]']:checkbox:checked").length == 0) {
+    //if ($("input[name='ejes[]']:checkbox:checked").length == 0) {
+    if (!$("input[name='ejes']:checked").val()) {
         validado = false;
         msg.push("Seleccione al menos algún eje de interés");        
     }
