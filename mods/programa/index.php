@@ -210,6 +210,8 @@ function parrafo() {
 function patios_listado() {
     global $html;
     $html->asignar("version", "patios");
+    $html->titulo('PATIOS PROVINCIALES - Inscríbete');
+    $html->descripcion('En los Patios Provinciales discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');        
     $html->plantilla("patios_listado.tpl");
     $html->ver();
 }
@@ -372,8 +374,8 @@ function patio_inscripcion() {
     $html->asignar("patio", $patio);
     $html->asignar("ejes", $ejes);
     $html->asignar("ip", getIPv4());
-    $html->titulo('PATIOS PROVINCIALES - Inscríbete');
-    $html->descripcion('En los Patios Provinciales discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');    
+    $html->titulo('PATIO '. strtoupper($patio->ciudad." - Inscríbete"));
+    $html->descripcion('En el Patio de '.$patio->ciudad.' discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');    
     $html->plantilla("patio_inscripcion.tpl");    
     $html->ver();
 }
