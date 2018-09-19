@@ -82,7 +82,7 @@
                 <div class="card-body">
                     
                     <p class="card-text">Próximamente</p>
-                    <a href="#" class="btn btn-info disabled">Por confirmar</a>
+                    <a href="#" class="btn btn-success disabled">Por confirmar</a>
                 </div>
             </div>    
             <div class="card">
