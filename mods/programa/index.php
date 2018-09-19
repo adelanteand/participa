@@ -211,7 +211,7 @@ function patios_listado() {
     global $html;
     $html->asignar("version", "patios");
     $html->titulo('PATIOS PROVINCIALES - Inscríbete');
-    $html->descripcion('En los Patios Provinciales discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');        
+    $html->descripcion('En los Patios Provinciales discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');
     $html->plantilla("patios_listado.tpl");
     $html->ver();
 }
@@ -374,9 +374,9 @@ function patio_inscripcion() {
     $html->asignar("patio", $patio);
     $html->asignar("ejes", $ejes);
     $html->asignar("ip", getIPv4());
-    $html->titulo('PATIO '. strtoupper($patio->ciudad." - Inscríbete"));
-    $html->descripcion('En el Patio de '.$patio->ciudad.' discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');    
-    $html->plantilla("patio_inscripcion.tpl");    
+    $html->titulo('Patio '. $patio->ciudad. " - Inscríbete");
+    $html->descripcion('En el Patio de ' . $patio->ciudad . ' discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');
+    $html->plantilla("patio_inscripcion.tpl");
     $html->ver();
 }
 
@@ -385,11 +385,11 @@ function patio_inscripcion_enviar() {
 
     $_POST['ejes'] = implode($_POST['ejes'], ",");
     $id = new Patio_Inscripcion($_POST);
-    
-    $id->ejes = explode(",",$id->ejes);
+
+    $id->ejes = explode(",", $id->ejes);
     $tmpejes = array();
-    foreach ($id->ejes as $eje){
-        $tmpejes[] = new Programa_Categoria($eje);        
+    foreach ($id->ejes as $eje) {
+        $tmpejes[] = new Programa_Categoria($eje);
     }
     $id->ejes = $tmpejes;
 
@@ -408,9 +408,9 @@ function patio_inscripcion_enviar() {
         $html .= "<strong>LUDOTECA: </strong>" . (($id->ludoteca) ? "Sí" : "No") . "<br>";
         $html .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
         $html .= "<strong>EJES: </strong><br>";
-        
-        foreach ($id->ejes as $eje){
-            $html .= "- " . $eje->id . " " . $eje->nombre."<br>";
+
+        foreach ($id->ejes as $eje) {
+            $html .= "- " . $eje->id . " " . $eje->nombre . "<br>";
         }
 
         echo $html;
