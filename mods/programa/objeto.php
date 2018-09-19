@@ -370,6 +370,61 @@ class Programa_Propuesta_Controladora {
 }
 
 
+class Patio_Evento Extends Entidad {
+    
+    var $id = 0;
+    
+    private $datos = array(
+        'tabla' => "patio_evento",
+        'manuales' => array(
+            'ciudad',
+            'direccion',
+            'cp',            
+            'ubicacion',
+            'fecha_inicio'
+        ),
+        'fk' => array(
+            'cp' => 'CP'
+        )
+    );
+
+    function __construct($id = 0) {
+        parent::__construct($id, $this->datos);        
+    }
+    
+}
+
+class Patio_Inscripcion Extends Entidad {
+    
+    var $id = 0;
+    
+    private $datos = array(
+        'tabla' => "patio_inscripcion",
+        'manuales' => array(
+            'patio',
+            'nombre',
+            'apellidos',            
+            'email',
+            'telefono',
+            'cp',
+            'ip',
+            'ejes',
+            'ludoteca',
+            'observaciones'
+        ),
+        'fk' => array(
+            'patio' => 'Patio_Evento',
+            'cp' => 'CP'
+        )
+    );
+
+    function __construct($id = 0) {           
+        parent::__construct($id, $this->datos);        
+    }
+    
+}
+
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -379,3 +434,4 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+

@@ -22,8 +22,8 @@
             de ruta de este proyecto político. Abrimos un proceso participativo en el que 
             cualquier persona podrá presentar enmiendas en estos patios para convertir el
             programa de Adelante Andalucía en su programa, el que responde a sus necesidades</p>
-        <div class="alert alert-info">
-            <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Acude a tu patio más cercano</a>.
+        <div class="alert alert-danger">
+            <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Inscríbete y acude a tu patio más cercano</a>.
         </div>        
     {/if}
 

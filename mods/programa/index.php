@@ -321,9 +321,9 @@ function enmienda() {
 }
 
 function enmiendas_provincias() {
-    
+
     global $html;
-    
+
     $provincias = array(
         "Almería" => "04",
         "Cádiz" => "11",
@@ -334,14 +334,87 @@ function enmiendas_provincias() {
         "Jaén" => "23",
         "Sevilla" => "41"
     );
-    
+
     $codEnmiendas = new Programa_Enmienda_Controladora();
-    foreach ($provincias as $prov => $codprov){
-        $resultado = $codEnmiendas ->getEnmiendasProvincia($codprov);
+    foreach ($provincias as $prov => $codprov) {
+        $resultado = $codEnmiendas->getEnmiendasProvincia($codprov);
         $tabla[$prov] = sizeof($resultado);
     }
     $html->asignar("version", "patios");
-    $html->asignar("tabla",$tabla);
+    $html->asignar("tabla", $tabla);
     $html->plantilla("enmiendas_provincias.tpl");
     $html->ver();
+}
+
+function patio_inscripcion() {
+
+    global $html, $c, $op, $subop;
+    importclass("geografico");
+    $html->asignar("version", "patios");
+    $patio = new Patio_Evento($subop);
+    if (!$patio->existe) {
+        $html->asignar("msg", "No existe el patio indicado");
+        $html->plantilla("error.tpl");
+        $html->ver();
+        exit;
+    }
+    $ejes = new Programa_Categoria_Controladora();
+    $ejes = $ejes->getNivel(0);
+
+    //MOSTRAR PLANTILLA
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $url_anterior = $_SERVER['HTTP_REFERER'];
+    } else {
+        $url_anterior = "javascript:window.history.back();";
+    }
+    $html->asignar("url_anterior", $url_anterior);
+
+    $html->asignar("patio", $patio);
+    $html->asignar("ejes", $ejes);
+    $html->asignar("ip", getIPv4());
+    $html->plantilla("patio_inscripcion.tpl");
+    $html->ver();
+}
+
+function patio_inscripcion_enviar() {
+    global $db;
+
+    $_POST['ejes'] = implode($_POST['ejes'], ",");
+    $id = new Patio_Inscripcion($_POST);
+    
+    $id->ejes = explode(",",$id->ejes);
+    $tmpejes = array();
+    foreach ($id->ejes as $eje){
+        $tmpejes[] = new Programa_Categoria($eje);        
+    }
+    $id->ejes = $tmpejes;
+
+    if ($id) {
+
+        $email = new Correo();
+        $html = "";
+
+        $html .= "<strong>ID: </strong>" . $id->id . "<br>";
+        $html .= "<strong>PATIO: </strong>" . $id->patio->ciudad . "<br>";
+        $html .= "<strong>NOMBRE: </strong>" . $id->nombre . "<br>";
+        $html .= "<strong>APELLIDOS: </strong>" . $id->apellidos . "<br>";
+        $html .= "<strong>CP: </strong>" . $id->cp->cp . " " . $id->cp->municipio . "<br>";
+        $html .= "<strong>EMAIL: </strong>" . $id->email . "<br>";
+        $html .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
+        $html .= "<strong>LUDOTECA: </strong>" . (($id->ludoteca) ? "Sí" : "No") . "<br>";
+        $html .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
+        $html .= "<strong>EJES: </strong><br>";
+        
+        foreach ($id->ejes as $eje){
+            $html .= "- " . $eje->id . " " . $eje->nombre."<br>";
+        }
+
+        echo $html;
+        $email->fromtxt = $id->nombre . " " . $id->apellidos;
+        $email->asunto = "INSCRIPCION PATIO: " . $id->patio->ciudad;
+        $email->from = MAIL_ADMIN;
+        $email->to = MAIL_ENMIENDAS;
+        $email->enviar($html);
+        //var_dump($id);        
+    }
 }

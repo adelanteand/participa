@@ -111,10 +111,14 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <div class="alert alert-info" id="error" name="error" role="alert">
-                    <input type="checkbox" name="terminos" id="terminos"><label for="terminos">He leído y acepto la <a href="https://adelanteandalucia.org/legal" class="btn btn-link" target="_blank">Política de Privacidad</a> y las condiciones y tratamientos de los datos personales que en ella se indican. Mediante la marcación de esta casilla doy mi consentimiento expreso al tratamiento de los datos personales que estoy facilitando en este formulario.</label>
+                    <div class="row">
+                        <div class="col-md-1 text-right"><input type="checkbox" name="terminos" id="terminos"></div>
+                        <div class="col-md-11"><label for="terminos">He leído y acepto la <a href="https://adelanteandalucia.org/legal" target="_blank">Política de Privacidad</a> y las condiciones y tratamientos de los datos personales que en ella se indican. Mediante la marcación de esta casilla doy mi consentimiento expreso al tratamiento de los datos personales que estoy facilitando en este formulario.</label></div>
+                    </div>
                 </div>
             </div>
         </div>     
+    
 
         <div class="form-row">
             <div class="form-group col-md-2">

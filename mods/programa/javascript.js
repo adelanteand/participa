@@ -73,11 +73,11 @@ $(document).ready(function () {
     
     $(document).on('change', '#terminos', function(){
         if($(this).is(':checked')) {                        
-            $("#botonNext, #enviarFormulario").prop('disabled', false);
+            $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', false);
             
         }
         else {
-            $("#botonNext, #enviarFormulario").prop('disabled', true);
+            $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', true);
         }
     });    
     
@@ -118,18 +118,30 @@ $(document).ready(function () {
     
     $("#enviarFormulario").on("click", function() {
         enviarFormulario();
-    })
+    });
+    
+    $("#enviarFormularioInscripcion").on("click", function() {
+        enviarFormularioInscripcion();
+    });    
 
     if($("#terminos").is(':checked')) {                        
-        $("#botonNext, #enviarFormulario").prop('disabled', false);
+        $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', false);
     } else {
-        $("#botonNext, #enviarFormulario").prop('disabled', true);
+        $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', true);
     }
     
-    $("#enviarFormulario_OK").hide();
+    $("#enviarFormulario_OK, #enviarFormularioInscripcion_OK").hide();
     
     
 });
+
+
+
+
+
+
+
+
 $(function () {
     $(window).scroll(function () {
         //sticky_relocate();
@@ -199,10 +211,10 @@ function setFase(numero) {
     if (numero == 4) {
 
         if($("#terminos").is(':checked')) {                        
-            $("#botonNext, #enviarFormulario").prop('disabled', false);
+            $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', false);
         }
         else {
-            $("#botonNext, #enviarFormulario").prop('disabled', true);
+            $("#botonNext, #enviarFormulario, #enviarFormularioInscripcion").prop('disabled', true);
         }
 
         $("#botonNext").addClass('btn-success');
@@ -291,6 +303,85 @@ function enviarFormulario() {
         msg.forEach(function(el) {
           $("#lista_errores").append(el+"<br>");
         });
+        $("#error").show();
+    }    
+    
+}
+
+
+
+function enviarFormularioInscripcion() {
+
+    var validado = true;
+    var msg = [];
+
+    $("#error").hide();
+    $("#lista_errores").empty();
+    
+    if (!validarEmail($("#email").val()) || !$("#email").val()){
+        validado = false;
+        msg.push("Revise el correo electrónico");
+    }
+    
+    if (!$("#nombre").val()){
+        validado = false;
+        msg.push("Revise su nombre");        
+    }
+    
+    if (!$("#telefono").val()){
+        validado = false;
+        msg.push("Revise el teléfono");        
+    }    
+
+    if (!$("#cp").val()){
+        validado = false;
+        msg.push("Revise el código postal");        
+    }
+
+    if ($("input[name='ejes[]']:checkbox:checked").length == 0) {
+        validado = false;
+        msg.push("Seleccione al menos algún eje de interés");        
+    }
+
+    if (!$("input[name='ludoteca']:checked").val()) {
+        validado = false;
+        msg.push("Seleccione una opción de ludoteca");        
+    }
+
+        
+    var form = $("#formInscripcion");
+    var formdata = false;
+    if (window.FormData) {
+        formdata = new FormData(form[0]);
+    }	
+    
+    
+    if (validado) {
+        $.ajax({
+            url: '/patio/inscripcion/enviar/',
+            data: formdata ? formdata : form.serialize(),
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            beforeSend: function (data) {
+                $("#enviarFormularioInscripcion").prop('disabled','disabled');
+                $("#enviarFormularioInscripcion").html('Enviando...');                
+            },
+            success: function (data) {
+                //console.log(data);
+                clearAllContentEditor();
+                $("#idPropuesta").val('');
+                $("#idCategoria").val('');   
+                $("#enviarFormulario_OK").show();
+                setFase(5);
+                fase = 1;
+            }
+        });
+    } else {        
+        msg.forEach(function(el) {
+          $("#lista_errores").append(el+"<br>");
+        });        
         $("#error").show();
     }    
     
