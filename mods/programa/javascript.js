@@ -378,7 +378,11 @@ function enviarFormularioInscripcion() {
                 clearAllContentEditor();
                 $("#idPropuesta").val('');
                 $("#idCategoria").val('');   
-                $("#enviarFormulario_OK").show();
+                $("#enviarFormularioInscripcion_OK").show();
+                $("#enviarFormularioInscripcion").prop('disabled','disabled');
+                $("#enviarFormularioInscripcion").html('¡Enviado!');
+                $("#enviarFormularioInscripcion").removeClass('btn-primary');
+                $("#enviarFormularioInscripcion").addClass('btn-success');
                 setFase(5);
                 fase = 1;
             }
