@@ -97,7 +97,7 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ludoteca" id="andaluzNO" value="0">
+                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0">
                     <label class="form-check-label" for="andaluzNO">
                         <strong>No</strong>, no participaré en el Patio Andaluz
                     </label>
