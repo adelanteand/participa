@@ -14,7 +14,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Vecinal Zapillo Calle Abrucena 85, Almería</p>
-                    <a href="/patio/inscripcion/2/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/2/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div> 
             <div class="card">
@@ -26,7 +26,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Tartessos, Calle Trille 40, Cádiz</p>
-                    <a href="/patio/inscripcion/1/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/1/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>  
             <div class="card">
@@ -38,7 +38,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 23 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Social Rey Heredia, Córdoba</p>
-                    <a href="/patio/inscripcion/3/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/3/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>   
             <div class="card">
@@ -50,7 +50,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 9:30 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Cultural Medina Elvira, Atarfe</p>
-                    <a href="/patio/inscripcion/4/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/4/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>          
 
@@ -72,7 +72,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Carpas Avda. Andalucía, Huelva</p>
-                    <a href="/patio/inscripcion/8/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/8/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div> 
             <div class="card">
@@ -94,7 +94,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 22 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Centro Social La Térmica, Málaga</p>
-                    <a href="/patio/inscripcion/7/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/7/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>   
             <div class="card">
@@ -106,7 +106,7 @@
                         <i class="fas fa-calendar-alt text-secondary"></i> 23 de septiembre<br>
                         <i class="fas fa-clock  text-secondary"></i> 10 horas<br>
                         <i class="fas fa-map-marker-alt text-secondary"></i> Parque Hacienda Porzuna, Mairena del Aljarafe</p>
-                    <a href="/patio/inscripcion/6/" class="btn btn-info">Inscríbete</a>
+                    <a href="/patio/inscripcion/6/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>            
         </div>      
