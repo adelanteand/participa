@@ -367,7 +367,7 @@ function patio_inscripcion() {
     if (isset($_SERVER['HTTP_REFERER'])) {
         $url_anterior = $_SERVER['HTTP_REFERER'];
     } else {
-        $url_anterior = "javascript:window.history.back();";
+        $url_anterior = "/patios/listado/";
     }
     $html->asignar("url_anterior", $url_anterior);
 
