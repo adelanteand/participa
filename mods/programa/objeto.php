@@ -203,7 +203,8 @@ class Programa_Categoria_Controladora {
         global $db;
 
         $cols = array('id', 'codigo', 'nombre', 'padre', 'icono');
-        $db->orderBy("orden", "ASC");
+        $db->orderBy("id", "ASC");
+        //$db->orderBy("orden", "ASC");
         $db->where('activa', 1);
         $res = $db->get('programa_categorias', null, $cols);
         $out = Array();
