@@ -79,10 +79,12 @@
                 <div class="card-header">
                     <strong>JAÉN</strong>
                 </div>
-                <div class="card-body">
-                    
-                    <p class="card-text">Próximamente</p>
-                    <a href="#" class="btn btn-success disabled">Por confirmar</a>
+                <div class="card-body">                    
+                    <p class="card-text">
+                        <i class="fas fa-calendar-alt text-secondary"></i> 28 de septiembre<br>
+                        <i class="fas fa-clock  text-secondary"></i> 17:00 horas<br>
+                        <i class="fas fa-map-marker-alt text-secondary"></i> Albergue Municipal de Jaén, C/ Borja, 23</p>
+                    <a href="/patio/inscripcion/5/" class="btn btn-success">Inscríbete</a>
                 </div>
             </div>    
             <div class="card">
