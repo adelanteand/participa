@@ -104,14 +104,14 @@
 
                 <form class="form-inline mt-2 mt-md-0" method="POST" action="/consultas/enviar/">
                     {include file="$baseAPP/tpl/csrf.tpl"}
-                    <select class="custom-select" name="tipo">
+                    <select class="custom-select mr-2" name="tipo">
                       <option {if ($tipo=='enmienda') }selected="selected"{/if} value="enmienda">Enmienda</option>
                       <option {if ($tipo=='propuesta') }selected="selected"{/if} value="propuesta">Propuesta</option>
                       <option {if ($tipo=='parrafo') }selected="selected"{/if} value="parrafo">Párrafo</option>
                     </select>                    
                     
                     <input class="form-control mr-sm-2" name="id" type="text" placeholder="Número" aria-label="Buscar">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
         </nav>
