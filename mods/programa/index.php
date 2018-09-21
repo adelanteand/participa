@@ -414,3 +414,54 @@ function patio_inscripcion_enviar() {
         //var_dump($id);        
     }
 }
+
+function enmiendas(){
+    global $db, $html, $op, $subop;
+    
+    $html->asignar("version", 'patios');
+    
+    $categorias = new Programa_Categoria_Controladora();
+    $categorias = $categorias->getCategorias(true,false);
+    
+    switch ($op){
+        case '04': $provincia = "Almeria"; break;
+        case '11': $provincia = "Cádiz"; break;
+        case '14': $provincia = "Córdoba"; break;
+        case '18': $provincia = "Granada"; break;
+        case '21': $provincia = "Huelva"; break;
+        case '23': $provincia = "Jaén"; break;
+        case '29': $provincia = "Málaga"; break;
+        case '41': $provincia = "Sevilla"; break;        
+        default: exit;
+    }
+    
+    $html->asignar("provincia",$provincia);    
+    
+    $out = array();
+    foreach ($categorias as $categoria){
+        
+        //Rescatamos enmiendas a la categoría        
+        $enmiendasAlEpigrafe = new Programa_Enmienda_Controladora();
+        $tmp = $enmiendasAlEpigrafe ->getEnmiendasFrom($categoria->id, 'idCategoria',$op);
+        $categoria->enmiendas = $tmp;
+        
+        //Rescatamos las propuestas
+        $propuestas = new Programa_Propuesta_Controladora();
+        $tmp = $propuestas->getPropuestasCategoria($categoria->id);
+        $categoria->propuestas = $tmp;
+        foreach ($categoria->propuestas as $p){
+            $enmiendas = new Programa_Enmienda_Controladora(); 
+            $tmp = $enmiendasAlEpigrafe ->getEnmiendasFrom($p->id, 'idPropuesta',$op);
+            $p->enmiendas = $tmp;
+        }
+        $out[] = $categoria;        
+    }
+    
+    //var_dump($out);
+    
+    $html->asignar("ip", getIPv4());
+    $html->asignar("programa", $out);
+    $html->plantilla("enmiendas_pdf.tpl");
+    $html->ver();    
+    
+}

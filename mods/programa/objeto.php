@@ -128,16 +128,22 @@ class Programa_Enmienda extends Entidad {
 class Programa_Enmienda_Controladora {
     
 
-    function getEnmiendasFrom($id,$from = 'idPropuesta') {
+    function getEnmiendasFrom($id,$from = 'idPropuesta', $provincia = null) {
 
         global $db;
         $db->where($from, $id);
         if ($from=='idCategoria'){
             $db->where('idPropuesta', null, 'IS');
-        }        
-        $db->where('publica', 1);
-        $res = $db->get('programa_enmiendas', null);
+        }               
 
+        if ($provincia){
+            $db->where('left(cp,2)',$provincia);
+        }
+        
+        $db->where('publica', 1);        
+        $res = $db->get('programa_enmiendas', null);
+        
+        //var_dump($db->getLastQuery());
         $out = Array();
 
         foreach ($res as $row) {
@@ -193,7 +199,7 @@ class Programa_Categoria_Controladora {
         return $out;
     }
 
-    function getCategorias($getPropuestas = true) {
+    function getCategorias($getPropuestas = true, $anidar = true) {
         global $db;
 
         $cols = array('id', 'codigo', 'nombre', 'padre', 'icono');
@@ -203,13 +209,18 @@ class Programa_Categoria_Controladora {
         $out = Array();
         foreach ($res as $row) {
             $p = new Programa_Categoria($row['id']);
-            $p->getIntro();
-            $p->getEnmiendas();
+            if ($getPropuestas) {
+                $p->getIntro();
+                $p->getEnmiendas();
+            }
             $out[] = $p;
         }
+        
+        if ($anidar) {
+            $out = $this->anidar($out, 0, $getPropuestas);
+        }
 
-        $ordenHijos = $this->anidar($out, 0, $getPropuestas);
-        return $ordenHijos;
+        return $out;
     }
 
     function anidar(array $elements, $parentId = 0, $getPropuestas = true) {
