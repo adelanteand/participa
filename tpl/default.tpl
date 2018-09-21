@@ -108,14 +108,19 @@
                         {else}
                         <a class="nav-link" href="/">Versión interactiva<span class="sr-only"></span></a>
                         {/if}
-                    </li><!--
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/consultas/">Consulta directa<span class="sr-only"></span></a>
+                    </li>                    
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>-->
-                </ul>     
+                </ul>    
+                    
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
                     <a href="https://adelanteandalucia.org/" class="btn btn-light"><i class="fas fa-external-link-alt"></i> Adelante Andalucía</a>
                 </form>                 
