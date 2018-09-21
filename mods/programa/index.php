@@ -454,6 +454,19 @@ function enmiendas(){
             $tmp = $enmiendasAlEpigrafe ->getEnmiendasFrom($p->id, 'idPropuesta',$op);
             $p->enmiendas = $tmp;
         }
+        
+        //Recatamos las intros
+        $intros = new Programa_Propuesta_Controladora();
+        $tmp = $propuestas->getPropuestasCategoria($categoria->id,'intro');
+        $categoria->intro = $tmp;
+        foreach ($categoria->intro  as $p){
+            $enmiendasAlIntro = new Programa_Enmienda_Controladora(); 
+            $tmp = $enmiendasAlIntro ->getEnmiendasFrom($p->id, 'idPropuesta',$op);
+            $p->enmiendas = $tmp;
+        }        
+        
+        
+        
         $out[] = $categoria;        
     }
     
