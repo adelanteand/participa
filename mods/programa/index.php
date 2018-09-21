@@ -93,19 +93,25 @@ function formulario() {
     $html->ver();
 }
 
-function propuesta($tipo = 'Propuesta') {
+function propuesta($tipo = 'Propuesta',$ver=false, $pisaOP) {
     global $op, $html;
 
     $html->asignar("version", "patios");
     $html->asignar("tipo", $tipo);
+    
+    if ($pisaOP){
+        $op = $pisaOP;
+    }
 
     $propuesta = new Programa_Propuesta($op);
 
     if (!$propuesta->existe) {
         $html->asignar("msg", "No existe la propuesta indicada");
         $html->plantilla("error.tpl");
-        $html->ver();
-        exit;
+        if ($ver){
+            $html->ver();
+        }
+        return 0;
     }
 
     if ($propuesta->tipo == 'propuesta') {
@@ -149,7 +155,9 @@ function propuesta($tipo = 'Propuesta') {
     $html->descripcion($propuesta->texto);
     $propuesta->getEnmiendas();
     $html->plantilla("propuesta.tpl");
-    $html->ver();
+    if ($ver){
+        $html->ver();   
+    }
 }
 
 function categoria() {
@@ -296,18 +304,24 @@ function enmienda_validar() {
     $html->ver();
 }
 
-function enmienda() {
+function enmienda($ver = true, $pisaOP = false) {
     global $op, $html;
 
+    if ($pisaOP){
+        $op = $pisaOP;
+    } 
+    
     $html->asignar("version", "patios");
 
     $enmienda = new Programa_Enmienda($op);
 
     if (!$enmienda->existe) {
-        $html->asignar("msg", "No existe la enmienda indicada");
-        $html->plantilla("error.tpl");
-        $html->ver();
-        exit;
+        $html->asignar("msg", "No existe la enmienda indicada");        
+        $html->plantilla("error.tpl");        
+        if ($ver){
+            $html->ver();
+        }
+        return 0;
     }
 
     $fichero = null;
@@ -320,7 +334,10 @@ function enmienda() {
     $html->asignar("url", CONF_BASEURL);
     $html->asignar("e", $enmienda);
     $html->plantilla("enmienda_web.tpl");
-    $html->ver();
+    if ($ver) {
+        $html->ver();
+    }
+        
 }
 
 function enmiendas_provincias() {
@@ -375,7 +392,7 @@ function patio_inscripcion() {
     $html->asignar("patio", $patio);
     $html->asignar("ejes", $ejes);
     $html->asignar("ip", getIPv4());
-    $html->titulo('Patio '. $patio->ciudad. " - Inscríbete");
+    $html->titulo('Patio ' . $patio->ciudad . " - Inscríbete");
     $html->descripcion('En el Patio de ' . $patio->ciudad . ' discutiremos las enmiendas recibidas y daremos forma al programa de Adelante Andalucía');
     $html->plantilla("patio_inscripcion.tpl");
     $html->ver();
@@ -402,7 +419,7 @@ function patio_inscripcion_enviar() {
         $html .= "<strong>LUDOTECA: </strong>" . (($id->ludoteca) ? "Sí" : "No") . "<br>";
         $html .= "<strong>ANDALUZ: </strong>" . (($id->andaluz) ? "Sí" : "No") . "<br>";
         $html .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
-        $html .= "<strong>EJE: </strong>". $id->ejes->id . " - ". $id->ejes->nombre ."<br>";
+        $html .= "<strong>EJE: </strong>" . $id->ejes->id . " - " . $id->ejes->nombre . "<br>";
 
 
         //echo $html;
@@ -415,66 +432,105 @@ function patio_inscripcion_enviar() {
     }
 }
 
-function enmiendas(){
+function enmiendas() {
     global $db, $html, $op, $subop;
-    
+
     $html->asignar("version", 'patios');
-    
+
     $categorias = new Programa_Categoria_Controladora();
-    $categorias = $categorias->getCategorias(true,false);
-    
-    switch ($op){
-        case '04': $provincia = "Almeria"; break;
-        case '11': $provincia = "Cádiz"; break;
-        case '14': $provincia = "Córdoba"; break;
-        case '18': $provincia = "Granada"; break;
-        case '21': $provincia = "Huelva"; break;
-        case '23': $provincia = "Jaén"; break;
-        case '29': $provincia = "Málaga"; break;
-        case '41': $provincia = "Sevilla"; break;        
+    $categorias = $categorias->getCategorias(true, false);
+
+    switch ($op) {
+        case '04': $provincia = "Almeria";
+            break;
+        case '11': $provincia = "Cádiz";
+            break;
+        case '14': $provincia = "Córdoba";
+            break;
+        case '18': $provincia = "Granada";
+            break;
+        case '21': $provincia = "Huelva";
+            break;
+        case '23': $provincia = "Jaén";
+            break;
+        case '29': $provincia = "Málaga";
+            break;
+        case '41': $provincia = "Sevilla";
+            break;
         default: exit;
     }
-    
-    $html->asignar("provincia",$provincia);    
-    
+
+    $html->asignar("provincia", $provincia);
+
     $out = array();
-    foreach ($categorias as $categoria){
-        
+    foreach ($categorias as $categoria) {
+
         //Rescatamos enmiendas a la categoría        
         $enmiendasAlEpigrafe = new Programa_Enmienda_Controladora();
-        $tmp = $enmiendasAlEpigrafe ->getEnmiendasFrom($categoria->id, 'idCategoria',$op);
+        $tmp = $enmiendasAlEpigrafe->getEnmiendasFrom($categoria->id, 'idCategoria', $op);
         $categoria->enmiendas = $tmp;
-        
+
         //Rescatamos las propuestas
         $propuestas = new Programa_Propuesta_Controladora();
         $tmp = $propuestas->getPropuestasCategoria($categoria->id);
         $categoria->propuestas = $tmp;
-        foreach ($categoria->propuestas as $p){
-            $enmiendas = new Programa_Enmienda_Controladora(); 
-            $tmp = $enmiendasAlEpigrafe ->getEnmiendasFrom($p->id, 'idPropuesta',$op);
+        foreach ($categoria->propuestas as $p) {
+            $enmiendas = new Programa_Enmienda_Controladora();
+            $tmp = $enmiendasAlEpigrafe->getEnmiendasFrom($p->id, 'idPropuesta', $op);
             $p->enmiendas = $tmp;
         }
-        
+
         //Recatamos las intros
         $intros = new Programa_Propuesta_Controladora();
-        $tmp = $propuestas->getPropuestasCategoria($categoria->id,'intro');
+        $tmp = $propuestas->getPropuestasCategoria($categoria->id, 'intro');
         $categoria->intro = $tmp;
-        foreach ($categoria->intro  as $p){
-            $enmiendasAlIntro = new Programa_Enmienda_Controladora(); 
-            $tmp = $enmiendasAlIntro ->getEnmiendasFrom($p->id, 'idPropuesta',$op);
+        foreach ($categoria->intro as $p) {
+            $enmiendasAlIntro = new Programa_Enmienda_Controladora();
+            $tmp = $enmiendasAlIntro->getEnmiendasFrom($p->id, 'idPropuesta', $op);
             $p->enmiendas = $tmp;
-        }        
-        
-        
-        
-        $out[] = $categoria;        
+        }
+
+
+
+        $out[] = $categoria;
     }
-    
+
     //var_dump($out);
-    
+
     $html->asignar("ip", getIPv4());
     $html->asignar("programa", $out);
     $html->plantilla("enmiendas_pdf.tpl");
-    $html->ver();    
+    $html->ver();
+}
+
+function consultas() {
+    global $html;    
+    $html->asignar("tipo",'enmienda');
+    $html->plantilla("blanco.tpl");    
+    $html->ver(CONF_HOME."tpl/busqueda.tpl");
+}
+
+
+function consultas_enviar() {
+    global $html, $op, $subop;
     
+    $tipo = $_POST['tipo'];
+    $id = $_POST['id'];
+    
+    
+    if ($tipo == 'enmienda'){
+        call_user_func('enmienda',false,$id);
+    } elseif ($tipo == 'propuesta'){
+        call_user_func('propuesta','Propuesta',false,$id);
+    } elseif ($tipo == 'parrafo'){
+        if (!(substr($id, 0, 1) === 'P')) {
+            $id = 'P'.$id;
+        }
+        call_user_func('propuesta','Parrafo',false,$id);
+    } else {
+        $html->plantilla("blanco.tpl");  
+    }
+    
+    $html->asignar("tipo",$_POST['tipo']);
+    $html->ver(CONF_HOME."tpl/busqueda.tpl");    
 }

@@ -17,13 +17,13 @@
                             <th scope="row">ID</th>
                             <td>{$e->id}</td>
                         </tr>  
-                        {if (isset($e->idPropuesta))}
+                        {if ($e->idPropuesta->existe)}
                             <tr>
-                                <th scope="row">Propuesta</th>
+                                <th scope="row">Propuesta</th>                                
                                 <td><a href="{$url}propuesta/{$e->idPropuesta->id}/" target="_blank">Ver</a> - {$e->idPropuesta->texto}</td>
                             </tr>
                         {/if}
-                        {if (isset($e->idCategoria))}
+                        {if ($e->idCategoria->existe)}
                             <tr>
                                 <th scope="row">Categoría</th>
                                 <td><a href="{$url}categoria/{$e->idCategoria->id}/" target="_blank">Ver</a> - {$e->idCategoria->nombre}</td>
