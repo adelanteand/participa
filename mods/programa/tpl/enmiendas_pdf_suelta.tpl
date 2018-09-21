@@ -22,7 +22,7 @@
 
     <span class="redaccion">{$e->redaccion}</span>
     {if $e->fichero > 0 }
-        TIENE DOCUMENTO ANEXO <strong>{$e->fichero}</strong>
+        <i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong>{$e->fichero}</strong>
     {/if}    
 
 </div>
