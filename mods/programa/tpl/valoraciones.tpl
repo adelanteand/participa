@@ -15,7 +15,7 @@
     
     <div class="row">
         <div class="col col-md-2"><a href="?orden=PDF" class="btn btn-light {if ($orden eq 'PDF')}disabled{/if}">Orden del PDF</a></div>
-        <div class="col col-md-2"><a href="?orden=FECHA" class="btn btn-light {if ($orden neq 'PDF')}disabled{/if}">Orden por Fecha</a></div>
+        <div class="col col-md-2"><a href="?orden=EXCEL" class="btn btn-light {if ($orden neq 'PDF')}disabled{/if}">Orden por EXCEL</a></div>
     </div>
             
     <hr>
