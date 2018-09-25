@@ -5,10 +5,10 @@
             <ul>
                 <li>Se listan en primer lugar las admitidas por la ponencia (en el PDF) y al final las no admitidas por si hubiera que incluir algún comentario</li>
                 <li>Aparecen listadas en el mismo orden que el PDF, y entedemos que en el acta de la mesa. Se puede cambiar el orden al que tenían los EXCEL provinciales</li>
-                <li>Puedes enviar este formulario todas las veces que necesites</li>
+                <li>Puedes enviar este formulario todas las veces que necesites. No hay que hacerlo todo de una vez.</li>
                 <li>Solo se guardarán aquellas que en el campo "PATIO - Sentido" <strong>hay alguna opción marcada</strong></li>
                 <li>Las observaciones NO son obligatorias. Rellenar solo si aportan contenido relevante</li>
-                <li>Si una enmienda es enviada varias veces su sentido, solo contará el último enviado</li>
+                <li>Si una enmienda es enviada varias veces su sentido, <strong>solo contará el último enviado</strong></li>
                 <li>Dudas técnicas por Telegram a <a href="https://t.me/acardiel">@acardiel</a></li>
             </ul>
         </div>
