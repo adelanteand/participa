@@ -4,7 +4,7 @@
         <div class="alert alert-success">
             <ul>
                 <li>Se listan en primer lugar las admitidas por la ponencia (en el PDF) y al final las no admitidas por si hubiera que incluir algún comentario</li>
-                <li>Aparecen listadas en el mismo orden que el PDF, y entedemos que en el acta de la mesa</li>
+                <li>Aparecen listadas en el mismo orden que el PDF, y entedemos que en el acta de la mesa. Se puede cambiar el orden al que tenían los EXCEL provinciales</li>
                 <li>Puedes enviar este formulario todas las veces que necesites</li>
                 <li>Solo se guardarán aquellas que en el campo "PATIO - Sentido" <strong>hay alguna opción marcada</strong></li>
                 <li>Las observaciones NO son obligatorias. Rellenar solo si aportan contenido relevante</li>
