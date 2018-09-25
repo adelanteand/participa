@@ -18,23 +18,21 @@ class Programa_Categoria extends Entidad {
     function __construct($id = 0) {
         parent::__construct($id, $this->datos);
     }
-    
-    function getIntro(){
+
+    function getIntro() {
         $introducciones = new Programa_Propuesta_Controladora();
-        $this->intro = $introducciones->getPropuestasCategoria($this->id, 'intro');                
+        $this->intro = $introducciones->getPropuestasCategoria($this->id, 'intro');
     }
-    
-    function getEnmiendas() {        
+
+    function getEnmiendas() {
         $enmiendas = new Programa_Enmienda_Controladora();
-        $resEnmiendas = $enmiendas->getEnmiendasFrom($this->id,'idCategoria');
-        if ($resEnmiendas){
+        $resEnmiendas = $enmiendas->getEnmiendasFrom($this->id, 'idCategoria');
+        if ($resEnmiendas) {
             $this->enmiendas = $resEnmiendas;
         } else {
             $this->enmiendas = null;
         }
-        
-    }    
-    
+    }
 
 }
 
@@ -59,17 +57,16 @@ class Programa_Propuesta extends Entidad {
         //$array_codigo = str_split($this->id, 2);
         //$this->referencia = implode(".",array_map(function($v) { return ltrim($v, '0'); }, $array_codigo));
     }
-    
+
     function getEnmiendas() {
-        
+
         $enmiendas = new Programa_Enmienda_Controladora();
-        $resEnmiendas = $enmiendas->getEnmiendasFrom($this->id,'idPropuesta');
-        if ($resEnmiendas){
+        $resEnmiendas = $enmiendas->getEnmiendasFrom($this->id, 'idPropuesta');
+        if ($resEnmiendas) {
             $this->enmiendas = $resEnmiendas;
         } else {
             $this->enmiendas = null;
         }
-        
     }
 
 }
@@ -77,7 +74,6 @@ class Programa_Propuesta extends Entidad {
 class Programa_Enmienda extends Entidad {
 
     var $id = 0;
-    
     private $datos = array(
         'tabla' => "programa_enmiendas",
         'manuales' => array(
@@ -104,6 +100,7 @@ class Programa_Enmienda extends Entidad {
             'fichero'
         )
     );
+    var $valoraciones = false;
 
     function __construct($id = 0) {
         importclass("geografico");
@@ -111,38 +108,72 @@ class Programa_Enmienda extends Entidad {
             $id['publica'] = "0";
             $id['random'] = generateRandomString(256);
         }
-        
         parent::__construct($id, $this->datos);
-        
     }
-    
+
     function editar($id) {
         return parent::edit($id, $this->datos);
-    }    
-    
-    function setVisible($valor = 1){
+    }
+
+    function setVisible($valor = 1) {
         $this->publica = $valor;
     }
+
+    function getValoraciones($valorador = NULL) {
+        $cValoraciones = new Programa_Enmienda_Valoraciones_Controladora();
+        $valoraciones = $cValoraciones->getValoraciones($this->id, $valorador);
+        $this->valoraciones = $valoraciones;
+    }
+    
+
+}
+
+class Programa_Enmienda_Valoracion extends Entidad {
+
+    var $id = 0;
+    private $datos = array(
+        'tabla' => "programa_enmiendas_valoraciones",
+        'manuales' => array(
+            'valorador',
+            'valoracion',
+            'observaciones',
+            'enmiendaID',
+        ),
+        'fk' => array(
+            'enmiendaID' => 'Programa_Enmienda'
+        )
+    );
+
+    function __construct($id = 0) {
+        parent::__construct($id, $this->datos);
+    }
+
 }
 
 class Programa_Enmienda_Controladora {
-    
 
-    function getEnmiendasFrom($id,$from = 'idPropuesta', $provincia = null) {
+    var $estado = NULL;
+    var $valoraciones = false;
+    var $soloPonencia = false;
+
+    function getEnmiendasFrom($id, $from = 'idPropuesta', $provincia = null) {
 
         global $db;
         $db->where($from, $id);
-        if ($from=='idCategoria'){
+        if ($from == 'idCategoria') {
             $db->where('idPropuesta', null, 'IS');
-        }               
-
-        if ($provincia){
-            $db->where('left(cp,2)',$provincia);
         }
-        
-        $db->where('publica', 1);        
+
+        if ($provincia) {
+            $db->where('left(cp,2)', $provincia);
+        }
+
+        if ($this->estado != NULL) {
+            $db->where('publica', $this->estado);
+        }
+
         $res = $db->get('programa_enmiendas', null);
-        
+
         //var_dump($db->getLastQuery());
         $out = Array();
 
@@ -152,30 +183,60 @@ class Programa_Enmienda_Controladora {
         }
         return $out;
     }
-    
-    function getEnmiendasProvincia($idProvincia){
+
+    function getEnmiendasProvincia($idProvincia) {
         global $db;
-        $db->where('cp', $idProvincia."%", 'LIKE');
-        $res = $db->get('programa_enmiendas', null);
+        $db->where('cp', $idProvincia . "%", 'LIKE');
+
+        if (!is_null($this->estado)) {
+            $db->where('publica', $this->estado);
+        }
+
+        /*
+        if ($this->valoraciones) {
+            $db->join("programa_enmiendas_valoraciones v", "v.enmiendaID=e.id", "LEFT");
+            $db->joinWhere("programa_enmiendas_valoraciones v", "v.valorador", 'Ponencia');
+        }
+         */
+
+        $db->orderBy("e.idCategoria", "ASC");
+        $db->orderBy("CONVERT(SUBSTRING_INDEX(e.idPropuesta,'-',-1),UNSIGNED INTEGER)", "ASC");
+        $db->orderBy("e.created_at", "ASC");
+        
+        /*
+        if ($this->valoraciones) {
+            $res = $db->get('programa_enmiendas e', null);
+        } else {
+            $res = $db->get('programa_enmiendas e', null, 'e.*, v.valoracion, v.observaciones');
+        }
+
+         */
+        
+        $res = $db->get('programa_enmiendas e', null);
 
         $out = Array();
 
         foreach ($res as $row) {
             $p = new Programa_Enmienda($row['id']);
+            if ($this->valoraciones) {
+                if ($this->soloPonencia) {
+                    $p->getValoraciones('Ponencia');
+                } else {
+                    $p->getValoraciones();
+                }
+            }
             $out[] = $p;
         }
-        return $out;        
+        return $out;
     }
+
 }
-
-
 
 class Programa_Categoria_Controladora {
 
     public $nivel = 0;
 
     function __construct() {
-
         
     }
 
@@ -216,7 +277,7 @@ class Programa_Categoria_Controladora {
             }
             $out[] = $p;
         }
-        
+
         if ($anidar) {
             $out = $this->anidar($out, 0, $getPropuestas);
         }
@@ -299,12 +360,12 @@ class Programa_Categoria_Controladora {
                 $out .= "<div class=\"descripcion categoria categoria-" . $val->id . " nivel-" . $nivel . "\" data-nivel=" . $nivel . " data-categoria=" . $val->id . ">";
                 foreach ($val->intro as $intro) {
                     $out .= "<p class=\"parrafo\"  data-idPropuesta=\"" . $intro->id . "\" data-idCategoria=\"" . $val->id . "\">";
-                    $out .=  "<span data-propuesta=\"" . $intro->id . "\" class='badge badge-secondary codigo_parrafo' >" . $intro->id . "</span> ";
-                    $out .= "<span class='textprop'>".$intro->texto."</span>";
+                    $out .= "<span data-propuesta=\"" . $intro->id . "\" class='badge badge-secondary codigo_parrafo' >" . $intro->id . "</span> ";
+                    $out .= "<span class='textprop'>" . $intro->texto . "</span>";
                     $out .= "<span class='opciones'>";
                     $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='mod' data-tipo='parrafo'><i class='fas fa-sync-alt'></i> Cambio redacción</button>";
                     $out .= "<button type='button' class='btn btn-link btn-sm' data-accion='sup' data-tipo='parrafo'><i class='fas fa-trash-alt'></i> Sugerir eliminación</button>";
-                    $out .= "</span>";                    
+                    $out .= "</span>";
                     $out .= "</p>";
                 }
                 $out .= "</div>";
@@ -366,7 +427,7 @@ class Programa_Propuesta_Controladora {
         $db->where('cat', $id);
         $db->where('tipo', $tipo);
         $db->where('activa', 1);
-        $db->orderBy('id_numero','asc');
+        $db->orderBy('id_numero', 'asc');
         $res = $db->get('programa_propuestas', null, $cols);
 
         $out = Array();
@@ -381,17 +442,42 @@ class Programa_Propuesta_Controladora {
 
 }
 
+class Programa_Enmienda_Valoraciones_Controladora {
+
+    function getValoraciones($enmienda = NULL, $valorador = NULL) {
+
+        global $db;
+        $cols = array('id', 'enmiendaID', 'valorador', 'valoracion', 'created_at');
+        if ($enmienda) {
+            $db->where('enmiendaID', $enmienda);
+        }
+
+        if ($valorador != NULL) {
+            $db->where('valorador', $valorador);
+        }
+
+        $res = $db->get('programa_enmiendas_valoraciones', null, $cols);
+
+        $out = Array();
+
+        foreach ($res as $row) {
+            $p = new Programa_Enmienda_Valoracion($row['id']);
+            $out[] = $p;
+        }
+        return $out;
+    }
+
+}
 
 class Patio_Evento Extends Entidad {
-    
+
     var $id = 0;
-    
     private $datos = array(
         'tabla' => "patio_evento",
         'manuales' => array(
             'ciudad',
             'direccion',
-            'cp',            
+            'cp',
             'ubicacion',
             'fecha_inicio'
         ),
@@ -401,21 +487,20 @@ class Patio_Evento Extends Entidad {
     );
 
     function __construct($id = 0) {
-        parent::__construct($id, $this->datos);        
+        parent::__construct($id, $this->datos);
     }
-    
+
 }
 
 class Patio_Inscripcion Extends Entidad {
-    
+
     var $id = 0;
-    
     private $datos = array(
         'tabla' => "patio_inscripcion",
         'manuales' => array(
             'patio',
             'nombre',
-            'apellidos',            
+            'apellidos',
             'email',
             'telefono',
             'cp',
@@ -431,12 +516,11 @@ class Patio_Inscripcion Extends Entidad {
         )
     );
 
-    function __construct($id = 0) {           
-        parent::__construct($id, $this->datos);        
+    function __construct($id = 0) {
+        parent::__construct($id, $this->datos);
     }
-    
-}
 
+}
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -447,4 +531,3 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-
