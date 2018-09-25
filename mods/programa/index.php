@@ -586,6 +586,7 @@ function valoracion_patio() {
     $html->asignar("orden", $orden);
     $html->asignar("provincia", $subop);
     $html->asignar("enmiendas", $enmiendas);
+    $html->asignar("colectivos", null);
     $html->asignar("enmiendas_denegadas", $enmiendas_denegadas);
     $html->plantilla("valoraciones.tpl");
     $html->ver();
