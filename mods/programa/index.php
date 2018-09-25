@@ -602,7 +602,7 @@ function valoracion_patio_guardar() {
     $sentido = $_POST['sentido'];
     $observaciones = $_POST['observaciones'];
     $enmiendas = $_POST['enmienda'];
-
+    $contador = 0;
     foreach ($_POST['enmienda'] as $clave => $valor) {
         //var_dump($sentido[$clave]);
         if ($sentido[$clave] != '0') {
@@ -612,11 +612,13 @@ function valoracion_patio_guardar() {
             $id['valoracion'] = $sentido[$clave];
             $id['observaciones'] = $observaciones[$clave];
             $valoracion = new Programa_Enmienda_Valoracion($id);
+            $contador++;
             //var_dump($id);
         }
         //echo $clave . " - " . $valor . "<br>";
     }
-    $html->plantilla('blanco.tpl');
+    $html->asignar("msg", "Se han almacenado correctamente las resoluciones enviadas (".$contador.").");    
+    $html->plantilla('error.tpl'); //NO ES UN ERROR. ES UN MENSAJE SIMPLE
     $html->ver();
 }
 
