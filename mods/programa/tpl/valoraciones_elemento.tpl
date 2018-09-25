@@ -3,7 +3,7 @@
     <div class="form-group col-md-1">
         <label for="enmienda{$e->id}">Enmienda</label>
         <a href="/enmienda/{$e->id}/" target="enmienda" ><span class="btn btn-link" >{$e->id}</span></a>
-        <input type="hidden" class="form-control" name="enmienda[]" id="enmienda{$e->id}" value="{$e->id}" disabled="disabled">
+        <input type="hidden" class="form-control" name="enmienda[]" id="enmienda{$e->id}" value="{$e->id}" >
     </div>
     <div class="form-group col-md-1">
         <label for="publica{$e->id}">Publicada</label>
