@@ -26,7 +26,7 @@
         {/if}
     </div>
     <div class="form-group col-md-2">
-        <label for="sentido{$e->id}">PATIO - Sentido</label>
+        <label for="sentido{$e->id}">PATIO - Sentido de voto</label>
         <select class="custom-select form-control" name="sentido[]" id="sentido{$e->id}">
             <option selected value="0"></option>
             <option value="Si">Sí</option>

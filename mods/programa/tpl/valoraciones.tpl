@@ -7,6 +7,7 @@
                 <li>Aparecen listadas en el mismo orden que el PDF, y entedemos que en el acta de la mesa</li>
                 <li>Puedes enviar este formulario todas las veces que necesites</li>
                 <li>Solo se guardarán aquellas que en el campo "PATIO - Sentido" <strong>hay alguna opción marcada</strong></li>
+                <li>Las observaciones NO son obligatorias. Rellenar solo si aportan contenido relevante</li>
                 <li>Si una enmienda es enviada varias veces su sentido, solo contará el último enviado</li>
                 <li>Dudas técnicas por Telegram a <a href="https://t.me/acardiel">@acardiel</a></li>
             </ul>
