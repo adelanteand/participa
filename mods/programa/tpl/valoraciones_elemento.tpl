@@ -2,11 +2,12 @@
 
     <div class="form-group col-md-1">
         <label for="enmienda{$e->id}">Enmienda</label>
-        <input type="text" class="form-control" name="enmienda[]" id="enmienda{$e->id}" value="{$e->id}" disabled="disabled">
+        <a href="/enmienda/{$e->id}/" target="enmienda" ><span class="btn btn-link" >{$e->id}</span></a>
+        <input type="hidden" class="form-control" name="enmienda[]" id="enmienda{$e->id}" value="{$e->id}" disabled="disabled">
     </div>
     <div class="form-group col-md-1">
         <label for="publica{$e->id}">Publicada</label>
-        <div class="form-control" name="publica{$e->id}">{$e->publica}</div>
+        <div class="form-control" name="publica{$e->id}">{if ($e->publica eq 1)}Sí{else}No{/if}</div>
     </div>    
     <div class="form-group col-md-2">
         <label for="vponencia{$e->id}">Sentido Ponencia</label>       

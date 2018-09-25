@@ -17,18 +17,19 @@
                             <th scope="row">ID</th>
                             <td>{$e->id}</td>
                         </tr>  
+                        {if ($e->idCategoria->existe)}
+                            <tr>
+                                <th scope="row">Categoría</th>
+                                <td><a href="{$url}categoria/{$e->idCategoria->id}/" target="_blank">Ver</a> - {$e->idCategoria->nombre}</td>
+                            </tr>                    
+                        {/if}                        
                         {if ($e->idPropuesta->existe)}
                             <tr>
                                 <th scope="row">Propuesta</th>                                
                                 <td><a href="{$url}propuesta/{$e->idPropuesta->id}/" target="_blank">Ver</a> - {$e->idPropuesta->texto}</td>
                             </tr>
                         {/if}
-                        {if ($e->idCategoria->existe)}
-                            <tr>
-                                <th scope="row">Categoría</th>
-                                <td><a href="{$url}categoria/{$e->idCategoria->id}/" target="_blank">Ver</a> - {$e->idCategoria->nombre}</td>
-                            </tr>                    
-                        {/if}
+
                         {if (isset($e->tipo))}
                             <tr>
                                 <th scope="row">Tipo</th>

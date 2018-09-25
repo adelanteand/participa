@@ -1,7 +1,24 @@
 <div class="container">
     <div class="row">
         <h2>Enviar valoraciones</h2>
+        <div class="alert alert-success">
+            <ul>
+                <li>Se listan en primer lugar las admitidas por la ponencia (en el PDF) y al final las no admitidas por si hubiera que incluir algún comentario</li>
+                <li>Aparecen listadas en el mismo orden que el PDF, y entedemos que en el acta de la mesa</li>
+                <li>Puedes enviar este formulario todas las veces que necesites</li>
+                <li>Solo se guardarán aquellas que en el campo "PATIO - Sentido" <strong>hay alguna opción marcada</strong></li>
+                <li>Si una enmienda es enviada varias veces su sentido, solo contará el último enviado</li>
+                <li>Dudas técnicas por Telegram a <a href="https://t.me/acardiel">@acardiel</a></li>
+            </ul>
+        </div>
     </div>
+    
+    <div class="row">
+        <div class="col col-md-2"><a href="?orden=PDF" class="btn btn-light {if ($orden eq 'PDF')}disabled{/if}">Orden del PDF</a></div>
+        <div class="col col-md-2"><a href="?orden=FECHA" class="btn btn-light {if ($orden neq 'PDF')}disabled{/if}">Orden por Fecha</a></div>
+    </div>
+            
+    <hr>
     <form action="/valoracion/patio/guardar/" method="POST">
 
         {include file="$baseAPP/tpl/csrf.tpl"}
@@ -16,7 +33,7 @@
             {include file="valoraciones_elemento.tpl"}
         {/foreach}
 
-        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <input type="submit" value="Guardar sentido y observaciones de las enmiendas RELLENADAS" class="btn btn-primary" />
     </form>
 
 

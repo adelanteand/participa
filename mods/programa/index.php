@@ -519,24 +519,38 @@ function consultas_enviar() {
 }
 
 function valoracion_patio() {
-    global $subop, $html;
+    global $subop, $html, $c;
     $html->asignar("version", 'patios');
 
-    //select * from adelante_programa_enmiendas where left(cp,2) like '11%' and publica = 1 order by idCategoria, CONVERT(SUBSTRING_INDEX(idPropuesta,'-',-1),UNSIGNED INTEGER)  asc, created_at
-    //SELECT * FROM adelante_programa_enmiendas WHERE cp LIKE '11%'                         ORDER BY idCategoria ASC, CONVERT(SUBSTRING_INDEX(idPropuesta,'-',-1),UNSIGNED INTEGER) ASC, created_at ASC 
-
+    if (isset($_GET['orden'])){
+        $orden = $_GET['orden'];
+    } else {
+        $orden = 'PDF';
+    }
+    
     $arrayEnmiendas = new Programa_Enmienda_Controladora();
     $arrayEnmiendas->estado = 1;
     $arrayEnmiendas->valoraciones = true;
     $arrayEnmiendas->soloPonencia = true;
+    if ($orden=='PDF'){
+        $arrayEnmiendas->ordenPDF = true;
+    } else {
+        $arrayEnmiendas->ordenPDF = false;
+    }
     $enmiendas = $arrayEnmiendas->getEnmiendasProvincia($subop);
 
     $arrayEnmiendas2 = new Programa_Enmienda_Controladora();
     $arrayEnmiendas2->estado = 0;
     $arrayEnmiendas2->valoraciones = true;
     $arrayEnmiendas2->soloPonencia = true;
+    if ($orden=='PDF'){
+        $arrayEnmiendas2->ordenPDF = true;
+    } else {
+        $arrayEnmiendas2->ordenPDF = false;
+    }
     $enmiendas_denegadas = $arrayEnmiendas2->getEnmiendasProvincia($subop);
 
+    $html->asignar("orden", $orden);
     $html->asignar("provincia", $subop);
     $html->asignar("enmiendas", $enmiendas);
     $html->asignar("enmiendas_denegadas", $enmiendas_denegadas);

@@ -155,6 +155,7 @@ class Programa_Enmienda_Controladora {
     var $estado = NULL;
     var $valoraciones = false;
     var $soloPonencia = false;
+    var $ordenPDF = true;
 
     function getEnmiendasFrom($id, $from = 'idPropuesta', $provincia = null) {
 
@@ -198,10 +199,14 @@ class Programa_Enmienda_Controladora {
             $db->joinWhere("programa_enmiendas_valoraciones v", "v.valorador", 'Ponencia');
         }
          */
-
-        $db->orderBy("e.idCategoria", "ASC");
-        $db->orderBy("CONVERT(SUBSTRING_INDEX(e.idPropuesta,'-',-1),UNSIGNED INTEGER)", "ASC");
-        $db->orderBy("e.created_at", "ASC");
+        
+        if ($this->ordenPDF){
+            $db->orderBy("e.idCategoria", "ASC");
+            $db->orderBy("CONVERT(SUBSTRING_INDEX(e.idPropuesta,'-',-1),UNSIGNED INTEGER)", "ASC");
+            $db->orderBy("e.created_at", "ASC");
+        } else {
+            $db->orderBy("e.created_at", "DESC");
+        }
         
         /*
         if ($this->valoraciones) {
