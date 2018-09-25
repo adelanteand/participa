@@ -3,7 +3,7 @@
 if (isset($c)) {
     call_user_func(callFuncionParametros($c));
 } else {
-    call_user_func('programa');
+    call_user_func('patios');
 }
 
 function programa_off() {
@@ -36,6 +36,13 @@ function formulario() {
 
     $html->asignar("version", "patios");
     $html->asignar("ip", getIPv4());
+    
+    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+        $colectivos = true;
+    } else {
+        $colectivos = false;
+    }
+    
 
     switch ($op) {
         case 'add':
@@ -85,15 +92,19 @@ function formulario() {
         $url_anterior = "javascript:window.history.back();";
     }
     $html->asignar("url_anterior", $url_anterior);
+    $html->asignar("colectivos", $colectivos);
     $html->asignar("elementotipo", $elementotipo);
     $html->asignar("accion", $accion);
 
-    //$html->plantilla("formulario.tpl");
-    $html->plantilla("fuera_de_plazo.tpl");
+    if ($colectivos) {
+        $html->plantilla("formulario.tpl");
+    } else {
+        $html->plantilla("fuera_de_plazo.tpl");
+    }
     $html->ver();
 }
 
-function propuesta($tipo = 'Propuesta', $ver = false, $pisaOP) {
+function propuesta($pisaOP=NULL, $tipo = 'Propuesta', $ver = true) {
     global $op, $html;
 
     $html->asignar("version", "patios");
@@ -119,6 +130,13 @@ function propuesta($tipo = 'Propuesta', $ver = false, $pisaOP) {
     } else {
         $elementotipo = 'párrafo';
     }
+    
+
+    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+        $colectivos = true;
+    } else {
+        $colectivos = false;
+    }    
 
     $tienePadre = true;
     $padres = array();
@@ -151,6 +169,7 @@ function propuesta($tipo = 'Propuesta', $ver = false, $pisaOP) {
     $html->asignar("propuesta", $propuesta);
     $html->asignar("actual", $propuesta->cat);
     $html->asignar("padres", $padres);
+    $html->asignar("colectivos", $colectivos);
     $html->titulo('Propuesta ' . $propuesta->id . CONF_TITULOPAGINA_POS);
     $html->descripcion($propuesta->texto);
     $propuesta->getEnmiendas();
@@ -171,6 +190,12 @@ function categoria() {
         $id = 0;
     }
 
+    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+        $colectivos = true;
+    } else {
+        $colectivos = false;
+    }
+    
     $tienePadre = true;
     $padres = array();
     $categoria = new Programa_Categoria($op);
@@ -183,6 +208,13 @@ function categoria() {
             $tienePadre = false;
         }
     }
+    
+
+    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+        $colectivos = true;
+    } else {
+        $colectivos = false;
+    }    
 
     $categoria = new Programa_Categoria($op);
     $categoria->getIntro();
@@ -200,6 +232,7 @@ function categoria() {
     $html->asignar("categoria", $categoria);
     $html->asignar("propuestas", $propuestas);
     $html->asignar("actual", $categoria);
+    $html->asignar("colectivos",$colectivos);
     $html->asignar("anterior", $anterior);
     $html->asignar("padres", $padres);
     $html->asignar("hijos", $hijos->getNivel($categoria->id));
@@ -213,7 +246,7 @@ function patios() {
 }
 
 function parrafo() {
-    propuesta('Párrafo');
+    propuesta(null,'Párrafo',true);
 }
 
 function patios_listado() {
@@ -504,12 +537,12 @@ function consultas_enviar() {
     if ($tipo == 'enmienda') {
         call_user_func('enmienda', false, $id);
     } elseif ($tipo == 'propuesta') {
-        call_user_func('propuesta', 'Propuesta', false, $id);
+        call_user_func('propuesta',  $id, 'Propuesta', false);
     } elseif ($tipo == 'parrafo') {
         if (!(substr($id, 0, 1) === 'P')) {
             $id = 'P' . $id;
         }
-        call_user_func('propuesta', 'Parrafo', false, $id);
+        call_user_func('propuesta', $id, 'Parrafo', false);
     } else {
         $html->plantilla("blanco.tpl");
     }
@@ -522,17 +555,17 @@ function valoracion_patio() {
     global $subop, $html, $c;
     $html->asignar("version", 'patios');
 
-    if (isset($_GET['orden'])){
+    if (isset($_GET['orden'])) {
         $orden = $_GET['orden'];
     } else {
         $orden = 'PDF';
     }
-    
+
     $arrayEnmiendas = new Programa_Enmienda_Controladora();
     $arrayEnmiendas->estado = 1;
     $arrayEnmiendas->valoraciones = true;
     $arrayEnmiendas->soloPonencia = true;
-    if ($orden=='PDF'){
+    if ($orden == 'PDF') {
         $arrayEnmiendas->ordenPDF = true;
     } else {
         $arrayEnmiendas->ordenPDF = false;
@@ -543,7 +576,7 @@ function valoracion_patio() {
     $arrayEnmiendas2->estado = 0;
     $arrayEnmiendas2->valoraciones = true;
     $arrayEnmiendas2->soloPonencia = true;
-    if ($orden=='PDF'){
+    if ($orden == 'PDF') {
         $arrayEnmiendas2->ordenPDF = true;
     } else {
         $arrayEnmiendas2->ordenPDF = false;
@@ -567,18 +600,18 @@ function valoracion_patio_guardar() {
     }
 
     $sentido = $_POST['sentido'];
-    $observaciones = $_POST['observaciones'];    
+    $observaciones = $_POST['observaciones'];
     $enmiendas = $_POST['enmienda'];
 
     foreach ($_POST['enmienda'] as $clave => $valor) {
         //var_dump($sentido[$clave]);
-        if ($sentido[$clave]!='0'){
+        if ($sentido[$clave] != '0') {
             unset($id);
-            $id['enmiendaID']=$enmiendas[$clave];
-            $id['valorador']=$_POST['provincia'];
-            $id['valoracion']=$sentido[$clave];
-            $id['observaciones']=$observaciones[$clave];            
-            $valoracion = new Programa_Enmienda_Valoracion($id); 
+            $id['enmiendaID'] = $enmiendas[$clave];
+            $id['valorador'] = $_POST['provincia'];
+            $id['valoracion'] = $sentido[$clave];
+            $id['observaciones'] = $observaciones[$clave];
+            $valoracion = new Programa_Enmienda_Valoracion($id);
             //var_dump($id);
         }
         //echo $clave . " - " . $valor . "<br>";

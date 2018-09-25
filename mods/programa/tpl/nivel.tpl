@@ -5,9 +5,9 @@
         {include file="breadcrumbs.tpl"}
         {if ($anterior)}
             {if ($anterior=='ROOT')}
-                <a href="/categoria/" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
+                <a href="/categoria/{if $colectivos}?colectivos=1{/if}" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
                 {else}
-                <a href="/categoria/{$anterior}/" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
+                <a href="/categoria/{$anterior}/{if $colectivos}?colectivos=1{/if}" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
                 {/if}
             {/if}
         <hr>
@@ -31,11 +31,11 @@
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}
             <p class="parrafo" data-idPropuesta="{$e->id}" data-idCategoria="{$categoria->id}">
-                <a href="/parrafo/{$e->id}/" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parrafo">{$e->id}</a>
+                <a href="/parrafo/{$e->id}/{if $colectivos}?colectivos=1{/if}" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parrafo">{$e->id}</a>
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}                
-                <span class='textprop'><i>{$e->texto}</i></span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
+                <span class='textprop'><i>{$e->texto}</i></span><a href="/parrafo/{$e->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
     {/if}
@@ -45,7 +45,7 @@
         <ul>
             {foreach from=$hijos item=e}
                 <li class="patios nivel">
-                    <a href="/categoria/{$e->id}/">
+                    <a href="/categoria/{$e->id}/{if $colectivos}?colectivos=1{/if}">
                         {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                             <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                         {/if}                        
@@ -59,8 +59,9 @@
             {/foreach}
         </ul>
     {/if}
-    
-    <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+    {if ($categoria->id)}
+    <div><a href="/formulario/add/{$categoria->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+    {/if}
     <hr>
     
     {if ($propuestas)}
@@ -69,7 +70,7 @@
     
         {foreach from=$propuestas item=p}      
             <div class="cuadro-propuesta">
-            <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
+            <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/{if $colectivos}?colectivos=1{/if}">Propuesta {$p->id}</a></span> 
             {if isset($p->enmiendas) AND $p->enmiendas|@count > 0}
                 <span class="badge badge-warning">{$p->enmiendas|@count} enmienda/s</span> 
             {/if}             
@@ -77,7 +78,7 @@
             </div>
         {/foreach}
         <hr>
-        <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+        <div><a href="/formulario/add/{$categoria->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
     {/if}
 
 

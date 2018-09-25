@@ -38,8 +38,8 @@
     <hr>
 
     <div class="row">
-        <div class="col-4"><a class="btn btn-link" href="/formulario/mod/{$propuesta->id}/"><i class="fas fa-edit"></i> Proponer un modificación del texto</a></div>
-        <div class="col-4"><a class="btn btn-link" href="/formulario/sup/{$propuesta->id}/" style="color:red;"><i class="fas fa-trash-alt"></i> Sugerir eliminación</a></div>
+        <div class="col-4"><a class="btn btn-link" href="/formulario/mod/{$propuesta->id}/{if $colectivos}?colectivos=1{/if}"><i class="fas fa-edit"></i> Proponer un modificación del texto</a></div>
+        <div class="col-4"><a class="btn btn-link" href="/formulario/sup/{$propuesta->id}/{if $colectivos}?colectivos=1{/if}" style="color:red;"><i class="fas fa-trash-alt"></i> Sugerir eliminación</a></div>
     </div>
 
     {if $elementotipo=='propuesta'}
