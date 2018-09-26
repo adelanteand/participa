@@ -5,8 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $carpeta = realpath(dirname(__FILE__));
-require_once __DIR__ . '/../../html/plugins/autoload.php';
 require_once ($carpeta . "/../../config.php");
+
+//require '../vendor/autoload.php'; //COMPOSER APP
+require_once BASEAPP . 'vendor/autoload.php'; //COMPOSER BASE
+require_once BASEAPP . 'clases/funciones.php'; //FUNCIONES BASE
 
 
 if ($op == 'scheduler') {
@@ -56,6 +59,6 @@ if ($op == 'cleanYoutube') {
 
 if ($op="test"){
     // PARA HACER PRUEBAS
-    //require_once('tareas/tracking_votes.php');
+    //require_once('tareas/RRSS.php');
 }
 

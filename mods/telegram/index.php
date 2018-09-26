@@ -37,10 +37,10 @@ if ($op == 'unset' . TELEGRAM_KEY) {
 if ($op == 'hook' . TELEGRAM_KEY) {
 
     $mysql_credentials = [
-        'host'     => $bd_host,
-        'user'     => $bd_user,
-        'password' => $bd_password,
-        'database' => 'telegram',
+        'host'     => DB_HOST,
+        'user'     => DB_USER,
+        'password' => DB_PWD,
+        'database' => DB_DB,
     ];
 
     try {
@@ -48,7 +48,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
         $telegram -> addCommandsPath(dirname(__DIR__) . '/telegram/Comandos/');
         
-        $telegram -> enableMySql($mysql_credentials);
+        $telegram -> enableMySql($mysql_credentials, DB_PREFIX."telegram_");
 
         Longman\TelegramBot\TelegramLog::initErrorLog(__DIR__ . "/" . TELEGRAM_BOT . "_error.log");
         Longman\TelegramBot\TelegramLog::initDebugLog(__DIR__ . "/" . TELEGRAM_BOT . "_debug.log");

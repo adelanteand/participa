@@ -18,7 +18,7 @@ Abstract Class Entidad {
             //Lo consideramos un registros a crear en la base de datos
             $id = $this->insert($id, $datos);
             //print_r($db->getLastQuery());
-            print_r($db->getLastError());
+            //print_r($db->getLastError());
         }
         $this->id = $id;
         //Seleccionamos el registro creado o especificado
@@ -72,7 +72,6 @@ Abstract Class Entidad {
 
         global $db;
         
-
         //ADJUNTAR FICHERO
         importclass("fichero");        
 
@@ -128,7 +127,6 @@ Abstract Class Entidad {
                 }
             }
         }
-
         return $db->insert($datos['tabla'], $valores);
     }
 

@@ -72,16 +72,29 @@ define("GOOGLE_API_REDIRECT", "");
 define("GOOGLE_API_APPNAME", "");
 
 //////////////////
+///// API TWITTER /
+/////////////////
+
+define("TW_CONSUMERKEY", "");
+define("TW_CONSUMERSECRET", "");
+define("TW_ACCESSTOKEN", "");
+define("TW_SECRET", "");
+
+//////////////////
 ///// API FACEBOOK /
 /////////////////
 define("FB_API_APP_ID", "");
 define("FB_API_APP_SECRET", "");
+define("FB_API_APP_VERSION", "");
 define("FB_API_REDIRECT", "");
 define("FB_API_APPNAME", "");
+define("FB_PAGE_ACCESS_TOKEN", "");
+
 
 
 //////////////////
 ///// TELEGRAM BOT /
 /////////////////
-define("TELEGRAM_BOT_API", "");
+define("TELEGRAM_API", "");
 define("TELEGRAM_BOT", "");
+define("TELEGRAM_ADMINLOG", "");
