@@ -110,7 +110,7 @@
                         <label class="form-check-label" for="andaluzSI" >
                             <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
                         </label>
-                    </div>                                        
+                    </div>
                 {/if}
 
             </div>     
