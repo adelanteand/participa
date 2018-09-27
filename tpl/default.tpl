@@ -92,7 +92,7 @@
 
         <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
 
-            <a class="navbar-brand" href="/{if $colectivos}?colectivos=1{/if}"><img class="img-responsive" width="150" src="{$conf_logo}"/></a>
+            <a class="navbar-brand" href="/{if isset($colectivos)}?colectivos=1{/if}"><img class="img-responsive" width="150" src="{$conf_logo}"/></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
