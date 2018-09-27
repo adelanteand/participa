@@ -433,7 +433,7 @@ function patio_inscripcion() {
 function patio_inscripcion_enviar() {
     global $db;
 
-    //var_dump($_POST);
+    var_dump($_POST);
     $id = new Patio_Inscripcion($_POST);
     $id->ejes = new Programa_Categoria($id->ejes);
 
