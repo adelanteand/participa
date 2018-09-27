@@ -1,8 +1,9 @@
 <div class="container">
-
+    
     <div class="enmienda">
 
         <div class="row">
+            <h2>Detalles enmienda</h2>
 
             <div class="table-responsive">
                 <table class="table">
@@ -78,9 +79,39 @@
                 {else}
                     No hay ficheros adjuntos
                 {/if}
+                
+                <hr>
+
+                <h3><strong><i class="fas fa-comments"></i> Valoraciones</strong></h3>
+                <i>Ordenadas de más antigua a más reciente. La última linea es la más actual</i>
+                <table class="table tabla-valoraciones">
+                    <thead>
+                        <tr>
+                            <th scope="col">¿Quien hace la valoración?</th>
+                            <th scope="col">Sentido / Valoración</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col">Fecha y hora</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        {foreach $valoraciones as $valoracion}
+                            <tr>
+                            <td>{$valoracion->valorador}</td>
+                            <td>{$valoracion->valoracion}</td>
+                            <td>{$valoracion->observaciones}</td>
+                            <td>{$valoracion->created_at}</td>
+                            </tr>
+                        {/foreach}                                    
+                        
+                    </tbody>
+                </table>
+                
+
+
 
             </div>        
         </div>
+                
 
     </div>
 </div>

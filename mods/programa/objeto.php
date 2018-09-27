@@ -461,6 +461,7 @@ class Programa_Enmienda_Valoraciones_Controladora {
             $db->where('valorador', $valorador);
         }
 
+        $db->orderBy('created_at','ASC');
         $res = $db->get('programa_enmiendas_valoraciones', null, $cols);
 
         $out = Array();

@@ -362,10 +362,14 @@ function enmienda($ver = true, $pisaOP = false) {
         importclass("fichero");
         $fichero = new Fichero($enmienda->fichero);
     }
-
+    
+    $cval = new Programa_Enmienda_Valoraciones_Controladora();
+    $valoraciones = $cval->getValoraciones($enmienda->id);
+    
     $html->asignar("fichero", $fichero);
     $html->asignar("url", CONF_BASEURL);
-    $html->asignar("e", $enmienda);
+    $html->asignar("e", $enmienda);    
+    $html->asignar("valoraciones", $valoraciones);    
     $html->plantilla("enmienda_web.tpl");
     if ($ver) {
         $html->ver();

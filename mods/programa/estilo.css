@@ -92,6 +92,23 @@
 }
 
 
+.tabla-valoraciones tbody tr{
+
+    filter:alpha(opacity=60); /* IE */
+    -moz-opacity:0.6; /* Mozilla */
+    opacity: 0.6;
+    filter:alpha(opacity=60)…
+}
+
+.tabla-valoraciones tbody tr:nth-child(1), .tabla-valoraciones tbody tr:last-child{
+    background: infobackground;
+
+    filter:alpha(opacity=100); /* IE */
+    -moz-opacity:1; /* Mozilla */
+    opacity: 1;
+    filter:alpha(opacity=100);
+}
+
 
 
 .propuesta {
