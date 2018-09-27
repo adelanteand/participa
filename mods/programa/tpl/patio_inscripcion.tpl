@@ -104,7 +104,7 @@
                         </label>
                     </div>   
                 {else}
-                    <input type="hidden" name="andaluz" value="0">
+                    <input type="hidden" name="andaluz" id="andaluz" value="0" checked="checked">
                 {/if}
 
             </div>     
