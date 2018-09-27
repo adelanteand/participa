@@ -87,22 +87,24 @@
                         <strong>No</strong> necesita servicio de ludoteca
                     </label>
                 </div>
-                
+
                 <hr>
                 {if $patio->id != 9}
-                Patio Andaluz
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1">
-                    <label class="form-check-label" for="andaluzSI">
-                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0">
-                    <label class="form-check-label" for="andaluzNO">
-                        <strong>No</strong>, no participaré en el Patio Andaluz
-                    </label>
-                </div>    
+                    Patio Andaluz
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1">
+                        <label class="form-check-label" for="andaluzSI">
+                            <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0">
+                        <label class="form-check-label" for="andaluzNO">
+                            <strong>No</strong>, no participaré en el Patio Andaluz
+                        </label>
+                    </div>   
+                {else}
+                    <input type="hidden" name="andaluz" value="0">
                 {/if}
 
             </div>     
