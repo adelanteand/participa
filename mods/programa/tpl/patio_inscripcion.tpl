@@ -106,7 +106,7 @@
                 {else}
                     Patio Andaluz
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1" checked="checked" disabled="disabled">
+                        <input class="form-check-input" type="radio" name="andaluz" id="andaluz" value="1" checked="checked" disabled="disabled">
                         <label class="form-check-label" for="andaluzSI" >
                             <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
                         </label>
