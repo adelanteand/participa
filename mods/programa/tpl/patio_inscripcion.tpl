@@ -89,7 +89,7 @@
                 </div>
                 
                 <hr>
-                {$if $patio->id != 9}
+                {if $patio->id != 9}
                 Patio Andaluz
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1">
