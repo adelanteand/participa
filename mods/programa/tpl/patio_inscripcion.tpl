@@ -94,7 +94,7 @@
                     <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1" {if $patio->id == 9}checked="checked" disabled="disabled"{/if}>
                     {if $patio->id == 9}<input name="andaluz" type="hidden" value="1"/>{/if}
                     <label class="form-check-label" for="andaluzSI">
-                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
+                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre 
                     </label>
                 </div>
                 <div class="form-check">
