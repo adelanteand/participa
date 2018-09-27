@@ -89,30 +89,19 @@
                 </div>
 
                 <hr>
-                {if $patio->id != 9}
-                    Patio Andaluz
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1">
-                        <label class="form-check-label" for="andaluzSI">
-                            <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0">
-                        <label class="form-check-label" for="andaluzNO">
-                            <strong>No</strong>, no participaré en el Patio Andaluz
-                        </label>
-                    </div>   
-                {else}
-                    Patio Andaluz
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="andaluz" id="andaluz" value="1" checked="checked" disabled="disabled">
-                        <label class="form-check-label" for="andaluzSI" >
-                            <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
-                        </label>
-                    </div>
-                {/if}
-
+                Patio Andaluz
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1" {if $patio->id == 9}checked="checked" disabled="disabled"{/if}>
+                    <label class="form-check-label" for="andaluzSI">
+                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0" {if $patio->id == 9}disabled="disabled"{/if}>
+                    <label class="form-check-label" for="andaluzNO">
+                        <strong>No</strong>, no participaré en el Patio Andaluz
+                    </label>
+                </div>   
             </div>     
             <div class="form-group col-md-3">
                 <label for="observaciones">Observaciones:</label>
