@@ -11,10 +11,10 @@ e.created_at 'Enviada',
 IF (e.publica,'SÍ','NO') 'PUBLICADA / En listados', 
 ponencia.id 'PONENCIA: ID Valoracion', 
 patio.id 'PATIO: ID Valoracion', 
-ponencia.valoracion 'PONENCIA: Valoración', 
-patio.valoracion 'PATIO: Valoración', 
-ponencia.observaciones 'PONENCIA: Comentarios',
-patio.observaciones 'PATIO: Comentarios',
+if (ponencia.valoracion IS NULL,'-',ponencia.valoracion) 'PONENCIA: Valoración', 
+if (patio.valoracion IS NULL,'-',patio.valoracion) 'PATIO: Valoración', 
+if (ponencia.observaciones IS NULL,'-',ponencia.observaciones) 'PONENCIA: Comentarios',
+if (patio.observaciones IS NULL,'-',patio.observaciones) 'PATIO: Comentarios',
 IF (
 	left(e.cp,2) NOT IN ('04','11','14','18','21','23','29','41'),
 	'TIPO 1. NO DISCUTIDA EN LOS PATIOS POR SER DE OTRA PROVINCIA',
@@ -24,7 +24,7 @@ IF (
 		IF (
 			patio.id IS NULL, 
 			'TIPO 3. EL PATIO NO HA ENVIADO VALORACIÓN',
-			NULL
+			'-'
 		)	
 	)
 ) 'Observacion automática',
