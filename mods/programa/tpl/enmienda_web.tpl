@@ -83,7 +83,7 @@
 
                 <hr>
 
-                <h3><strong><i class="fas fa-comments"></i> Visible</strong></h3>                
+                <h3><strong><i class="fas fa-eye"></i> Visible</strong></h3>                
                 {if $e->publica}SÍ{else}NO{/if}
                 <hr>
 
