@@ -1,5 +1,5 @@
 <div class="container">
-    
+
     <div class="enmienda">
 
         <div class="row">
@@ -50,8 +50,8 @@
                                             Supresión 
                                         </span>
                                     {/if}  
-                                
-                                
+
+
                                 </td>
                             </tr>                    
                         {/if}      
@@ -79,8 +79,15 @@
                 {else}
                     No hay ficheros adjuntos
                 {/if}
-                
+
+
                 <hr>
+
+                <h3><strong><i class="fas fa-comments"></i> Visible</strong></h3>                
+                {if $e->publica}SÍ{else}NO{/if}
+                <hr>
+
+
 
                 <h3><strong><i class="fas fa-comments"></i> Valoraciones</strong></h3>
                 <i>Ordenadas de más antigua a más reciente. La última linea es la más actual</i>
@@ -96,22 +103,22 @@
                     <tbody>
                         {foreach $valoraciones as $valoracion}
                             <tr>
-                            <td>{$valoracion->valorador}</td>
-                            <td>{$valoracion->valoracion}</td>
-                            <td>{$valoracion->observaciones}</td>
-                            <td>{$valoracion->created_at}</td>
+                                <td>{$valoracion->valorador}</td>
+                                <td>{$valoracion->valoracion}</td>
+                                <td>{$valoracion->observaciones}</td>
+                                <td>{$valoracion->created_at}</td>
                             </tr>
                         {/foreach}                                    
-                        
+
                     </tbody>
                 </table>
-                
+
 
 
 
             </div>        
         </div>
-                
+
 
     </div>
 </div>
