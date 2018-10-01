@@ -23,7 +23,7 @@
             cualquier persona podrá presentar enmiendas en estos patios para convertir el
             programa de Adelante Andalucía en su programa, el que responde a sus necesidades</p>
         <div class="alert alert-danger">
-            <strong>¡Patios provinciales!</strong> <a href="/patios/listado/" class="alert-link">Inscríbete y acude a tu patio más cercano</a>.
+            <strong>¡Patio andaluz el 6 de octubre!</strong> <a href="/patios/listado/" class="alert-link">Inscríbete y acude a la última fase de construcción programática</a>.
         </div>        
     {/if}
 
