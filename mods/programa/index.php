@@ -455,6 +455,7 @@ function patio_inscripcion_enviar() {
         $html .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
         $html .= "<strong>LUDOTECA: </strong>" . (($id->ludoteca) ? "Sí" : "No") . "<br>";
         $html .= "<strong>ANDALUZ: </strong>" . (($id->andaluz) ? "Sí" : "No") . "<br>";
+        $html .= "<strong>BUS: </strong>" . (($id->bus) ? "Sí" : "No") . "<br>";
         $html .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
         $html .= "<strong>EJE: </strong>" . $id->ejes->id . " - " . $id->ejes->nombre . "<br>";
 

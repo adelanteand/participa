@@ -88,21 +88,44 @@
                     </label>
                 </div>
 
+                <div style="display:none">
+                    <hr>
+                    Patio Andaluz
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1" {if $patio->id == 9}checked="checked" disabled="disabled"{/if}>
+                        {if $patio->id == 9}<input name="andaluz" type="hidden" value="1"/>{/if}
+                        <label class="form-check-label" for="andaluzSI">
+                            <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre 
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0" {if $patio->id == 9}disabled="disabled"{/if}>
+                        <label class="form-check-label" for="andaluzNO">
+                            <strong>No</strong>, no participaré en el Patio Andaluz
+                        </label>
+                    </div>   
+                </div>
+
                 <hr>
-                Patio Andaluz
+
+                Viaje organizado en bus
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzSI" value="1" {if $patio->id == 9}checked="checked" disabled="disabled"{/if}>
-                    {if $patio->id == 9}<input name="andaluz" type="hidden" value="1"/>{/if}
-                    <label class="form-check-label" for="andaluzSI">
-                        <strong>Sí</strong>, tengo interés en participar en el Patio Andaluz del día 6 de Octubre 
+                    <input class="form-check-input" type="radio" name="bus" id="bus_SI" value="1">
+                    <label class="form-check-label" for="bus_SI">
+                        <strong>Sí. Necesito</strong> bus desde mi provincia para asistir. Aportación voluntaria 5 euros.
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="andaluz" id="andaluzNO" value="0" {if $patio->id == 9}disabled="disabled"{/if}>
-                    <label class="form-check-label" for="andaluzNO">
-                        <strong>No</strong>, no participaré en el Patio Andaluz
+                    <input class="form-check-input" type="radio" name="bus" id="bus_NO" value="0">
+                    <label class="form-check-label" for="bus_NO">
+                        <strong>No</strong>. Ire por mis propios medios
                     </label>
-                </div>   
+                </div>
+
+                <hr>                    
+
+
+
             </div>     
             <div class="form-group col-md-3">
                 <label for="observaciones">Observaciones:</label>

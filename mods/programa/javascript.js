@@ -349,6 +349,11 @@ function enviarFormularioInscripcion() {
         msg.push("Seleccione una opción de ludoteca");        
     }
     
+    if (!$("input[name='bus']:checked").val()) {
+        validado = false;
+        msg.push("Seleccione una opción de desplazamiento");        
+    }    
+    
     if (!$("input[name='andaluz']:checked").val()) {
         validado = false;
         msg.push("Seleccione una preferencia sobre el Patio Andaluz");        

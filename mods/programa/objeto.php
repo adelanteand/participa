@@ -512,8 +512,9 @@ class Patio_Inscripcion Extends Entidad {
             'cp',
             'ip',
             'ejes',
-            'ludoteca',
+            'ludoteca',            
             'andaluz',
+            'bus',
             'observaciones'
         ),
         'fk' => array(
