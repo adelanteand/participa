@@ -97,8 +97,8 @@ function formulario() {
     $html->asignar("accion", $accion);
 
     if ($colectivos) {
-        //$html->plantilla("formulario.tpl");
-        $html->plantilla("fuera_de_plazo.tpl");
+        $html->plantilla("formulario.tpl");
+        //$html->plantilla("fuera_de_plazo.tpl");
     } else {
         $html->plantilla("fuera_de_plazo.tpl");
     }
