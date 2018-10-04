@@ -97,7 +97,8 @@ function formulario() {
     $html->asignar("accion", $accion);
 
     if ($colectivos) {
-        $html->plantilla("formulario.tpl");
+        //$html->plantilla("formulario.tpl");
+        $html->plantilla("fuera_de_plazo.tpl");
     } else {
         $html->plantilla("fuera_de_plazo.tpl");
     }
@@ -512,9 +513,6 @@ function enmiendas() {
             $tmp = $enmiendasAlIntro->getEnmiendasFrom($p->id, 'idPropuesta', $op);
             $p->enmiendas = $tmp;
         }
-
-
-
         $out[] = $categoria;
     }
 
