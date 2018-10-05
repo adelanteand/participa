@@ -533,17 +533,17 @@ function enmiendas_andaluz() {
     $categorias = $categorias->getCategorias(true, false);
 
     if ($op == 'A,B') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE ACEPTADAS Y TRANSACCIONADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER ACEPTADAS Y TRANSACCIONADAS');
     } elseif ($op == 'C,D') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE RECHAZADAS Y/O DEBATE');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER RECHAZADAS Y/O DEBATIDAS');
     } elseif ($op == 'A') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE ACEPTADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER ACEPTADAS');
     } elseif ($op == 'B') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE TRANSACCIONADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER TRANSACCIONADAS');
     } elseif ($op == 'C') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE RECHAZADAS');        
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER RECHAZADAS');        
     } elseif ($op == 'D') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE CON DEBATE');        
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER DEBATIDAS');
     } else {
         $html->asignar("texto_libre", 'PATIO ANDALUZ 6 OCTUBRE 2018');
     }
