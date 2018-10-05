@@ -70,7 +70,14 @@
                                     {/foreach}
                                 </td>
                             </tr>                    
-                        {/if}                          
+                        {/if}       
+                        
+                        {if (isset($e->andaluz))}
+                            <tr>
+                                <th scope="row">Bloque - Patio Andaluz</th>
+                                <td>{$e->andaluz}</td>
+                            </tr>                    
+                        {/if}                           
                         
                         {if (isset($e->cp->cp))}
                             <tr>
