@@ -121,7 +121,7 @@
                 <h3><strong><i class="fas fa-eye"></i> Visible</strong></h3>                
                 {if $e->publica}SÍ{else}NO{/if}
                 <hr>
-
+{$smarty.session.ponencia|@var_dump}
                 {if (isset($smarty.session.ponencia) && ($smarty.session.ponencia eq 1))}
                 <h3><strong><i class="fas fa-comments"></i> Valoraciones</strong></h3>
                 <i>Ordenadas de más antigua a más reciente. La última linea es la más actual</i>
