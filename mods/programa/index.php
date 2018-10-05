@@ -357,7 +357,17 @@ function enmienda($ver = true, $pisaOP = false) {
         }
         return 0;
     }
-
+    
+    if (!$enmienda->publica) {
+        $html->asignar("msg", "Enmienda no aceptada por la ponencia");
+        $html->plantilla("error.tpl");
+        if ($ver) {
+            $html->ver();
+        }
+        return 0;
+    }
+    
+    
     $fichero = null;
     if ($enmienda->fichero) {
         importclass("fichero");
