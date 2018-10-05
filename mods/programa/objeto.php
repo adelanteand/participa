@@ -144,7 +144,7 @@ class Programa_Enmienda extends Entidad {
     
     function getTransaccion(){
         global $db;
-        $db->where('id_transaccionada',$this->id);
+        $db->where('id_original',$this->id);
         $res = $db->get('programa_enmiendas_relaciones', null);
         $out = Array();
         foreach ($res as $row) {
