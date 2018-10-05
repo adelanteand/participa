@@ -72,7 +72,7 @@
                             </tr>                    
                         {/if}       
                         
-                        {if (isset($e->originales))}
+                        {if (isset($e->transaccionada))}
                             <tr>
                                 <th scope="row">Ha sido transaccionada en:</th>
                                 <td>
