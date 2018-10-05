@@ -536,6 +536,14 @@ function enmiendas_andaluz() {
         $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE ACEPTADAS Y TRANSACCIONADAS');
     } elseif ($op == 'C,D') {
         $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE RECHAZADAS Y/O DEBATE');
+    } elseif ($op == 'A') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE ACEPTADAS');
+    } elseif ($op == 'B') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE TRANSACCIONADAS');
+    } elseif ($op == 'C') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE RECHAZADAS');        
+    } elseif ($op == 'D') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE CON DEBATE');        
     } else {
         $html->asignar("texto_libre", 'PATIO ANDALUZ 6 OCTUBRE 2018');
     }
