@@ -17,7 +17,7 @@
                                 <h5><strong><i class="far fa-arrow-alt-circle-right"></i> Enmiendas al texto introductorio</strong></h5>
                                 {$primeraVez=false}
                             {/if}                        
-                            <p class="ml-4"><span class="badge badge-secondary">Párrafo {$parrafo->id}:</span> {$parrafo->texto}</p>
+                            <p class="ml-4"><span class="badge badge-secondary"><a href="/parrafo/{$propuesta->id}/" target="_blank">Párrafo {$parrafo->id}:</a></span> {$parrafo->texto}</p>
                             {foreach $parrafo->enmiendas as $e}        
                                 {$nivel=5}
                                 <span>{include file="enmiendas_pdf_suelta.tpl"}</span>
@@ -45,7 +45,7 @@
                                 {$primeraVez=false}
                             {/if}
                             <div class="p-2 ml-4  mb-2" style="border: 2px solid">
-                            <p ><span class="badge badge-secondary">Propuesta {$propuesta->id}:</span> {$propuesta->texto}</p>
+                                <p ><span class="badge badge-secondary"><a href="/propuesta/{$propuesta->id}/" target="_blank">Propuesta {$propuesta->id}:</a></span> {$propuesta->texto}</p>
                             {foreach $propuesta->enmiendas as $e}
                                 {$nivel=5}
                                 <span>{include file="enmiendas_pdf_suelta.tpl"}</span>
