@@ -72,6 +72,17 @@
                             </tr>                    
                         {/if}       
                         
+                        {if (isset($e->originales))}
+                            <tr>
+                                <th scope="row">Ha sido transaccionada en:</th>
+                                <td>
+                                    {foreach $e->transaccionada as $enmiendatrans}
+                                        <a href="/enmienda/{$enmiendatrans->id}/"><span class="badge badge-primary">Enmienda {$enmiendaoriginal->id}</span></a>
+                                    {/foreach}
+                                </td>
+                            </tr>                    
+                        {/if}                            
+                        
                         {if (isset($e->andaluz))}
                             <tr>
                                 <th scope="row">Bloque - Patio Andaluz</th>
