@@ -112,6 +112,7 @@ class Programa_Enmienda extends Entidad {
         parent::__construct($id, $this->datos);
         if ($this->tipo=='trans'){
             $this->originales = $this->getOriginales();
+            $this->transaccionada = $this->getTransaccion();
         }
     }
 
@@ -141,6 +142,17 @@ class Programa_Enmienda extends Entidad {
         return $out;
     }
     
+    function getTransaccion(){
+        global $db;
+        $db->where('id_transaccionada',$this->id);
+        $res = $db->get('programa_enmiendas_relaciones', null);
+        $out = Array();
+        foreach ($res as $row) {
+            $p = new Programa_Enmienda($row['id_transaccionada']);
+            $out[] = $p;
+        }
+        return $out;
+    }    
 
 }
 
