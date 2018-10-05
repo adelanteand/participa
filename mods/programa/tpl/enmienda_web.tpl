@@ -72,12 +72,12 @@
                             </tr>                    
                         {/if}       
                         
-                        {if (isset($e->transaccionada))}
+                        {if ($e->transaccionada)}
                             <tr>
                                 <th scope="row">Ha sido transaccionada en:</th>
                                 <td>
                                     {foreach $e->transaccionada as $enmiendatrans}
-                                        <a href="/enmienda/{$enmiendatrans->id}/"><span class="badge badge-primary">Enmienda {$enmiendaoriginal->id}</span></a>
+                                        <a href="/enmienda/{$enmiendatrans}/"><span class="badge badge-primary">Enmienda {$enmiendatrans}</span></a>
                                     {/foreach}
                                 </td>
                             </tr>                    
