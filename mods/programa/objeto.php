@@ -148,7 +148,8 @@ class Programa_Enmienda extends Entidad {
         $res = $db->get('programa_enmiendas_relaciones', null);
         $out = Array();
         foreach ($res as $row) {
-            $p = new Programa_Enmienda($row['id_transaccionada']);
+            //$p = new Programa_Enmienda($row['id_transaccionada']);
+            $p = $row['id_transaccionada'];
             $out[] = $p;
         }
         return $out;
