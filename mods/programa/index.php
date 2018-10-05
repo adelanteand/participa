@@ -36,13 +36,13 @@ function formulario() {
 
     $html->asignar("version", "patios");
     $html->asignar("ip", getIPv4());
-    
-    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+
+    if (isset($_GET['colectivos']) && $_GET['colectivos'] == 1) {
         $colectivos = true;
     } else {
         $colectivos = false;
     }
-    
+
 
     switch ($op) {
         case 'add':
@@ -105,7 +105,7 @@ function formulario() {
     $html->ver();
 }
 
-function propuesta($pisaOP=NULL, $tipo = 'Propuesta', $ver = true) {
+function propuesta($pisaOP = NULL, $tipo = 'Propuesta', $ver = true) {
     global $op, $html;
 
     $html->asignar("version", "patios");
@@ -131,13 +131,13 @@ function propuesta($pisaOP=NULL, $tipo = 'Propuesta', $ver = true) {
     } else {
         $elementotipo = 'párrafo';
     }
-    
 
-    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+
+    if (isset($_GET['colectivos']) && $_GET['colectivos'] == 1) {
         $colectivos = true;
     } else {
         $colectivos = false;
-    }    
+    }
 
     $tienePadre = true;
     $padres = array();
@@ -191,12 +191,12 @@ function categoria() {
         $id = 0;
     }
 
-    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+    if (isset($_GET['colectivos']) && $_GET['colectivos'] == 1) {
         $colectivos = true;
     } else {
         $colectivos = false;
     }
-    
+
     $tienePadre = true;
     $padres = array();
     $categoria = new Programa_Categoria($op);
@@ -209,13 +209,13 @@ function categoria() {
             $tienePadre = false;
         }
     }
-    
 
-    if (isset($_GET['colectivos']) && $_GET['colectivos']==1) {
+
+    if (isset($_GET['colectivos']) && $_GET['colectivos'] == 1) {
         $colectivos = true;
     } else {
         $colectivos = false;
-    }    
+    }
 
     $categoria = new Programa_Categoria($op);
     $categoria->getIntro();
@@ -233,7 +233,7 @@ function categoria() {
     $html->asignar("categoria", $categoria);
     $html->asignar("propuestas", $propuestas);
     $html->asignar("actual", $categoria);
-    $html->asignar("colectivos",$colectivos);
+    $html->asignar("colectivos", $colectivos);
     $html->asignar("anterior", $anterior);
     $html->asignar("padres", $padres);
     $html->asignar("hijos", $hijos->getNivel($categoria->id));
@@ -247,7 +247,7 @@ function patios() {
 }
 
 function parrafo() {
-    propuesta(null,'Párrafo',true);
+    propuesta(null, 'Párrafo', true);
 }
 
 function patios_listado() {
@@ -357,31 +357,33 @@ function enmienda($ver = true, $pisaOP = false) {
         }
         return 0;
     }
-    
-    if ($enmienda->publica==0) {
-        $html->asignar("msg", "Enmienda no aceptada por la ponencia");
-        $html->plantilla("error.tpl");
-        if ($ver) {
-            $html->ver();
+
+    if (!isset($_SESSION['ponencia']) || $_SESSION['ponencia'] != 1) {
+        if ($enmienda->publica == 0) {
+            $html->asignar("msg", "Enmienda no aceptada por la ponencia");
+            $html->plantilla("error.tpl");
+            if ($ver) {
+                $html->ver();
+            }
+            return 0;
         }
-        return 0;
     }
-    
-    
+
+
     $fichero = null;
     if ($enmienda->fichero) {
         importclass("fichero");
         $fichero = new Fichero($enmienda->fichero);
     }
-    
+
     $cval = new Programa_Enmienda_Valoraciones_Controladora();
     $valoraciones = $cval->getValoraciones($enmienda->id);
-    
+
     $html->asignar("fichero", $fichero);
     $html->asignar("url", CONF_BASEURL);
-    $html->asignar("e", $enmienda);    
+    $html->asignar("e", $enmienda);
     $html->titulo('Enmienda ' . $enmienda->id . CONF_TITULOPAGINA_POS);
-    $html->asignar("valoraciones", $valoraciones);    
+    $html->asignar("valoraciones", $valoraciones);
     $html->plantilla("enmienda_web.tpl");
     if ($ver) {
         $html->ver();
@@ -544,36 +546,36 @@ function enmiendas_andaluz() {
     $categorias = $categorias->getCategorias(true, false);
 
     if ($op == 'A,B') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER ACEPTADAS Y TRANSACCIONADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS CONSENSUADAS');
     } elseif ($op == 'C,D') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER RECHAZADAS Y/O DEBATIDAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS A DEBATE');
     } elseif ($op == 'A') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER ACEPTADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS CONSENSUADAS');
     } elseif ($op == 'B') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER TRANSACCIONADAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS CONSENSUADAS');
     } elseif ($op == 'C') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER RECHAZADAS');        
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS A DEBATE');
     } elseif ($op == 'D') {
-        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS PARA SER DEBATIDAS');
+        $html->asignar("texto_libre", 'PATIO ANDALUZ<br>PROPUESTAS A DEBATE');
     } else {
         $html->asignar("texto_libre", 'PATIO ANDALUZ 6 OCTUBRE 2018');
     }
 
 
     //$op = "A";
-    
-    $modoTransaccion=false;
+
+    $modoTransaccion = false;
     if ($op == 'B') {
-        $modoTransaccion=true;
+        $modoTransaccion = true;
     }
-    
+
     $out = array();
     foreach ($categorias as $categoria) {
 
         //Rescatamos enmiendas a la categoría        
         $enmiendasAlEpigrafe = new Programa_Enmienda_Controladora();
         $enmiendasAlEpigrafe->estado = 1;
-        $enmiendasAlEpigrafe->andaluz = $op;        
+        $enmiendasAlEpigrafe->andaluz = $op;
         $enmiendasAlEpigrafe->transaccion = $modoTransaccion;
         $tmp = $enmiendasAlEpigrafe->getEnmiendasFrom($categoria->id, 'idCategoria');
         $categoria->enmiendas = $tmp;
@@ -621,6 +623,25 @@ function consultas() {
     $html->ver(CONF_HOME . "tpl/busqueda.tpl");
 }
 
+function entrar() {
+    global $op;
+
+    if ($op == sha1(ADMIN_PASS)) {
+        $_SESSION['ponencia'] = 1;
+    } else {
+        $_SESSION['ponencia'] = 0;
+        unset($_SESSION['ponencia']);
+        session_destroy();
+    }
+    header("Location: /consultas/");
+}
+
+function salir() {
+    unset($_SESSION['ponencia']);
+    session_destroy();
+    header("Location: /consultas/");
+}
+
 function consultas_enviar() {
     global $html, $op, $subop;
 
@@ -631,7 +652,7 @@ function consultas_enviar() {
     if ($tipo == 'enmienda') {
         call_user_func('enmienda', false, $id);
     } elseif ($tipo == 'propuesta') {
-        call_user_func('propuesta',  $id, 'Propuesta', false);
+        call_user_func('propuesta', $id, 'Propuesta', false);
     } elseif ($tipo == 'parrafo') {
         if (!(substr($id, 0, 1) === 'P')) {
             $id = 'P' . $id;
@@ -714,7 +735,7 @@ function valoracion_patio_guardar() {
         //echo $clave . " - " . $valor . "<br>";
     }
     $html->asignar("colectivos", null);
-    $html->asignar("msg", "Se han almacenado correctamente las resoluciones enviadas (".$contador.").");    
+    $html->asignar("msg", "Se han almacenado correctamente las resoluciones enviadas (" . $contador . ").");
     $html->plantilla('error.tpl'); //NO ES UN ERROR. ES UN MENSAJE SIMPLE
     $html->ver();
 }

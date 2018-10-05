@@ -92,24 +92,26 @@
 
         <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
 
-            <img class="img-responsive" width="150" src="{$conf_logo}"/>
+            <a href="/consultas/"><img class="img-responsive" width="150" src="{$conf_logo}"/></a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-
+                    {if (isset($smarty.session.ponencia) && ($smarty.session.ponencia eq 1))}
+                        <li class="ml-4" style="color:white">Identificado como ponencia: <a href="/salir/">Salir</a></li>
+                    {/if}
                 </ul>     
 
                 <form class="form-inline mt-2 mt-md-0" method="POST" action="/consultas/enviar/">
                     {include file="$baseAPP/tpl/csrf.tpl"}
                     <select class="custom-select mr-2" name="tipo">
-                      <option {if ($tipo=='enmienda') }selected="selected"{/if} value="enmienda">Enmienda</option>
-                      <option {if ($tipo=='propuesta') }selected="selected"{/if} value="propuesta">Propuesta</option>
-                      <option {if ($tipo=='parrafo') }selected="selected"{/if} value="parrafo">Párrafo</option>
+                        <option {if ($tipo=='enmienda') }selected="selected"{/if} value="enmienda">Enmienda</option>
+                        <option {if ($tipo=='propuesta') }selected="selected"{/if} value="propuesta">Propuesta</option>
+                        <option {if ($tipo=='parrafo') }selected="selected"{/if} value="parrafo">Párrafo</option>
                     </select>                    
-                    
+
                     <input class="form-control mr-sm-2" name="id" type="text" placeholder="Número" aria-label="Buscar">
                     <button class="btn btn-danger my-2 my-sm-0" type="submit">Buscar</button>
                 </form>

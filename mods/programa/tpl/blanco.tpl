@@ -5,3 +5,9 @@
         <p class="lead">Utiliza la barra superior para ir directamente a alguna enmienda, propuesta o párrafo.</p>
     </div>
 </div>
+
+<span>
+    {if (isset($smarty.session.ponencia) && ($smarty.session.ponencia eq 1))}
+        Identificado como ponencia: <a href="/salir/">Salir</a>
+    {/if}
+</span>

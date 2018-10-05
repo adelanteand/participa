@@ -122,8 +122,7 @@
                 {if $e->publica}SÍ{else}NO{/if}
                 <hr>
 
-
-
+                {if (isset($smarty.session.ponencia) && ($smarty.session.ponencia eq 1))}
                 <h3><strong><i class="fas fa-comments"></i> Valoraciones</strong></h3>
                 <i>Ordenadas de más antigua a más reciente. La última linea es la más actual</i>
                 <table class="table tabla-valoraciones">
@@ -147,7 +146,7 @@
 
                     </tbody>
                 </table>
-
+                {/if}
 
 
 
