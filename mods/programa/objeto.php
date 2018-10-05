@@ -89,6 +89,7 @@ class Programa_Enmienda extends Entidad {
             'motivacion',
             'redaccion',
             'publica',
+            'andaluz',
             'random'
         ),
         'fk' => array(
@@ -109,6 +110,9 @@ class Programa_Enmienda extends Entidad {
             $id['random'] = generateRandomString(256);
         }
         parent::__construct($id, $this->datos);
+        if ($this->tipo=='trans'){
+            $this->originales = $this->getOriginales();
+        }
     }
 
     function editar($id) {
@@ -123,6 +127,18 @@ class Programa_Enmienda extends Entidad {
         $cValoraciones = new Programa_Enmienda_Valoraciones_Controladora();
         $valoraciones = $cValoraciones->getValoraciones($this->id, $valorador);
         $this->valoraciones = $valoraciones;
+    }
+    
+    function getOriginales(){
+        global $db;
+        $db->where('id_transaccionada',$this->id);
+        $res = $db->get('programa_enmiendas_relaciones', null);
+        $out = Array();
+        foreach ($res as $row) {
+            $p = new Programa_Enmienda($row['id_original']);
+            $out[] = $p;
+        }
+        return $out;
     }
     
 
@@ -153,6 +169,8 @@ class Programa_Enmienda_Valoracion extends Entidad {
 class Programa_Enmienda_Controladora {
 
     var $estado = NULL;
+    var $andaluz = NULL;
+    var $transaccion = false;
     var $valoraciones = false;
     var $soloPonencia = false;
     var $ordenPDF = true;
@@ -172,6 +190,15 @@ class Programa_Enmienda_Controladora {
         if ($this->estado != NULL) {
             $db->where('publica', $this->estado);
         }
+        
+        if ($this->andaluz != NULL) {
+            $grupos = array_map('trim', explode(',', $this->andaluz));
+            $db->where('UPPER(andaluz)', $grupos,'IN');
+        }
+        
+        if ($this->transaccion) {
+            $db->where('tipo', 'trans');
+        } 
 
         $res = $db->get('programa_enmiendas', null);
 

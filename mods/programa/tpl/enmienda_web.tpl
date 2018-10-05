@@ -49,12 +49,29 @@
                                         <span class="badge badge-danger">
                                             Supresión 
                                         </span>
-                                    {/if}  
+                                    {/if}
+                                    {if $e->tipo eq 'trans'}
+                                        <span class="badge badge-primary">
+                                            Transacción 
+                                        </span>
+                                    {/if}                                    
 
 
                                 </td>
                             </tr>                    
-                        {/if}      
+                        {/if}     
+                        
+                        {if (isset($e->originales))}
+                            <tr>
+                                <th scope="row">Procede de:</th>
+                                <td>
+                                    {foreach $e->originales as $enmiendaoriginal}
+                                        <a href="/enmienda/{$enmiendaoriginal->id}/"><span class="badge badge-secondary">Enmienda {$enmiendaoriginal->id}</span></a>
+                                    {/foreach}
+                                </td>
+                            </tr>                    
+                        {/if}                          
+                        
                         {if (isset($e->cp->cp))}
                             <tr>
                                 <th scope="row">Código postal</th>

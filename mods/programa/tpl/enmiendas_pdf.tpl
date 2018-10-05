@@ -3,7 +3,7 @@
 <div id="container">
     <div id="row">
 
-        <span class="float-center"><h1>Enmiendas de la provincia de {$provincia}</h1></span>
+        <span class="float-center"><h1>{$texto_libre}</h1></span>
 
         {foreach $programa as $categoria}
             <div style="border: 2px solid;" class="mt-2 mb-2 p-2">

@@ -532,7 +532,14 @@ function enmiendas_andaluz() {
     $categorias = new Programa_Categoria_Controladora();
     $categorias = $categorias->getCategorias(true, false);
 
-    $html->asignar("provincia", 'ANDALUZ');
+    if ($op == 'A,B') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE ACEPTADAS Y TRANSACCIONADAS');
+    } elseif ($op == 'C,D') {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ: BLOQUE RECHAZADAS Y/O DEBATE');
+    } else {
+        $html->asignar("texto_libre", 'PATIO ANDALUZ 6 OCTUBRE 2018');
+    }
+
 
     //$op = "A";
     

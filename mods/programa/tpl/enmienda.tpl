@@ -15,7 +15,12 @@
                 <span class="badge badge-danger">
                     Suprimir (ID: {$e->id})
                 </span>
-            {/if}  
+            {/if} 
+            {if $e->tipo eq 'trans'}
+                <span class="badge badge-primary">
+                    Transacción (ID: {$e->id})
+                </span>
+            {/if}              
         </a>
 
     </span>

@@ -16,11 +16,34 @@
                     Suprimir (ID: {$e->id})
                 </span>
             {/if}  
+            {if $e->tipo eq 'trans'}
+                <span class="badge badge-primary">
+                    Transacción (ID: {$e->id})
+                </span>
+            {/if}            
         </a>
     </span>
-    <span class="nombre"><i>{$e->nombre} {$e->apellidos}</i></span>
+
+    <span class="nombre badge badge-light">Ponente: {$e->nombre} {$e->apellidos}</span><br>
 
     <span class="redaccion">{$e->redaccion}</span>
+
+
+    {if (isset($e->originales))}
+        <span>
+
+            <div class="subenmienda ml-10" style="font-size: 0.7em;margin-left:3em">
+                <div>Procede de:</div>
+                {foreach $e->originales as $enmiendaoriginal}
+                    <a href="/enmienda/{$enmiendaoriginal->id}/"><span class="badge badge-info">Enmienda {$enmiendaoriginal->id}</span></a>
+                    <span class="nombre badge badge-light">Ponente: {$enmiendaoriginal->nombre} {$enmiendaoriginal->apellidos}</span>
+                    <span class="redaccion">{$enmiendaoriginal->redaccion}</span>
+                {/foreach}            
+            </div>
+        </span>
+    {/if}
+
+
     {if $e->fichero > 0 }
         <i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong>{$e->fichero}</strong>
     {/if}    
