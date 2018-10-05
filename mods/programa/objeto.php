@@ -111,9 +111,9 @@ class Programa_Enmienda extends Entidad {
         }
         parent::__construct($id, $this->datos);
         if ($this->tipo=='trans'){
-            $this->originales = $this->getOriginales();
-            $this->transaccionada = $this->getTransaccion();
+            $this->originales = $this->getOriginales();            
         }
+        $this->transaccionada = $this->getTransaccion();
     }
 
     function editar($id) {
