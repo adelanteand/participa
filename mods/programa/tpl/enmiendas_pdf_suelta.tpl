@@ -45,7 +45,7 @@
 
 
     {if $e->fichero > 0 }
-        <i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong><a href="/fichero/{$e->fichero}/descargar/">{$e->fichero}</a></strong>
+        <i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong><a href="/fichero/{$e->fichero}/download/">{$e->fichero}</a></strong>
     {/if}    
 
 </div>
