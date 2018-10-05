@@ -24,7 +24,7 @@
         </a>
     </span>
 
-    <span class="nombre badge badge-light">Ponente: {$e->nombre} {$e->apellidos}</span><br>
+    <span class="nombre badge badge-light">A propuesta de: {$e->nombre} {$e->apellidos}</span><br>
 
     <span class="redaccion">{$e->redaccion}</span>
 
@@ -36,7 +36,7 @@
                 <div>Procede de:</div>
                 {foreach $e->originales as $enmiendaoriginal}
                     <a href="/enmienda/{$enmiendaoriginal->id}/"><span class="badge badge-info">Enmienda {$enmiendaoriginal->id}</span></a>
-                    <span class="nombre badge badge-light">Ponente: {$enmiendaoriginal->nombre} {$enmiendaoriginal->apellidos}</span>
+                    <span class="nombre badge badge-light">A propuesta de: {$enmiendaoriginal->nombre} {$enmiendaoriginal->apellidos}</span>
                     <span class="redaccion">{$enmiendaoriginal->redaccion}</span>
                 {/foreach}            
             </div>
@@ -45,7 +45,7 @@
 
 
     {if $e->fichero > 0 }
-        <a href="/fichero/{$e-fichero}/descargar/"><i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong>{$e->fichero}</strong></a>
+        <a href="/fichero/{$e->fichero}/descargar/"><i class="fas fa-paperclip" style="color:red"></i> TIENE DOCUMENTO ANEXO <strong>{$e->fichero}</strong></a>
     {/if}    
 
 </div>
