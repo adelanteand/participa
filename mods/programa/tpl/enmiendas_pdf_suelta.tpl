@@ -35,7 +35,7 @@
             <div class="subenmienda ml-10" style="font-size: 0.7em;margin-left:3em">
                 <div>Procede de:</div>
                 {foreach $e->originales as $enmiendaoriginal}
-                    <span class="badge badge-info" style="color:white;"><a href="/enmienda/{$enmiendaoriginal->id}/" target="_blank">Enmienda {$enmiendaoriginal->id}</a></span>
+                    <span class="badge badge-info" ><a href="/enmienda/{$enmiendaoriginal->id}/" target="_blank" style="color:white;">Enmienda {$enmiendaoriginal->id}</a></span>
                     <span class="nombre badge badge-light">A propuesta de: {$enmiendaoriginal->nombre} {$enmiendaoriginal->apellidos}</span>
                     <span class="redaccion">{$enmiendaoriginal->redaccion}</span>
                 {/foreach}            
