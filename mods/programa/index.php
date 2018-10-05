@@ -524,6 +524,70 @@ function enmiendas() {
     $html->ver();
 }
 
+function enmiendas_andaluz() {
+    global $db, $html, $op, $subop;
+
+    $html->asignar("version", 'patios');
+
+    $categorias = new Programa_Categoria_Controladora();
+    $categorias = $categorias->getCategorias(true, false);
+
+    $html->asignar("provincia", 'ANDALUZ');
+
+    //$op = "A";
+    
+    $modoTransaccion=false;
+    if ($op == 'B') {
+        $modoTransaccion=true;
+    }
+    
+    $out = array();
+    foreach ($categorias as $categoria) {
+
+        //Rescatamos enmiendas a la categoría        
+        $enmiendasAlEpigrafe = new Programa_Enmienda_Controladora();
+        $enmiendasAlEpigrafe->estado = 1;
+        $enmiendasAlEpigrafe->andaluz = $op;        
+        $enmiendasAlEpigrafe->transaccion = $modoTransaccion;
+        $tmp = $enmiendasAlEpigrafe->getEnmiendasFrom($categoria->id, 'idCategoria');
+        $categoria->enmiendas = $tmp;
+
+        //Rescatamos las propuestas
+        $propuestas = new Programa_Propuesta_Controladora();
+        $tmp = $propuestas->getPropuestasCategoria($categoria->id);
+        $categoria->propuestas = $tmp;
+        foreach ($categoria->propuestas as $p) {
+            $enmiendas = new Programa_Enmienda_Controladora();
+            $enmiendas->estado = 1;
+            $enmiendas->andaluz = $op;
+            $enmiendas->transaccion = $modoTransaccion;
+            $tmp = $enmiendasAlEpigrafe->getEnmiendasFrom($p->id, 'idPropuesta');
+            $p->enmiendas = $tmp;
+        }
+
+        //Recatamos las intros
+        $intros = new Programa_Propuesta_Controladora();
+        $tmp = $propuestas->getPropuestasCategoria($categoria->id, 'intro');
+        $categoria->intro = $tmp;
+        foreach ($categoria->intro as $p) {
+            $enmiendasAlIntro = new Programa_Enmienda_Controladora();
+            $enmiendasAlIntro->estado = 1;
+            $enmiendasAlIntro->andaluz = $op;
+            $enmiendasAlIntro->transaccion = $modoTransaccion;
+            $tmp = $enmiendasAlIntro->getEnmiendasFrom($p->id, 'idPropuesta');
+            $p->enmiendas = $tmp;
+        }
+        $out[] = $categoria;
+    }
+
+    //var_dump($out);
+
+    $html->asignar("ip", getIPv4());
+    $html->asignar("programa", $out);
+    $html->plantilla("enmiendas_pdf.tpl");
+    $html->ver();
+}
+
 function consultas() {
     global $html;
     $html->asignar("tipo", 'enmienda');
