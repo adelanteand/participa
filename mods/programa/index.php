@@ -370,6 +370,7 @@ function enmienda($ver = true, $pisaOP = false) {
     $html->asignar("fichero", $fichero);
     $html->asignar("url", CONF_BASEURL);
     $html->asignar("e", $enmienda);    
+    $html->titulo('Enmienda ' . $enmienda->id . CONF_TITULOPAGINA_POS);
     $html->asignar("valoraciones", $valoraciones);    
     $html->plantilla("enmienda_web.tpl");
     if ($ver) {
