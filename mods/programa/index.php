@@ -358,7 +358,7 @@ function enmienda($ver = true, $pisaOP = false) {
         return 0;
     }
     
-    if (!$enmienda->publica) {
+    if ($enmienda->publica==0) {
         $html->asignar("msg", "Enmienda no aceptada por la ponencia");
         $html->plantilla("error.tpl");
         if ($ver) {
