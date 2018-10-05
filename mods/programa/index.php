@@ -360,7 +360,7 @@ function enmienda($ver = true, $pisaOP = false) {
 
     if (!isset($_SESSION['ponencia']) || $_SESSION['ponencia'] != 1) {
         if ($enmienda->publica == 0) {
-            $html->asignar("msg", "Enmienda no aceptada por la ponencia");
+            $html->asignar("msg", "ERROR");
             $html->plantilla("error.tpl");
             if ($ver) {
                 $html->ver();
