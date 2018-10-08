@@ -5,9 +5,9 @@
         {include file="breadcrumbs.tpl"}
         {if ($anterior)}
             {if ($anterior=='ROOT')}
-                <a href="/categoria/{if $colectivos}?colectivos=1{/if}" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
+                <a href="/categoria/" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
                 {else}
-                <a href="/categoria/{$anterior}/{if $colectivos}?colectivos=1{/if}" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
+                <a href="/categoria/{$anterior}/" class="btn btn-light">Subir <i class="fas fa-level-up-alt"></i></a>
                 {/if}
             {/if}
         <hr>
@@ -22,20 +22,18 @@
             de ruta de este proyecto político. Abrimos un proceso participativo en el que 
             cualquier persona podrá presentar enmiendas en estos patios para convertir el
             programa de Adelante Andalucía en su programa, el que responde a sus necesidades</p>
-        <div class="alert alert-danger">
-            <strong>¡Patio andaluz el 6 de octubre!</strong> <a href="/patios/listado/" class="alert-link">Inscríbete y acude a la última fase de construcción programática</a>.
-        </div>        
+
     {/if}
 
 
     {if (isset($categoria->intro))}
         {foreach from=$categoria->intro item=e}
             <p class="parrafo" data-idPropuesta="{$e->id}" data-idCategoria="{$categoria->id}">
-                <a href="/parrafo/{$e->id}/{if $colectivos}?colectivos=1{/if}" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parrafo">{$e->id}</a>
+                <a href="/parrafo/{$e->id}/" data-propuesta="{$e->id}" class="badge badge-secondary codigo_parrafo">{$e->id}</a>
                 {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                     <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                 {/if}                
-                <span class='textprop'><i>{$e->texto}</i></span><a href="/parrafo/{$e->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
+                <span class='textprop'><i>{$e->texto}</i></span><a href="/parrafo/{$e->id}/" class="btn btn-default btn-sm"><i class='fas fa-plus'></i> Opciones</a>               
             </p>
         {/foreach}
     {/if}
@@ -45,7 +43,7 @@
         <ul>
             {foreach from=$hijos item=e}
                 <li class="patios nivel">
-                    <a href="/categoria/{$e->id}/{if $colectivos}?colectivos=1{/if}">
+                    <a href="/categoria/{$e->id}/">
                         {if isset($e->enmiendas) AND $e->enmiendas|@count > 0}
                             <span class="badge badge-warning">{$e->enmiendas|@count} enmienda/s</span> 
                         {/if}                        
@@ -60,25 +58,25 @@
         </ul>
     {/if}
     {if ($categoria->id)}
-    <div><a href="/formulario/add/{$categoria->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+        <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
     {/if}
     <hr>
-    
+
     {if ($propuestas)}
         <h3><i class="far fa-lightbulb"></i> <strong>Propuestas</strong></h3>
         <p><i>Pulsa en el número de propuesta para ver más detalles</i></p>
-    
+
         {foreach from=$propuestas item=p}      
             <div class="cuadro-propuesta">
-            <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/{if $colectivos}?colectivos=1{/if}">Propuesta {$p->id}</a></span> 
-            {if isset($p->enmiendas) AND $p->enmiendas|@count > 0}
-                <span class="badge badge-warning">{$p->enmiendas|@count} enmienda/s</span> 
-            {/if}             
-            <p>{$p->texto}</p>    
+                <span data-propuesta="{$p->id}" class='badge badge-secondary codigo_propuesta' ><a href="/propuesta/{$p->id}/">Propuesta {$p->id}</a></span> 
+                {if isset($p->enmiendas) AND $p->enmiendas|@count > 0}
+                    <span class="badge badge-warning">{$p->enmiendas|@count} enmienda/s</span> 
+                {/if}             
+                <p>{$p->texto}</p>    
             </div>
         {/foreach}
         <hr>
-        <div><a href="/formulario/add/{$categoria->id}/{if $colectivos}?colectivos=1{/if}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
+        <div><a href="/formulario/add/{$categoria->id}/" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Enviar propuesta</a></div>
     {/if}
 
 

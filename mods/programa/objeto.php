@@ -224,14 +224,30 @@ class Programa_Enmienda_Controladora {
         }
         return $out;
     }
+    
+    function getEnmiendas($idProvincia = null){
+        return $this->getEnmiendasProvincia($idProvincia);
+    }
 
-    function getEnmiendasProvincia($idProvincia) {
+    function getEnmiendasProvincia($idProvincia=null) {
         global $db;
-        $db->where('cp', $idProvincia . "%", 'LIKE');
+        
+        if ($idProvincia){
+            $db->where('cp', $idProvincia . "%", 'LIKE');
+        }
 
         if (!is_null($this->estado)) {
             $db->where('publica', $this->estado);
         }
+        
+        if ($this->andaluz != NULL) {
+            $grupos = array_map('trim', explode(',', $this->andaluz));
+            $db->where('UPPER(andaluz)', $grupos,'IN');
+        }
+        
+        if ($this->transaccion) {
+            $db->where('tipo', 'trans');
+        }         
 
         /*
         if ($this->valoraciones) {
@@ -258,7 +274,7 @@ class Programa_Enmienda_Controladora {
          */
         
         $res = $db->get('programa_enmiendas e', null);
-
+        //var_dump($db->getLastQuery());
         $out = Array();
 
         foreach ($res as $row) {

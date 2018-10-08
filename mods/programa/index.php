@@ -707,6 +707,40 @@ function valoracion_patio() {
     $html->ver();
 }
 
+
+function valoracion_andaluz() {
+    global $subop, $html, $c, $op;
+    $html->asignar("version", 'patios');
+
+    if (isset($_GET['orden'])) {
+        $orden = $_GET['orden'];
+    } else {
+        $orden = 'PDF';
+    }
+
+    $arrayEnmiendas = new Programa_Enmienda_Controladora();
+    $arrayEnmiendas->estado = 1;
+    $arrayEnmiendas->valoraciones = true;
+    $arrayEnmiendas->soloPonencia = true;
+    $arrayEnmiendas->transaccion = false;
+    $arrayEnmiendas->andaluz=$op;
+    
+    if ($orden == 'PDF') {
+        $arrayEnmiendas->ordenPDF = true;
+    } else {
+        $arrayEnmiendas->ordenPDF = false;
+    }
+    
+    $enmiendas = $arrayEnmiendas->getEnmiendas();
+
+    $html->asignar("orden", $orden);
+    $html->asignar("provincia", $subop);
+    $html->asignar("enmiendas", $enmiendas);
+    $html->asignar("enmiendas_denegadas", null);
+    $html->plantilla("valoraciones.tpl");
+    $html->ver();
+}
+
 function valoracion_patio_guardar() {
     global $subop, $html;
     $html->asignar("version", 'patios');
