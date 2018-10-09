@@ -31,6 +31,82 @@ function programa() {
     $html->ver();
 }
 
+function fusion() {
+    global $html, $codigoHTML;
+
+    $codigoHTML = "";
+    $cats = new Programa_Categoria_Controladora();
+    $categorias = $cats->getCategorias(false);
+
+    foreach ($categorias as $categoria) {
+        $codigoHTML .= mostrarCategoria($categoria);
+    }
+    $html->asignar("codigoHTML", $codigoHTML);
+    $html->plantilla("html.tpl");
+    $html->ver();
+}
+
+function mostrarCategoria($categoria, $nivel = 1) {
+    $html = "";
+    $html .= espaciado($nivel);
+    $html .= "<!-- START " . $categoria->id . " -->\n";
+    $html .= espaciado($nivel);
+    $html .= "<div class='nivel-$nivel'>\n";
+    $html .= espaciado($nivel);
+    $tag = "<p class='titulo ml-$nivel' >";
+    $tagclose = "</p>";
+
+
+    $html .= $tag . $categoria->id . " - " . $categoria->nombre . $tagclose . "\n";
+
+    $html .= mostrarParrafos($categoria->id,$nivel);
+    
+    if (isset($categoria->hijos)) {
+        $nivel++;        
+        foreach ($categoria->hijos as $hijo) {
+            $html .= mostrarCategoria($hijo, $nivel);
+        }
+    }
+
+    $html .= espaciado($nivel);
+    $html .= "</div>\n";
+    $html .= espaciado($nivel);
+    $html .= "<!-- END " . $categoria->id . " -->\n";
+
+    return $html;
+}
+
+function mostrarParrafos($categoria,$nivel=1) {
+    global $db;
+    $html = "";
+    $parrafos = new Programa_Propuesta_Controladora();
+    $parrafos->enmiendas = false;
+    $parrafos = $parrafos->getPropuestasCategoria($categoria, 'intro');
+    foreach ($parrafos as $parrafo) {
+        $html .= espaciado($nivel);
+        $html .= "<p>".$parrafo->texto."</p>\n";
+        $enmiendasAlIntro = new Programa_Enmienda_Controladora();
+        $enmiendasAlIntro->estado = 1;
+        $enmiendasAlIntro->definitivo=1;
+        $tmp = $enmiendasAlIntro->getEnmiendasFrom($parrafo->id, 'idPropuesta');
+        $parrafo->enmiendas = $tmp;
+        //var_dump($tmp);
+        foreach ($parrafo->enmiendas as $enmienda){
+            $html .= " ENMENDADO ".$enmienda->id . "<br>\n";
+        }
+    }
+    return $html;
+}
+
+function espaciado($nivel) {
+    $html = "";
+    for ($i = 0; $i < $nivel; $i++) {
+        $html .= "\t";
+    }
+
+    return $html;
+}
+
 function formulario() {
     global $html, $op, $subop;
 
@@ -707,7 +783,6 @@ function valoracion_patio() {
     $html->ver();
 }
 
-
 function valoracion_andaluz() {
     global $subop, $html, $c, $op;
     $html->asignar("version", 'patios');
@@ -723,14 +798,14 @@ function valoracion_andaluz() {
     $arrayEnmiendas->valoraciones = true;
     $arrayEnmiendas->soloPonencia = true;
     $arrayEnmiendas->transaccion = false;
-    $arrayEnmiendas->andaluz=$op;
-    
+    $arrayEnmiendas->andaluz = $op;
+
     if ($orden == 'PDF') {
         $arrayEnmiendas->ordenPDF = true;
     } else {
         $arrayEnmiendas->ordenPDF = false;
     }
-    
+
     $enmiendas = $arrayEnmiendas->getEnmiendas();
 
     $html->asignar("orden", $orden);

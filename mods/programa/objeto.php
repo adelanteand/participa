@@ -90,6 +90,7 @@ class Programa_Enmienda extends Entidad {
             'redaccion',
             'publica',
             'andaluz',
+            'definitivo',
             'random'
         ),
         'fk' => array(
@@ -110,8 +111,8 @@ class Programa_Enmienda extends Entidad {
             $id['random'] = generateRandomString(256);
         }
         parent::__construct($id, $this->datos);
-        if ($this->tipo=='trans'){
-            $this->originales = $this->getOriginales();            
+        if ($this->tipo == 'trans') {
+            $this->originales = $this->getOriginales();
         }
         $this->transaccionada = $this->getTransaccion();
     }
@@ -129,10 +130,10 @@ class Programa_Enmienda extends Entidad {
         $valoraciones = $cValoraciones->getValoraciones($this->id, $valorador);
         $this->valoraciones = $valoraciones;
     }
-    
-    function getOriginales(){
+
+    function getOriginales() {
         global $db;
-        $db->where('id_transaccionada',$this->id);
+        $db->where('id_transaccionada', $this->id);
         $res = $db->get('programa_enmiendas_relaciones', null);
         $out = Array();
         foreach ($res as $row) {
@@ -141,10 +142,10 @@ class Programa_Enmienda extends Entidad {
         }
         return $out;
     }
-    
-    function getTransaccion(){
+
+    function getTransaccion() {
         global $db;
-        $db->where('id_original',$this->id);
+        $db->where('id_original', $this->id);
         $res = $db->get('programa_enmiendas_relaciones', null);
         $out = Array();
         foreach ($res as $row) {
@@ -153,7 +154,7 @@ class Programa_Enmienda extends Entidad {
             $out[] = $p;
         }
         return $out;
-    }    
+    }
 
 }
 
@@ -186,6 +187,7 @@ class Programa_Enmienda_Controladora {
     var $transaccion = false;
     var $valoraciones = false;
     var $soloPonencia = false;
+    var $definitivo = NULL;
     var $ordenPDF = true;
 
     function getEnmiendasFrom($id, $from = 'idPropuesta', $provincia = null) {
@@ -200,22 +202,27 @@ class Programa_Enmienda_Controladora {
             $db->where('left(cp,2)', $provincia);
         }
 
+        if ($this->definitivo != NULL) {
+            $db->where('definitivo', $this->definitivo);
+        }
+
         if ($this->estado != NULL) {
             $db->where('publica', $this->estado);
         }
-        
+
         if ($this->andaluz != NULL) {
             $grupos = array_map('trim', explode(',', $this->andaluz));
-            $db->where('UPPER(andaluz)', $grupos,'IN');
+            $db->where('UPPER(andaluz)', $grupos, 'IN');
         }
-        
+
         if ($this->transaccion) {
             $db->where('tipo', 'trans');
-        } 
+        }
 
         $res = $db->get('programa_enmiendas', null);
 
         //var_dump($db->getLastQuery());
+        //var_dump($db->count);
         $out = Array();
 
         foreach ($res as $row) {
@@ -224,55 +231,55 @@ class Programa_Enmienda_Controladora {
         }
         return $out;
     }
-    
-    function getEnmiendas($idProvincia = null){
+
+    function getEnmiendas($idProvincia = null) {
         return $this->getEnmiendasProvincia($idProvincia);
     }
 
-    function getEnmiendasProvincia($idProvincia=null) {
+    function getEnmiendasProvincia($idProvincia = null) {
         global $db;
-        
-        if ($idProvincia){
+
+        if ($idProvincia) {
             $db->where('cp', $idProvincia . "%", 'LIKE');
         }
 
         if (!is_null($this->estado)) {
             $db->where('publica', $this->estado);
         }
-        
+
         if ($this->andaluz != NULL) {
             $grupos = array_map('trim', explode(',', $this->andaluz));
-            $db->where('UPPER(andaluz)', $grupos,'IN');
+            $db->where('UPPER(andaluz)', $grupos, 'IN');
         }
-        
+
         if ($this->transaccion) {
             $db->where('tipo', 'trans');
-        }         
+        }
 
         /*
-        if ($this->valoraciones) {
-            $db->join("programa_enmiendas_valoraciones v", "v.enmiendaID=e.id", "LEFT");
-            $db->joinWhere("programa_enmiendas_valoraciones v", "v.valorador", 'Ponencia');
-        }
+          if ($this->valoraciones) {
+          $db->join("programa_enmiendas_valoraciones v", "v.enmiendaID=e.id", "LEFT");
+          $db->joinWhere("programa_enmiendas_valoraciones v", "v.valorador", 'Ponencia');
+          }
          */
-        
-        if ($this->ordenPDF){
+
+        if ($this->ordenPDF) {
             $db->orderBy("e.idCategoria", "ASC");
             $db->orderBy("CONVERT(SUBSTRING_INDEX(e.idPropuesta,'-',-1),UNSIGNED INTEGER)", "ASC");
             $db->orderBy("e.created_at", "ASC");
         } else {
             $db->orderBy("e.created_at", "DESC");
         }
-        
+
         /*
-        if ($this->valoraciones) {
-            $res = $db->get('programa_enmiendas e', null);
-        } else {
-            $res = $db->get('programa_enmiendas e', null, 'e.*, v.valoracion, v.observaciones');
-        }
+          if ($this->valoraciones) {
+          $res = $db->get('programa_enmiendas e', null);
+          } else {
+          $res = $db->get('programa_enmiendas e', null, 'e.*, v.valoracion, v.observaciones');
+          }
 
          */
-        
+
         $res = $db->get('programa_enmiendas e', null);
         //var_dump($db->getLastQuery());
         $out = Array();
@@ -481,6 +488,8 @@ class Programa_Categoria_Controladora {
 
 class Programa_Propuesta_Controladora {
 
+    var $enmiendas = true;
+
     function getPropuestasCategoria($id, $tipo = 'propuesta') {
 
         global $db;
@@ -495,7 +504,9 @@ class Programa_Propuesta_Controladora {
 
         foreach ($res as $row) {
             $p = new Programa_Propuesta($row['id']);
-            $p->getEnmiendas();
+            if ($this->enmiendas) {
+                $p->getEnmiendas();
+            }
             $out[] = $p;
         }
         return $out;
@@ -517,7 +528,7 @@ class Programa_Enmienda_Valoraciones_Controladora {
             $db->where('valorador', $valorador);
         }
 
-        $db->orderBy('created_at','ASC');
+        $db->orderBy('created_at', 'ASC');
         $res = $db->get('programa_enmiendas_valoraciones', null, $cols);
 
         $out = Array();
@@ -568,7 +579,7 @@ class Patio_Inscripcion Extends Entidad {
             'cp',
             'ip',
             'ejes',
-            'ludoteca',            
+            'ludoteca',
             'andaluz',
             'bus',
             'observaciones'
