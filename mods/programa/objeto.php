@@ -274,7 +274,7 @@ class Programa_Enmienda_Controladora {
          */
         
         $res = $db->get('programa_enmiendas e', null);
-        var_dump($db->getLastQuery());
+        //var_dump($db->getLastQuery());
         $out = Array();
 
         foreach ($res as $row) {
