@@ -109,7 +109,6 @@ function mostrarParrafos($categoria, $tipo, $nivel = 1) {
             $html .= "<p class='tipo-$tipo'><span class='badge badge-default' style='color:green'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Párrafo") . " ". $parrafo->id . "</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $parrafo->texto) . "</p>\n";
             $muestraOriginal = false;
         }
-
         $muestraOriginal = true;
         $i=1;
         foreach ($parrafo->enmiendas as $enmienda) {
