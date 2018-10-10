@@ -379,3 +379,40 @@ label{
   opacity: 1;
   visibility: visible;
 }
+
+
+.tipo-propuesta{
+    color: black;
+
+}
+
+.tipo-intro {
+    color: gray;
+    font-style: italic;
+}
+
+
+.fusion.nivel-1>.titulo {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.fusion.nivel-2>.titulo {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.fusion.nivel-3>.titulo {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.fusion.nivel-4>.titulo {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.fusion.nivel-5>.titulo {
+    font-size: 1.2em;
+    font-weight: bold;
+}

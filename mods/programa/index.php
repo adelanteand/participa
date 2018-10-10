@@ -51,7 +51,7 @@ function mostrarCategoria($categoria, $nivel = 1) {
     $html .= espaciado($nivel);
     $html .= "<!-- START " . $categoria->id . " -->\n";
     $html .= espaciado($nivel);
-    $html .= "<div class='nivel-$nivel'>\n";
+    $html .= "<div class='fusion nivel-$nivel'>\n";
     $html .= espaciado($nivel);
     $tag = "<p class='titulo ml-$nivel' >";
     $tagclose = "</p>";
@@ -59,12 +59,19 @@ function mostrarCategoria($categoria, $nivel = 1) {
 
     $html .= $tag . $categoria->id . " - " . $categoria->nombre . $tagclose . "\n";
 
-    $html .= mostrarParrafos($categoria->id,$nivel);
+    //PARRAFOS
+    $html .= mostrarParrafos($categoria->id, 'intro', $nivel);
     
+    //PROPUESTAS
+    $html .= mostrarParrafos($categoria->id, 'propuesta', $nivel);
+    
+    //ENMIENDAS ADICION
+    $html .= mostrarEnmiendasAdicion($categoria->id, $nivel);
+
     if (isset($categoria->hijos)) {
-        $nivel++;        
+        $nivel++;
         foreach ($categoria->hijos as $hijo) {
-            $html .= mostrarCategoria($hijo, $nivel);
+            $html .= mostrarCategoria($hijo,  $nivel);
         }
     }
 
@@ -76,26 +83,62 @@ function mostrarCategoria($categoria, $nivel = 1) {
     return $html;
 }
 
-function mostrarParrafos($categoria,$nivel=1) {
+function mostrarParrafos($categoria, $tipo, $nivel = 1) {
     global $db;
     $html = "";
     $parrafos = new Programa_Propuesta_Controladora();
     $parrafos->enmiendas = false;
-    $parrafos = $parrafos->getPropuestasCategoria($categoria, 'intro');
+    $parrafos = $parrafos->getPropuestasCategoria($categoria, $tipo);
+    $html .= espaciado($nivel);
+    $html.="<div class='ml-$nivel'>\n";
     foreach ($parrafos as $parrafo) {
-        $html .= espaciado($nivel);
-        $html .= "<p>".$parrafo->texto."</p>\n";
+
         $enmiendasAlIntro = new Programa_Enmienda_Controladora();
         $enmiendasAlIntro->estado = 1;
-        $enmiendasAlIntro->definitivo=1;
+        $enmiendasAlIntro->definitivo = 1;
         $tmp = $enmiendasAlIntro->getEnmiendasFrom($parrafo->id, 'idPropuesta');
         $parrafo->enmiendas = $tmp;
-        //var_dump($tmp);
-        foreach ($parrafo->enmiendas as $enmienda){
-            $html .= " ENMENDADO ".$enmienda->id . "<br>\n";
+        //var_dump($tmp);        
+        if ((count($parrafo->enmiendas)) == 0){
+            $html .= espaciado($nivel);
+            $html .= "<p class='tipo-$tipo'><span class='badge badge-success'>" . $parrafo->id . "</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $parrafo->texto) . "</p>\n";
+            $muestraOriginal = false;
         }
+
+        $muestraOriginal = true;
+        $i=1;
+        foreach ($parrafo->enmiendas as $enmienda) {
+            if ($muestraOriginal) {
+                $html .= espaciado($nivel);
+                $html .= "<p class='tipo-$tipo original'><span class='badge badge-danger'>" . $parrafo->id . "</span> <strike> " . $parrafo->texto . "</strike></p>\n";
+                $muestraOriginal = false;
+            }
+            $html .= espaciado($nivel);
+            $html .= "<p class='tipo-$tipo  enmienda'><span class='badge badge-warning'>" . $parrafo->id ." (Enmienda #". $enmienda->id++ . " - ".$enmienda->tipo.")</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
+        }        
     }
+    $html .= espaciado($nivel);
+    $html.="</div>\n";
     return $html;
+}
+
+function mostrarEnmiendasAdicion ($categoria, $nivel = 1) {
+    $html = "";
+    $adicion = new Programa_Enmienda_Controladora();
+    $adicion->estado = 1;
+    $adicion->definitivo = 1;
+    $tmp = $adicion->getEnmiendasFrom($categoria, 'idCategoria');
+    $enmiendas = $tmp;
+    //var_dump($tmp);  
+    $html .= espaciado($nivel);
+    $html.="<div class='ml-$nivel'>\n";    
+    foreach ($enmiendas as $enmienda) {
+        $html .= espaciado($nivel);
+        $html .= "<p class='tipo-$enmienda->tipo  enmienda'><span class='badge badge-success'>Enmienda ADD #". $enmienda->id++ . " - ".$enmienda->tipo."</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
+    }        
+    $html .= espaciado($nivel);
+    $html.="</div>\n";    
+    return $html;    
 }
 
 function espaciado($nivel) {

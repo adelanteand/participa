@@ -231,6 +231,7 @@ class Programa_Enmienda_Controladora {
         }
         return $out;
     }
+    
 
     function getEnmiendas($idProvincia = null) {
         return $this->getEnmiendasProvincia($idProvincia);
