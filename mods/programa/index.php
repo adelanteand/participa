@@ -48,7 +48,7 @@ function fusion() {
 
     $html->asignar("codigoHTML", $codigoHTML);
     $html->plantilla("html.tpl");
-    $html->ver();
+    $html->ver(CONF_HOME . "tpl/blanco.tpl");
 }
 
 function mostrarCategoria($categoria, $nivel = 1) {
@@ -106,7 +106,7 @@ function mostrarParrafos($categoria, $tipo, $nivel = 1) {
         //var_dump($tmp);        
         if ((count($parrafo->enmiendas)) == 0){
             $html .= espaciado($nivel);            
-            $html .= "<p class='tipo-$tipo'><span class='badge badge-default' style='color:green'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Parrafo") . " ". $parrafo->id . "</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $parrafo->texto) . "</p>\n";
+            $html .= "<p class='tipo-$tipo'><span class='badge badge-default' style='color:green'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Párrafo") . " ". $parrafo->id . "</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $parrafo->texto) . "</p>\n";
             $muestraOriginal = false;
         }
 
@@ -115,11 +115,11 @@ function mostrarParrafos($categoria, $tipo, $nivel = 1) {
         foreach ($parrafo->enmiendas as $enmienda) {
             if ($muestraOriginal) {
                 $html .= espaciado($nivel);
-                $html .= "<p class='tipo-$tipo original'><span class='badge badge-default' style='color:red'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Parrafo") . " ". $parrafo->id . "</span>  " . $parrafo->texto . "</p>\n";
+                $html .= "<p class='tipo-$tipo original'><span class='badge badge-default' style='color:red'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Párrafo") . " ". $parrafo->id . "</span>  " . $parrafo->texto . "</p>\n";
                 $muestraOriginal = false;
             }
             $html .= espaciado($nivel);
-            $html .= "<p class='tipo-$tipo enmienda'><span class='badge badge-default' style='color:orange'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Parrafo") . " ". $parrafo->id ." (Enmienda #". $enmienda->id++ . " - ".$enmienda->tipo.")</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
+            $html .= "<p class='tipo-$tipo enmienda'><span class='badge badge-default' style='color:orange'>" . (($parrafo->tipo=='propuesta')?"Propuesta":"Párrafo") . " ". $parrafo->id ." (Enmienda #". $enmienda->id++ . " - ".$enmienda->tipo.")</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
         }        
     }
     $html .= espaciado($nivel);
