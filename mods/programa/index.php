@@ -33,7 +33,6 @@ function programa() {
 
 function fusion() {
     global $html, $codigoHTML,$op;
-
     $codigoHTML = "";
 
     if (isset($op) && !is_null($op)){
