@@ -134,7 +134,7 @@ function mostrarEnmiendasAdicion ($categoria, $nivel = 1) {
     $html.="<div class='ml-$nivel'>\n";    
     foreach ($enmiendas as $enmienda) {
         $html .= espaciado($nivel);
-        $html .= "<p class='tipo-$enmienda->tipo  enmienda'><span class='badge badge-success'>Enmienda ADD #". $enmienda->id++ . " - ".$enmienda->tipo."</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
+        $html .= "<p class='tipo-$enmienda->tipo  enmienda'><span class='badge badge-info'>Enmienda ADD #". $enmienda->id++ . " - ".$enmienda->tipo."</span> " . preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $enmienda->redaccion) . "</p>\n";
     }        
     $html .= espaciado($nivel);
     $html.="</div>\n";    
