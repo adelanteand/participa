@@ -32,15 +32,21 @@ function programa() {
 }
 
 function fusion() {
-    global $html, $codigoHTML;
+    global $html, $codigoHTML,$op;
 
     $codigoHTML = "";
-    $cats = new Programa_Categoria_Controladora();
-    $categorias = $cats->getCategorias(false);
 
-    foreach ($categorias as $categoria) {
-        $codigoHTML .= mostrarCategoria($categoria);
+    if (isset($op) && !is_null($op)){
+        $cat = new Programa_Categoria($op);
+        $codigoHTML .= mostrarCategoria($cat);
+    } else {
+        $cats = new Programa_Categoria_Controladora();
+        $categorias = $cats->getCategorias(false);
+        foreach ($categorias as $categoria) {
+            $codigoHTML .= mostrarCategoria($categoria);
+        }        
     }
+
     $html->asignar("codigoHTML", $codigoHTML);
     $html->plantilla("html.tpl");
     $html->ver();
