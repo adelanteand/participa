@@ -115,7 +115,7 @@ function mostrarParrafos($categoria, $tipo, $nivel = 1) {
         foreach ($parrafo->enmiendas as $enmienda) {
             if ($muestraOriginal) {
                 $html .= espaciado($nivel);
-                $html .= "<p class='tipo-$tipo original'><span class='badge badge-danger'>" . $parrafo->id . "</span> <strike> " . $parrafo->texto . "</strike></p>\n";
+                $html .= "<p class='tipo-$tipo original'><span class='badge badge-danger'>" . $parrafo->id . "</span>  " . $parrafo->texto . "</p>\n";
                 $muestraOriginal = false;
             }
             $html .= espaciado($nivel);
