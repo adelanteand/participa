@@ -15,11 +15,18 @@ function apoderadas_apuntate() {
 }
 
 function apoderados() {
-
+/**
     $colegios = new ColegioElectoral_Controladora();
     //$colegios->provincia=04;
     $listado = $colegios->getColegios();
     var_dump($listado);
+ * 
+ */
+    
+    global $html;
+    $html->asignar("msg", "Acceso incorrecto");
+    $html->plantilla("error.tpl");
+    $html->ver();
 }
 
 function apoderados_apuntate() {
