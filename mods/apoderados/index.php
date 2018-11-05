@@ -22,11 +22,11 @@ function apoderados() {
     var_dump($listado);
  * 
  */
-    
     global $html;
     $html->asignar("msg", "Acceso incorrecto");
     $html->plantilla("error.tpl");
     $html->ver();
+    
 }
 
 function apoderados_apuntate() {
