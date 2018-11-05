@@ -1,4 +1,5 @@
 <?php
+
 /*
  * INICIO DE SESIONES
  */
@@ -45,13 +46,13 @@ require BASEAPP . 'clases/funciones.php'; //FUNCIONES BASE
  * DE LA APLICACION EN USO
  */
 $db = new MysqliDb(Array(
-    'host'     => DB_HOST,
+    'host' => DB_HOST,
     'username' => DB_USER,
     'password' => DB_PWD,
-    'db'       => DB_DB,
-    'port'     => DB_PORT,
-    'prefix'   => DB_PREFIX,
-    'charset'  => 'utf8'));
+    'db' => DB_DB,
+    'port' => DB_PORT,
+    'prefix' => DB_PREFIX,
+    'charset' => 'utf8'));
 
 
 /*
@@ -119,7 +120,7 @@ $html = new Plantilla();
  * PERMISOS DE ADMINISTRACIÓN
  */
 $permisos = GetPermiso($usuario, "admin");
-$isadmin  = (100 == $permisos);
+$isadmin = (100 == $permisos);
 
 
 /*
@@ -130,8 +131,8 @@ unset($op);
 unset($subop);
 unset($mod);
 
-$mod   = null;
-$op    = null;
+$mod = null;
+$op = null;
 $subop = null;
 
 if (isset($_GET["carpeta"])) {
@@ -175,14 +176,14 @@ if (isset($_GET["subop"])) {
 }
 
 $mod = sololetras($mod);
-$html -> assign("isadmin", $isadmin);
+$html->assign("isadmin", $isadmin);
 
 if (isset($op)) {
-    $html -> assign("op", $op);
+    $html->assign("op", $op);
 }
 
 if (isset($subop)) {
-    $html -> assign("subop", $subop);
+    $html->assign("subop", $subop);
 }
 
 if ((!file_exists($home . "/mods/$mod")) || (strlen($mod) < 2)) {
@@ -192,9 +193,9 @@ if ((!file_exists($home . "/mods/$mod")) || (strlen($mod) < 2)) {
 }
 
 $baseMod = baseModulo($mod);
-$html -> assign("mod", ucwords($mod));
-$html -> assign("baseMod", $baseMod);
-$html -> assign("DEBUG", CONFIG_DEBUG);
+$html->assign("mod", ucwords($mod));
+$html->assign("baseMod", $baseMod);
+$html->assign("DEBUG", CONFIG_DEBUG);
 
 
 directorio($baseMod . '/mods/' . $mod . '/tpl/');
@@ -202,14 +203,14 @@ directorio($home . '/smarty/templates_c/' . $mod . '/');
 directorio($home . '/smarty/configs/' . $mod . '/');
 directorio($home . '/smarty/cache/' . $mod . '/');
 
-$html -> template_dir = $baseMod . '/mods/' . $mod . '/tpl/';
-$html -> compile_dir  = $home . '/smarty/templates_c/' . $mod . '/';
-$html -> config_dir   = $home . '/smarty/configs/' . $mod . '/';
-$html -> cache_dir    = $home . '/smarty/cache/' . $mod . '/';
+$html->template_dir = $baseMod . '/mods/' . $mod . '/tpl/';
+$html->compile_dir = $home . '/smarty/templates_c/' . $mod . '/';
+$html->config_dir = $home . '/smarty/configs/' . $mod . '/';
+$html->cache_dir = $home . '/smarty/cache/' . $mod . '/';
 
-$js    = Array();
+$js = Array();
 $jspie = Array();
-$css   = Array();
+$css = Array();
 
 // eskeleton";
 #if( ($mod!="propongo") &&  ($mod!="usuarios"))
@@ -236,14 +237,15 @@ if (file_exists($baseMod . "/mods/$mod/estilo.css")) {
 
 //index/objeto.php
 $cmenu = new ControladorMenu();
-$menu  = $cmenu -> getMenu();
-$html -> assign("menu", $menu);
+$menu = $cmenu->getMenu();
+$html->assign("menu", $menu);
 
-$html -> assign("js", $js);
-$html -> assign("jspie", $jspie);
-$html -> assign("css", $css);
+$html->assign("js", $js);
+$html->assign("jspie", $jspie);
+$html->assign("css", $css);
 
 importclass($mod, $baseMod);
+
 if (file_exists(BASEAPP . "mods/init.php")) {
     require (BASEAPP . "mods/init.php");
 } else {

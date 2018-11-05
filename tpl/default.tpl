@@ -108,9 +108,7 @@
                     {/if}
                 </li>
                     -->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/consultas/">Consulta directa<span class="sr-only"></span></a>
-                    </li>                    
+                    Página de participación
                     <!--
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -121,14 +119,8 @@
                 </ul>    
 
                 <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                    <a href="https://adelanteandalucia.org/" class="btn btn-light"><i class="fas fa-external-link-alt"></i> Adelante Andalucía</a>
-                </form>                 
-                <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                    <a href="https://adelanteandalucia.org/sites/default/files/ReglamentoPatios.pdf" target="_blank" class="btn btn-info"><i class="fas fa-file-alt"></i> Reglamento</a>
-                </form>                
-                <form class="form-inline mt-2 mt-md-0" style="margin-right:10px">
-                    <a href="https://adelanteandalucia.org/sites/default/files/ProgramaBorrador.pdf" target="_blank" class="btn btn-danger"><i class="fas fa-file-alt"></i> Descargar borrador PDF</a>
-                </form>
+                    <a href="https://adelanteandalucia.org/" class="btn btn-light"><i class="fas fa-external-link-alt"></i> Web principal</a>
+                </form> 
             </div>
         </nav>
 
