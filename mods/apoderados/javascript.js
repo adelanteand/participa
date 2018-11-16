@@ -7,10 +7,11 @@ var grupoColegios;
 $(document).ready(function () {
 
     cargarMapa();
+    condicional_opciones();
 
     $('#fecha_nacimiento').datepicker();
     $("#error").hide();
-    $("#enviarFormulario").on("click",function(){
+    $("#enviarFormulario").on("click", function () {
         enviarFormulario();
     });
 
@@ -113,6 +114,11 @@ $(document).ready(function () {
         });
     });
 
+
+    $("#voluntario, #apoderado").on("change", function () {
+        condicional_opciones();
+    });
+
     $('.select2.colegio').on('change', function () {
         if (!$('.select2.municipio').prop("disabled")) {
             var elemento = $('.select2.colegio').select2("data");
@@ -137,6 +143,28 @@ $(document).ready(function () {
     //$(".select2-search, .select2-focusser").remove(); 
 
 });
+
+
+function condicional_opciones() {
+    
+    var voluntario = false;
+    var apoderado = false;
+    
+    voluntario = $('#voluntario').is(':checked');
+    apoderado = $('#apoderado').is(':checked');
+    
+    if (apoderado){
+        $(".bloque_apoderados").show();
+    } else {
+        $(".bloque_apoderados").hide();
+    }
+    
+    if (voluntario || apoderado) {
+        $(".bloque_elemental").show();
+    } else {
+        $(".bloque_elemental").hide();
+    }
+}
 
 
 function desplegable(item) {
@@ -196,81 +224,97 @@ function grupoColegiosClick(event) {
 function enviarFormulario() {
 
     var validado = true;
+    var voluntario = false;
+    var apoderado = false;
     var msg = [];
 
     $("#error").hide();
     $("#lista_errores").empty();
 
+
+
+    if ($('#voluntario').is(':checked')) {
+        voluntario = true;
+    } else {
+        voluntario = false;
+    }
+
+    if ($('#apoderado').is(':checked')) {
+        apoderado = true;
+    } else {
+        apoderado = false;
+    }
+
+
     if (!$("#nombre").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise su nombre");
     }
 
     if (!$("#apellidos").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise sus apellidos");
     }
 
     if (!$("#genero").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise su género");
     }
 
     if (!validarEmail($("#email").val()) || !$("#email").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise el correo electrónico");
     }
 
     if (!$("#telefono").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise el teléfono de contacto");
     }
 
     if (!$("#DNI").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise su DNI");
     }
-    
+
     if (!$("#fecha_nacimiento").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise su fecha de nacimiento");
-    }  
-    
+    }
+
     if (!$("#movilidad").val()) {
-        validado = false
+        validado = false;
         msg.push("Seleccione una opción sobre movilidad reducida");
-    }     
-    
+    }
+
     if (!$("#profesion").val()) {
-        validado = false
+        validado = false;
         msg.push("Indique una profesión");
-    } 
-    
+    }
+
     if (!$("#dirprovincia").val()) {
-        validado = false
+        validado = false;
         msg.push("Seleccione una provincia");
-    }   
-    
+    }
+
     if (!$("#dirmunicipio").val()) {
-        validado = false
+        validado = false;
         msg.push("Indique un municipio");
-    }     
-    
+    }
+
     if (!$("#direccion").val()) {
-        validado = false
+        validado = false;
         msg.push("Indique su dirección");
-    }     
+    }
 
     if (!$("#cp").val()) {
-        validado = false
+        validado = false;
         msg.push("Revise el código postal");
     }
-    
-    if (!$("#colegio").val()) {
-        validado = false
-        msg.push("Elija un colegio electoral del desplegable o mapa");
-    }    
 
+    if (apoderado && !$("#colegio").val()) {
+        validado = false;
+        msg.push("Elija un colegio electoral del desplegable o mapa");
+    }
 
     if (validado) {
         //console.log('todo bien');
