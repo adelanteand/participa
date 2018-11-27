@@ -253,13 +253,9 @@ function enviarFormulario() {
 
     if (!$("#apellido_1").val()) {
         validado = false;
-        msg.push("Revise sus primer apellido");
+        msg.push("Revise sus apellidos");
     }
-    
-    if (!$("#apellido_2").val()) {
-        validado = false;
-        msg.push("Revise sus segundo apellido");
-    }    
+
 
     if (!$("#genero").val()) {
         validado = false;
