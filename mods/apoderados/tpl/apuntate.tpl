@@ -49,7 +49,7 @@
 
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="casilla-nombre">Nombre</span>
@@ -58,14 +58,23 @@
                     </div>
 
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="casilla-apellidos">Apellidos</span>
+                            <span class="input-group-text" id="casilla-apellido_1">1er apellido</span>
                         </div>
-                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos" aria-label="Apellidos" aria-describedby="casilla-apellidos">
+                        <input type="text" id="apellido_1" name="apellido_1" class="form-control" placeholder="1er Apellido" aria-label="1er Apellido" aria-describedby="casilla-apellido_1">
                     </div>
-                </div>            
+                </div>      
+                
+                <div class="form-group col-md-4">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="casilla-apellido_2">2º apellido</span>
+                        </div>
+                        <input type="text" id="apellido_2" name="apellido_2" class="form-control" placeholder="2º Apellido" aria-label="2º Apellido" aria-describedby="casilla-apellido_2">
+                    </div>
+                </div>                  
 
             </div>          
 

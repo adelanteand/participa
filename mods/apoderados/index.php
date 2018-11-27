@@ -1,5 +1,7 @@
 <?php
 
+use mikehaertl\pdftk\Pdf;
+
 if (isset($c)) {
     call_user_func(callFuncionParametros($c));
 } else {
@@ -15,18 +17,17 @@ function apoderadas_apuntate() {
 }
 
 function apoderados() {
-/**
-    $colegios = new ColegioElectoral_Controladora();
-    //$colegios->provincia=04;
-    $listado = $colegios->getColegios();
-    var_dump($listado);
- * 
- */
+    /**
+      $colegios = new ColegioElectoral_Controladora();
+      //$colegios->provincia=04;
+      $listado = $colegios->getColegios();
+      var_dump($listado);
+     * 
+     */
     global $html;
     $html->asignar("msg", "Acceso incorrecto");
     $html->plantilla("error.tpl");
     $html->ver();
-    
 }
 
 function apoderados_apuntate() {
@@ -85,7 +86,7 @@ function apoderados_enviar() {
         $mailbody .= "Hemos recibido correctamente tus datos. Nos pondremos en contacto contigo. Muchas gracias <br><hr>";
         $mailbody .= "<strong>ID: </strong>" . $id->id . "<br>";
         $mailbody .= "<strong>NOMBRE: </strong>" . $id->nombre . "<br>";
-        $mailbody .= "<strong>APELLIDOS: </strong>" . $id->apellidos . "<br>";
+        $mailbody .= "<strong>APELLIDOS: </strong>" . $id->apellido_1 . " " . $id->apellido_2 . "<br>";
         $mailbody .= "<strong>GÉNERO: </strong>" . $id->genero . "<br>";
         $mailbody .= "<strong>EMAIL: </strong>" . $id->email . "<br>";
         $mailbody .= "<strong>TELEFONO: </strong>" . $id->telefono . "<br>";
@@ -105,7 +106,7 @@ function apoderados_enviar() {
         $mailbody .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
         $mailbody .= "<strong>TOKEN: </strong>" . $id->token . "<br>";
 
-        $email->fromtxt = $id->nombre . " " . $id->apellidos;
+        $email->fromtxt = $id->nombre . " " . $id->apellido_1 . " " . $id->apellido_2 ;
         $email->asunto = "Inscricipón APODERADO/A " . ($id->provincia);
         $email->from = MAIL_ADMIN;
         $email->to = MAIL_ENMIENDAS;
@@ -115,11 +116,84 @@ function apoderados_enviar() {
         //var_dump($id);        
 
         $html->plantilla("apuntate_ok.tpl");
-        
     } else {
 
         $html->plantilla("apuntate_error.tpl");
     }
-    
+
     $html->ver();
+}
+
+function apoderados_generar() {
+    global $mod, $c;
+
+    if (!isset($c[2])) {
+        exit;
+    }
+
+    $apoderado = new Apoderado($c[2]);
+
+    $data = [
+        'de' => $apoderado->nombre,
+        'Domicilio' => $apoderado->direccion,
+        'Piso' => $apoderado->piso,
+        'Municipio' => $apoderado->municipio,
+        'CP' => $apoderado->cp,
+        'Provincia' => $apoderado->provincia,
+        'Edad_2' => $apoderado->fecha_nacimiento,
+        'Domicilio_2' => $apoderado->direccion,
+        'Piso_2' => $apoderado->piso,
+        'Municipio_2' => $apoderado->municipio,
+        'CP_2' => $apoderado->cp,
+        'Provincia_2' => $apoderado->provincia,
+        'NPA4b' => "",
+        'formacion' => "ADELANTE ANDALUCIA",
+        'circunscripcion' => $apoderado->provincia,
+        'fecha_eleccion' => "2 de diciembre de 2.018",
+        'apellido_2' => utf8_decode($apoderado->apellido_2),
+        'apellido_1' => utf8_decode($apoderado->apellido_1),
+        'dni' => $apoderado->dni,
+        'nombre' => $apoderado->nombre,
+        'profesion' => $apoderado->profesion,
+        'edad' => $apoderado->fecha_nacimiento,
+        'num' => $apoderado->num,
+        'apellido_1_2' => htmlentities($apoderado->apellido_1),
+        'apellido_2_2' => htmlentities($apoderado->apellido_2),
+        'dni_2' => $apoderado->dni,
+        'profesion_2' => $apoderado->profesion,
+        'nombre_2' => $apoderado->nombre,
+        'num_2' => $apoderado->num,
+        'formacion_politica' => "ADELANTE ANDALUCIA",
+        'secretario' => "",
+    ];
+
+
+
+    $pdf_path = BASEAPP . "mods/" . $mod . "/";
+
+    $pdf_path .= 'inc/credencial.pdf';
+
+
+
+    $pdf = new Pdf($pdf_path);
+
+    $pdf->fillForm($data)
+            ->needAppearances()            
+            //->saveAs(BASEAPP . "mods/" . $mod . "/salida.pdf");
+            ->send();
+            
+
+
+
+
+
+//    $pdf = new PdfForm($pdf_path . 'inc/credencial.pdf', $data);
+    //print_r("<pre>".$pdf->fields()."</pre>");
+
+    /*
+      $pdf->flatten()
+      ->save('output.pdf')
+      ->view();
+
+     */
 }

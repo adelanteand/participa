@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * ALTER TABLE `adelante_apoderados`
+ * 	CHANGE COLUMN `apellidos` `apellido_1` VARCHAR(250) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci' AFTER `nombre`,
+	ADD COLUMN `apellido_2` VARCHAR(250) NULL DEFAULT NULL AFTER `apellido_1`;
+ */
+
 class ColegioElectoral extends Entidad {
 
     var $id = 0;
@@ -30,7 +36,8 @@ class Apoderado extends Entidad {
         'tabla' => "apoderados",
         'manuales' => array(
             'nombre',
-            'apellidos',
+            'apellido_1',
+            'apellido_2',
             'genero',
             'email',
             'telefono',

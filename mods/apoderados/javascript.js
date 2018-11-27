@@ -251,10 +251,15 @@ function enviarFormulario() {
         msg.push("Revise su nombre");
     }
 
-    if (!$("#apellidos").val()) {
+    if (!$("#apellido_1").val()) {
         validado = false;
-        msg.push("Revise sus apellidos");
+        msg.push("Revise sus primer apellido");
     }
+    
+    if (!$("#apellido_2").val()) {
+        validado = false;
+        msg.push("Revise sus segundo apellido");
+    }    
 
     if (!$("#genero").val()) {
         validado = false;
@@ -318,12 +323,14 @@ function enviarFormulario() {
 
     if (validado) {
         //console.log('todo bien');
+        $("#enviarFormulario").attr("disabled", true);
         $("#formApoderado").submit();
     } else {
         msg.forEach(function (el) {
             $("#lista_errores").append(el + "<br>");
         });
         $("#error").show();
+        $("#error").removeClass("invisible d-print-none");
         $(window).scrollTop(0);
     }
 
