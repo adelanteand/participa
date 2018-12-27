@@ -8,7 +8,7 @@ require_once ($carpeta . "/../../config.php");
 
 if ($op == 'set' . TELEGRAM_KEY) {
     $hook_url = 'https://participa.adelanteandalucia.org/telegram/hook' . TELEGRAM_KEY . '/';
-    var_dump($hook_url);
+    //var_dump($hook_url);
     try {
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
         $result   = $telegram -> setWebhook($hook_url);
@@ -56,7 +56,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         Longman\TelegramBot\TelegramLog::initDebugLog(__DIR__ . "/" . TELEGRAM_BOT . "_debug.log");
         Longman\TelegramBot\TelegramLog::initUpdateLog(__DIR__ . "/" . TELEGRAM_BOT . "_update.log");
 
-        //$result = Request::sendMessage(['chat_id' => '-224101374', 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
+        $result = Request::sendMessage(['chat_id' => '-224101374', 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
 
         $telegram -> handle();
         
