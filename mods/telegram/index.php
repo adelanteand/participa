@@ -56,14 +56,14 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         Longman\TelegramBot\TelegramLog::initDebugLog(__DIR__ . "/" . TELEGRAM_BOT . "_debug.log");
         Longman\TelegramBot\TelegramLog::initUpdateLog(__DIR__ . "/" . TELEGRAM_BOT . "_update.log");
 
-        $result = Request::sendMessage(['chat_id' => '-224101374', 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
+        $result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG, 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
 
         $telegram -> handle();
         
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
         // Silence is golden!
         // log telegram errors
-        $result = Request::sendMessage(['chat_id' => '-224101374', 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
+        $result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG, 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
         echo $e;
     }
 }
