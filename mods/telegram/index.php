@@ -7,7 +7,7 @@ require_once ($carpeta . "/../../config.php");
 
 
 if ($op == 'set' . TELEGRAM_KEY) {
-    $hook_url = 'https://participa.andaluciapodemos.info/telegram/hook' . TELEGRAM_KEY . '/';
+    $hook_url = 'https://participa.adelanteandalucia.org/telegram/hook' . TELEGRAM_KEY . '/';
     //var_dump($hook_url);
     try {
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
