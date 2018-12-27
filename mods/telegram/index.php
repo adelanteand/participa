@@ -44,7 +44,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         'database' => DB_DB,
     ];
 
-    //var_dump($mysql_credentials);
+    var_dump($mysql_credentials);
     try {
 
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
