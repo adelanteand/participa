@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);v
+ini_set('display_errors', 1);
 $carpeta   = realpath(dirname(__FILE__));
 
 require_once __DIR__.'/../../vendor/autoload.php';
