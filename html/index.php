@@ -92,7 +92,7 @@ if (empty($_SESSION['token'])) {
 $token = $_SESSION['token'];
 
 
-if (strpos($_REQUEST['carpeta'], 'telegram') === false) {
+if (isset($_REQUEST['carpeta']) && strpos($_REQUEST['carpeta'], 'telegram') === false) {
     if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
         //detectamos que ha habido un envio POST (formulario)
         if (!isset($_POST['token'])) {
