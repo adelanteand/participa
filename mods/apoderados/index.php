@@ -106,7 +106,7 @@ function apoderados_enviar() {
         $mailbody .= "<strong>OBSERVACIONES: </strong>" . $id->observaciones . "<br>";
         $mailbody .= "<strong>TOKEN: </strong>" . $id->token . "<br>";
 
-        $email->fromtxt = $id->nombre . " " . $id->apellido_1 . " " . $id->apellido_2 ;
+        $email->fromtxt = $id->nombre . " " . $id->apellido_1 . " " . $id->apellido_2;
         $email->asunto = "Inscricipón APODERADO/A " . ($id->provincia);
         $email->from = MAIL_ADMIN;
         $email->to = MAIL_ENMIENDAS;
@@ -124,47 +124,167 @@ function apoderados_enviar() {
     $html->ver();
 }
 
-function apoderados_generar() {
+function apoderados_generar_todos() {
+
+    $apoderados = new Apoderados_Controladora();
+    $apoderados = $apoderados->getApoderados();
+
+    foreach ($apoderados as $apoderado) {
+        echo $apoderado->nombre . " " . $apoderado->apellido_1 . " " . $apoderado->apellido_2 . "<br>";
+        apoderados_generar($apoderado->id);
+    }
+}
+
+function apoderados_generar($id = NULL) {
     global $mod, $c;
 
     if (!isset($c[2])) {
         exit;
     }
 
-    $apoderado = new Apoderado($c[2]);
+    if (is_null($id)) {
+        $id = $c[2];
+    }
+
+
+    $representante = array(
+        "AL" => array(
+            "nombre" => "María Carmen",
+            "apellido_1" => "Martínez",
+            "apellido_2" => "García",
+            "direccion" => "Carretera de Ronda, 155, Edificio Caracas",
+            "num" => "Bajo",
+            "cp" => "04005",
+            "profesion" => "Oficial Administrativo",
+            "municipio" => "Almería",
+            "dni" => "77569621M",
+            "fecha_nacimiento" => "1979-10-14"
+        ),
+        "CO" => array(
+            "nombre" => "Juan Antonio",
+            "apellido_1" => "Alcántara",
+            "apellido_2" => "Guerrero",
+            "direccion" => "Calle Adarve",
+            "num" => "22",
+            "cp" => "14001",
+            "profesion" => "Ama de Casa",
+            "municipio" => "Córdoba",
+            "dni" => "44354896V",
+            "fecha_nacimiento" => "1976-05-13"
+        ),
+        "CA" => array(
+            "nombre" => "Sandra",
+            "apellido_1" => "Alarcón",
+            "apellido_2" => "Román",
+            "direccion" => "C/ Asta, 1, Residencia Sta. Ana",
+            "num" => "Local 2",
+            "cp" => "11404",
+            "profesion" => "Educadora social",
+            "municipio" => "Jerez de la Frontera",
+            "dni" => "43130502M",
+            "fecha_nacimiento" => "1979-03-07"
+        ),
+        "HU" => array(
+            "nombre" => "Esther Irene",
+            "apellido_1" => "Carbajo",
+            "apellido_2" => "Delgado",
+            "direccion" => "Plaza Noria de Palmarate",
+            "num" => "local 2A",
+            "cp" => "21003",
+            "profesion" => "Ingeniera técnica agrícola",
+            "municipio" => "Huelva",
+            "dni" => "44217098N",
+            "fecha_nacimiento" => "1974-03-05"
+        ),
+        "GR" => array(
+            "nombre" => "Alejandro",
+            "apellido_1" => "Cerrada",
+            "apellido_2" => "Ferrer",
+            "direccion" => "Calle Acera de San Ildefonso",
+            "num" => "28",
+            "cp" => "18010",
+            "profesion" => "Pensionista",
+            "municipio" => "Granada",
+            "dni" => "77077261Y",
+            "fecha_nacimiento" => "1953-01-31"
+        ),
+        "JA" => array(
+            "nombre" => "Irene",
+            "apellido_1" => "Reche",
+            "apellido_2" => "Gálvez",
+            "direccion" => "Calle Doctor Eduardo Arroyo",
+            "num" => "11",
+            "cp" => "23004",
+            "profesion" => "Estudiante",
+            "municipio" => "Jaén",
+            "dni" => "26250417B",
+            "fecha_nacimiento" => "1993-08-14"
+        ),
+        "MA" => array(
+            "nombre" => "Juan Miguel",
+            "apellido_1" => "Ruíz",
+            "apellido_2" => "García",
+            "direccion" => "Plaza Diego Vázquez Otero",
+            "num" => "local 3",
+            "cp" => "29007",
+            "profesion" => "Abogado",
+            "municipio" => "Málaga",
+            "dni" => "25083438Y",
+            "fecha_nacimiento" => "1965-02-25"
+        ),
+        "SE" => array(
+            "nombre" => "Carmen",
+            "apellido_1" => "Vera",
+            "apellido_2" => "Gómez",
+            "direccion" => "Calle León XIII",
+            "num" => "20",
+            "cp" => "41009",
+            "profesion" => "Trabajadora Social",
+            "municipio" => "Sevilla",
+            "dni" => "75408433N",
+            "fecha_nacimiento" => "1961-04-20"
+        )
+    );
+
+    $apoderado = new Apoderado($id);
+    $apoderado->getColegio();
+    //var_dump($apoderado);
+
+    $provincia = codigo_to_provincia(substr($apoderado->colegio->CP, 0, 2));
 
     $data = [
-        'de' => $apoderado->nombre,
-        'Domicilio' => $apoderado->direccion,
-        'Piso' => $apoderado->piso,
-        'Municipio' => $apoderado->municipio,
-        'CP' => $apoderado->cp,
-        'Provincia' => $apoderado->provincia,
-        'Edad_2' => $apoderado->fecha_nacimiento,
-        'Domicilio_2' => $apoderado->direccion,
-        'Piso_2' => $apoderado->piso,
-        'Municipio_2' => $apoderado->municipio,
-        'CP_2' => $apoderado->cp,
-        'Provincia_2' => $apoderado->provincia,
-        'NPA4b' => "",
+        'de' =>  provincia(codigo_to_provincia(substr($apoderado->colegio->CP,0,2))),
+        'Domicilio' => clean($apoderado->direccion),
+        'Piso' => clean($apoderado->piso),
+        'Municipio' => clean($apoderado->municipio),
+        'CP' => clean($apoderado->cp),
+        'Provincia' => provincia($apoderado->provincia),
+        'NPA4b' => clean($apoderado->nombre . " " . $apoderado->apellido_1 . " " . $apoderado->apellido_2),
         'formacion' => "ADELANTE ANDALUCIA",
-        'circunscripcion' => $apoderado->provincia,
-        'fecha_eleccion' => "2 de diciembre de 2.018",
-        'apellido_2' => utf8_decode($apoderado->apellido_2),
-        'apellido_1' => utf8_decode($apoderado->apellido_1),
-        'dni' => $apoderado->dni,
-        'nombre' => $apoderado->nombre,
-        'profesion' => $apoderado->profesion,
-        'edad' => $apoderado->fecha_nacimiento,
-        'num' => $apoderado->num,
-        'apellido_1_2' => htmlentities($apoderado->apellido_1),
-        'apellido_2_2' => htmlentities($apoderado->apellido_2),
-        'dni_2' => $apoderado->dni,
-        'profesion_2' => $apoderado->profesion,
-        'nombre_2' => $apoderado->nombre,
-        'num_2' => $apoderado->num,
-        'formacion_politica' => "ADELANTE ANDALUCIA",
+        'circunscripcion' => provincia(codigo_to_provincia(substr($apoderado->colegio->CP,0,2))),
+        'fecha_eleccion' => clean("2 de diciembre de 2.018"),
+        'dni' => clean($apoderado->dni),
+        'apellido_2' => clean($apoderado->apellido_2),
+        'apellido_1' => clean($apoderado->apellido_1),
+        'nombre' => clean($apoderado->nombre),
+        'profesion' => clean($apoderado->profesion),
+        'edad' => CalculaEdad($apoderado->fecha_nacimiento),
+        'num' => clean($apoderado->num),
+        'formacion_politica' => clean("ADELANTE ANDALUCIA"),
         'secretario' => "",
+        //REPRESENTANTE
+        'nombre_2' => clean($representante[$provincia]['nombre']),
+        'apellido_1_2' => clean($representante[$provincia]['apellido_1']),
+        'apellido_2_2' => clean($representante[$provincia]['apellido_2']),
+        'dni_2' => clean($representante[$provincia]['dni']),
+        'profesion_2' => clean($representante[$provincia]['profesion']),
+        'num_2' => clean($representante[$provincia]['num']),
+        'Edad_2' => CalculaEdad($representante[$provincia]['fecha_nacimiento']),
+        'Domicilio_2' => clean($representante[$provincia]['direccion']),
+        'Piso_2' => "",
+        'Municipio_2' => clean($representante[$provincia]['municipio']),
+        'CP_2' => clean($representante[$provincia]['cp']),
+        'Provincia_2' => provincia($provincia),
     ];
 
 
@@ -176,24 +296,64 @@ function apoderados_generar() {
 
 
     $pdf = new Pdf($pdf_path);
+    $fichero = str_replace(" ", "_", $apoderado->apellido_1 . "_" . $apoderado->apellido_2 . "_" . $apoderado->nombre);
+    $carpeta = BASEAPP . "mods/" . $mod . "/pdf/" . codigo_to_provincia(substr($apoderado->colegio->CP,0,2)) . "/" . $apoderado->colegio->municipio."/";
+    $ruta = $carpeta . codigo_to_provincia(substr($apoderado->colegio->CP,0,2)) . str_pad($apoderado->id, 4, "0", STR_PAD_LEFT) . "_" . clean($fichero) . ".pdf";
 
-    $pdf->fillForm($data)
-            ->needAppearances()            
-            //->saveAs(BASEAPP . "mods/" . $mod . "/salida.pdf");
-            ->send();
-            
+    if (!file_exists($carpeta)) {
+        mkdir($carpeta, 0777, true);
+    }
+    
 
+    if (!file_exists($ruta)) {
+        $pdf->fillForm($data)
+                ->needAppearances()
+                ->saveAs($ruta);
+                //->send();
+        ;
+    }
+}
 
+function clean($cadena) {
+    $originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
+    $modificadas = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+    $cadena = utf8_decode($cadena);
+    $cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+    $cadena = strtolower($cadena);
+    $cadena = utf8_encode($cadena);
+    return strtoupper($cadena);
+}
 
+function codigo_to_provincia($codigo) {
+    $traduce = array(
+        "04" => "AL",
+        "11" => "CA",
+        "14" => "CO",
+        "18" => "GR",
+        "21" => "HU",
+        "23" => "JA",
+        "29" => "MA",
+        "41" => "SE"
+    );
+    return $traduce[$codigo];
+}
 
+function provincia($abb) {
+    $traduce = array(
+        "AL" => "ALMERIA",
+        "CA" => "CADIZ",
+        "CO" => "CORDOBA",
+        "GR" => "GRANADA",
+        "HU" => "HUELVA",
+        "JA" => "JAEN",
+        "MA" => "MALAGA",
+        "SE" => "SEVILLA",
+        "NO" => "OTRA"
+    );
+    return $traduce[$abb];
+}
 
-//    $pdf = new PdfForm($pdf_path . 'inc/credencial.pdf', $data);
-    //print_r("<pre>".$pdf->fields()."</pre>");
-
-    /*
-      $pdf->flatten()
-      ->save('output.pdf')
-      ->view();
-
-     */
+function CalculaEdad($fecha) {
+    list($Y, $m, $d) = explode("-", $fecha);
+    return( date("md") < $m . $d ? date("Y") - $Y - 1 : date("Y") - $Y );
 }

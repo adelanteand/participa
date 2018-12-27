@@ -1,11 +1,5 @@
 <?php
 
-/*
- * ALTER TABLE `adelante_apoderados`
- * 	CHANGE COLUMN `apellidos` `apellido_1` VARCHAR(250) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci' AFTER `nombre`,
-	ADD COLUMN `apellido_2` VARCHAR(250) NULL DEFAULT NULL AFTER `apellido_1`;
- */
-
 class ColegioElectoral extends Entidad {
 
     var $id = 0;
@@ -61,7 +55,39 @@ class Apoderado extends Entidad {
 
     function __construct($id = 0) {
         parent::__construct($id, $this->datos);
-    }    
+    } 
+    
+    function getColegio(){
+        $this->colegio = new ColegioElectoral($this->colegio);        
+    }
+    
+}
+
+class Apoderados_Controladora {
+    
+    var $provincia = null;
+    
+    function getApoderados() {
+        global $db;
+        
+        if ($this->provincia) {
+            $db->where('provincia', $this->provincia);
+        }        
+        
+        $db->where('colegio', NULL, 'IS NOT');
+        
+        $res = $db->get('apoderados', null);
+        $db->orderBy('apellido_1');
+        
+        $out = Array();
+
+        foreach ($res as $row) {
+            $p = new Apoderado($row['id']);
+            $out[] = $p;
+        }
+        return $out;            
+        
+    }
     
 }
 

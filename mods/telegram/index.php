@@ -1,7 +1,8 @@
 <?php
 
 $carpeta   = realpath(dirname(__FILE__));
-require_once __DIR__ . '/../../html/plugins/autoload.php';
+
+require_once __DIR__.'/../../vendor/autoload.php';
 require_once ($carpeta . "/../../config.php");
 
 
@@ -43,6 +44,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         'database' => DB_DB,
     ];
 
+    //var_dump($mysql_credentials);
     try {
 
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);

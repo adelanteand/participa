@@ -176,6 +176,7 @@ if (isset($_GET["subop"])) {
 }
 
 $mod = sololetras($mod);
+
 $html->assign("isadmin", $isadmin);
 
 if (isset($op)) {
