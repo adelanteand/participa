@@ -91,7 +91,7 @@ if (empty($_SESSION['token'])) {
 }
 $token = $_SESSION['token'];
 
-
+var_dump($_SERVER['REMOTE_ADDR']);exit;
 if ($_REQUEST['mod'] != 'telegram') {
     if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
         //detectamos que ha habido un envio POST (formulario)
