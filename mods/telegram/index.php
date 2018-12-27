@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 $carpeta   = realpath(dirname(__FILE__));
 
 require_once __DIR__.'/../../vendor/autoload.php';
@@ -64,6 +63,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
         // Silence is golden!
         // log telegram errors
+        $result = Request::sendMessage(['chat_id' => '-224101374', 'text' => dirname(__DIR__) . '/telegram/Comandos/']);
         echo $e;
     }
 }
