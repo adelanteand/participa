@@ -91,25 +91,27 @@ if (empty($_SESSION['token'])) {
 }
 $token = $_SESSION['token'];
 
-/*
-if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
-    //detectamos que ha habido un envio POST (formulario)
-    if (!isset($_POST['token'])) {
-        exit("ERROR: Envio de formulario sin protección CSRF.<br>"
-                . "<pre>"
-                . "&#x7B;&#x69;&#x6E;&#x63;&#x6C;&#x75;&#x64;&#x65;&#x20;"
-                . "&#x66;&#x69;&#x6C;&#x65;&#x3D;&#x22;&#x24;&#x62;&#x61;&#x73;"
-                . "&#x65;&#x41;&#x50;&#x50;&#x2F;&#x74;&#x70;&#x6C;&#x2F;&#x63;"
-                . "&#x73;&#x72;&#x66;&#x2E;&#x74;&#x70;&#x6C;&#x22;&#x7D;"
-                . "</pre>");
-    } else {
-        if (!($_POST['token'] === $_SESSION['token'])) {
-            exit("ERROR: Validación CSRF errónea");
+
+if ($_POST['mod'] != 'telegram') {
+    if (isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST") {
+        //detectamos que ha habido un envio POST (formulario)
+        if (!isset($_POST['token'])) {
+            exit("ERROR: Envio de formulario sin protección CSRF.<br>"
+                    . "<pre>"
+                    . "&#x7B;&#x69;&#x6E;&#x63;&#x6C;&#x75;&#x64;&#x65;&#x20;"
+                    . "&#x66;&#x69;&#x6C;&#x65;&#x3D;&#x22;&#x24;&#x62;&#x61;&#x73;"
+                    . "&#x65;&#x41;&#x50;&#x50;&#x2F;&#x74;&#x70;&#x6C;&#x2F;&#x63;"
+                    . "&#x73;&#x72;&#x66;&#x2E;&#x74;&#x70;&#x6C;&#x22;&#x7D;"
+                    . "</pre>");
+        } else {
+            if (!($_POST['token'] === $_SESSION['token'])) {
+                exit("ERROR: Validación CSRF errónea");
+            }
         }
     }
 }
- * 
- */
+
+
 
 
 /*
