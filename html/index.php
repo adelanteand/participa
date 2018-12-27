@@ -132,6 +132,7 @@ $isadmin = (100 == $permisos);
  * LECTURA DE VARIABLES
  * (VER .HTACCESS)
  */
+var_dump($_REQUEST);exit;
 unset($op);
 unset($subop);
 unset($mod);
