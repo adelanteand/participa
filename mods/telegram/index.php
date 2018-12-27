@@ -1,10 +1,11 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);v
 $carpeta   = realpath(dirname(__FILE__));
 
 require_once __DIR__.'/../../vendor/autoload.php';
 require_once ($carpeta . "/../../config.php");
-
+use \Longman\TelegramBot\Request;
 
 if ($op == 'set' . TELEGRAM_KEY) {
     $hook_url = 'https://participa.adelanteandalucia.org/telegram/hook' . TELEGRAM_KEY . '/';
@@ -44,7 +45,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         'database' => DB_DB,
     ];
 
-    var_dump($mysql_credentials);
+    //var_dump($mysql_credentials);
     try {
 
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
