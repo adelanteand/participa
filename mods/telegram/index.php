@@ -8,7 +8,7 @@ require_once ($carpeta . "/../../config.php");
 use \Longman\TelegramBot\Request;
 
 if ($op == 'set' . TELEGRAM_KEY) {
-    $hook_url = 'https://participa.adelanteandalucia.org/telegram/hook' . TELEGRAM_KEY . '/';
+    $hook_url = 'https://devprograma.adelanteandalucia.org/telegram/hook' . TELEGRAM_KEY . '/';
     //var_dump($hook_url);
     try {
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
@@ -38,6 +38,16 @@ if ($op == 'unset' . TELEGRAM_KEY) {
 
 if ($op == 'hook' . TELEGRAM_KEY) {
 
+    // Define all IDs of admin users in this array (leave as empty array if not used)
+    $admin_users = [
+        TELEGRAM_KEY
+    ];
+    // Define all paths for your custom commands in this array (leave as empty array if not used)
+    $commands_paths = [
+        __DIR__ . '/Comandos/',
+    ];
+    
+
     $mysql_credentials = [
         'host' => DB_HOST,
         'user' => DB_USER,
@@ -49,7 +59,13 @@ if ($op == 'hook' . TELEGRAM_KEY) {
     try {
 
         $telegram = new Longman\TelegramBot\Telegram(TELEGRAM_API, TELEGRAM_BOT);
-        $telegram->addCommandsPath(dirname(__DIR__) . '/telegram/Comandos/');
+
+        $telegram->addCommandsPaths($commands_paths);
+        $telegram->enableAdmins($admin_users);
+        $telegram->enableAdmin(40197060);
+
+        $telegram->setDownloadPath(__DIR__ . '/Download');
+        $telegram->setUploadPath(__DIR__ . '/Upload');
 
         $telegram->enableMySql($mysql_credentials, DB_PREFIX . "telegram_");
 
@@ -57,15 +73,15 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         Longman\TelegramBot\TelegramLog::initDebugLog(__DIR__ . "/" . TELEGRAM_BOT . "_debug.log");
         Longman\TelegramBot\TelegramLog::initUpdateLog(__DIR__ . "/" . TELEGRAM_BOT . "_update.log");
 
-        $result = Request::sendMessage([
-                    'chat_id' => TELEGRAM_ADMINLOG,
-                    'text' => 'pong'
-        ]);
-
+        ///$result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG,'text' => 'pong']);
+        //var_dump($telegram);
+        $telegram->enableLimiter();
         $telegram->handle();
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
-        // Silence is golden!
-        // log telegram errors
+        $result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG, 'text' => 'ERROR: ' . $e]);
+        echo $e;
+        Longman\TelegramBot\TelegramLog::error($e);
+    } catch (Longman\TelegramBot\Exception\TelegramLogException $e) {
         $result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG, 'text' => 'ERROR: ' . $e]);
         echo $e;
     }

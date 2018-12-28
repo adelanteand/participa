@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the TelegramBot package.
  *
@@ -17,8 +18,8 @@ use Longman\TelegramBot\Commands\SystemCommand;
 /**
  * Generic message command
  */
-class GenericmessageCommand extends SystemCommand
-{
+class GenericmessageCommand extends SystemCommand {
+
     /**
      * @var string
      */
@@ -44,8 +45,7 @@ class GenericmessageCommand extends SystemCommand
      *
      * @return \Longman\TelegramBot\Entities\ServerResponse
      */
-    public function executeNoDb()
-    {
+    public function executeNoDb() {
         //Do nothing
         return Request::emptyResponse();
     }
@@ -56,17 +56,18 @@ class GenericmessageCommand extends SystemCommand
      * @return \Longman\TelegramBot\Entities\ServerResponse
      * @throws \Longman\TelegramBot\Exception\TelegramException
      */
-    public function execute()
-    {
+    public function execute() {
         //If a conversation is busy, execute the conversation command after handling the message
         $conversation = new Conversation(
-            $this->getMessage()->getFrom()->getId(),
-            $this->getMessage()->getChat()->getId()
+                $this->getMessage()->getFrom()->getId(), $this->getMessage()->getChat()->getId()
         );
 
+        //CARGAMOS ACCIONES PERSONALIZADAS
+        $carpetaAcciones = __DIR__ . "/../" . "AccionesPersonalizadas";
+        foreach (glob("{$carpetaAcciones}/*.php") as $filename) {
+            include_once ($filename);
+        }
 
-        //$result = Request::sendMessage(['chat_id' => '-224101374', 'text' => json_encode($this->getMessage())]);        
-        
         //Fetch conversation command if it exists and execute it
         if ($conversation->exists() && ($command = $conversation->getCommand())) {
             return $this->telegram->executeCommand($command);
@@ -74,4 +75,5 @@ class GenericmessageCommand extends SystemCommand
 
         return Request::emptyResponse();
     }
+
 }
