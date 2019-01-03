@@ -12,7 +12,9 @@
         "onesignal/emoji-picker": "*",
         "libchart/libchart": "^1.4",
         "joshcam/mysqli-database-class": "dev-master",
-        "soundasleep/html2text": "~0.5"
+        "soundasleep/html2text": "~0.5",
+        "mikehaertl/php-pdftk": "^0.5.0",
+        "samwilson/phpflickr": "^4.7"
     },
     "config": {
         "discard-changes": true,        
