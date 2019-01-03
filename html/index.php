@@ -1,5 +1,4 @@
 <?php
-
 /*
  * INICIO DE SESIONES
  */

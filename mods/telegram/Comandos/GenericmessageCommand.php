@@ -67,7 +67,7 @@ class GenericmessageCommand extends SystemCommand {
         foreach (glob("{$carpetaAcciones}/*.php") as $filename) {
             include_once ($filename);
         }
-
+        
         //Fetch conversation command if it exists and execute it
         if ($conversation->exists() && ($command = $conversation->getCommand())) {
             return $this->telegram->executeCommand($command);

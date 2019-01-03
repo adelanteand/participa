@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once (__DIR__ . "/../../../config.php");
+require_once (__DIR__ . "/../funciones.php");
 
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Entities\Keyboard;
@@ -13,7 +14,7 @@ $chat = $message->getChat();
 $chat_id = $chat->getId();
 $user_id = $message->getFrom()->getId();
 
-if ($chat_id != '-354967356') {
+if ($chat_id != '-1001258220175') {
     //No estoy en el grupo adecuado, asi que me piro vampiro
     exit;
 }
@@ -24,6 +25,13 @@ $data = [
 ];
 
 $formatos_aceptados = array("jpg", "jpeg", "bmp", "gif", "png");
+$formatos_raw = array(
+    "3fr", "ari", "arw", "bay", "crw", "cr2", "cr3", "cap", "data", "dcs",
+    "dcr", "dng", "drf", "eip", "erf", "fff", "gpr", "iiq", "k25", "kdc",
+    "mdc", "mef", "mos", "mrw", "nef", "nrw", "obm", "orf", "pef", "ptx",
+    "pxn", "r3d", "raf", "raw", "rwl", "rw2", "rwz", "sr2", "srf", "srw",
+    "tif", "x3f"
+);
 
 $respuestas = array(
     'More resolution please!',
@@ -42,44 +50,51 @@ $respuestas = array(
 $conversation = new Conversation($user_id, $chat_id, $this->getName());
 $message_type = $message->getType();
 
+
+
 if (in_array($message_type, ['document'], true)) {
     $doc = $message->{'get' . ucfirst($message_type)}();
     $data['text'] = $doc;
 
     $file_id = $doc->getFileId();
     $file = Request::getFile(['file_id' => $file_id]);
+
     if ($file->isOk() && Request::downloadFile($file->getResult())) {
         //SUBIMOS A FLICKR        
         $ext = strtolower(pathinfo($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath(), PATHINFO_EXTENSION));
-        if (in_array($ext, $formatos_aceptados)){
-                
-                Request::sendMessage($data);
-                $im = new Imagick( $this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() );
-                var_dump($im);
-                $im->setImageFormat( 'jpg' );
-                $im->writeImage( $this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath().".jpg" );
-                $im->clear();
-                $im->destroy();
-                $data['text'] = 'lo he conseguido :=';            
-            
+        if (in_array($ext, $formatos_aceptados)) {
+            //Formato aceptado
+            $urlUploaded = SubirFlickr($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath(), "Adelante Andalucía. Subida por ". $message->getFrom()->getFirstName() . " " . $message->getFrom()->getLastName());
+            $data['text'] = "He subido la foto a Flickr: " . $urlUploaded;
+        } elseif (in_array($ext, $formatos_raw)) {
+            //Formato RAW. Necesita conversión
+
+            $im = new Imagick($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath());
+            $im->setImageFormat('jpg');
+            $im->writeImage($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() . ".jpg");
+            $im->clear();
+            $im->destroy();
+
+            $urlUploaded = SubirFlickr($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() . ".jpg", "Adelante Andalucía. Subida por ". $message->getFrom()->getFirstName() . " " . $message->getFrom()->getLastName());
+            $data['text'] = "He convertido y subido la foto a Flickr: " . $urlUploaded;
         } else {
-            if ($ext == 'nef'){
-                
-                $data['text'] = __DIR__.'../';
-                Request::sendMessage($data);
-                $im = new Imagick( $this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() );
-                var_dump($im);
-                $im->setImageFormat( 'jpg' );
-                $im->writeImage( $this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath().".jpg" );
-                $im->clear();
-                $im->destroy();
-                $data['text'] = 'lo he conseguido :=';
-            }
+            //Formato no reconocido
+            $data['text'] = "No acepto el formato. Lo siento";
         }
-        
+
+        //Eliminamos los originales
+        if (file_exists($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath())) {
+            unlink($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath());
+        }
+        if (file_exists($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() . ".jpg")) {
+            unlink($this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath() . ".jpg");
+        }
+
+
         //$data['text'] = $message_type . ' file is located at: ' . $this->telegram->getDownloadPath() . '/' . $file->getResult()->getFilePath();
     } else {
-        $data['text'] = 'Me he trabucao. No he podido descargar el fichero. Sorry. Avisa a mi dueño';
+        $data['text'] = 'Me he trabucao. No he podido descargar el fichero. Sorry. Avisa a mi dueño y dile que tengo un error ';
+        $data['text'] .= $file->getErrorCode() . ": " . $file->getDescription();
     }
 
     $conversation->notes['file_id'] = $file_id;
@@ -89,8 +104,7 @@ if (in_array($message_type, ['document'], true)) {
     $data['reply_to_message_id'] = $message->getMessageId();
     $data['text'] = $respuestas[array_rand($respuestas, 1)];
 } else {
-    //Mejor me callo
+    $data['text'] = "";
 }
 
 return Request::sendMessage($data);
-

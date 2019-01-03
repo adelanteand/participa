@@ -46,7 +46,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
     $commands_paths = [
         __DIR__ . '/Comandos/',
     ];
-    
+
 
     $mysql_credentials = [
         'host' => DB_HOST,
@@ -73,7 +73,7 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         Longman\TelegramBot\TelegramLog::initDebugLog(__DIR__ . "/" . TELEGRAM_BOT . "_debug.log");
         Longman\TelegramBot\TelegramLog::initUpdateLog(__DIR__ . "/" . TELEGRAM_BOT . "_update.log");
 
-        ///$result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG,'text' => 'pong']);
+        //$result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG,'text' => 'pong']);
         //var_dump($telegram);
         $telegram->enableLimiter();
         $telegram->handle();
@@ -85,4 +85,34 @@ if ($op == 'hook' . TELEGRAM_KEY) {
         $result = Request::sendMessage(['chat_id' => TELEGRAM_ADMINLOG, 'text' => 'ERROR: ' . $e]);
         echo $e;
     }
+}
+
+
+
+if ($op == 'test') {
+    $ruta = "/home/devprograma/public_html/mods/telegram/Download/documents/file_15.NEF.jpg";
+    $token = new \OAuth\OAuth1\Token\StdOAuth1Token();
+    $token->setAccessToken(FLICKR_OAUTH_TOKEN);
+    $token->setAccessTokenSecret(FLICKR_OAUTH_VERIFIER);
+    var_dump(FLICKR_OAUTH_TOKEN);
+    var_dump(FLICKR_OAUTH_VERIFIER);
+    $storage = new \OAuth\Common\Storage\Memory();
+    $storage->storeAccessToken('Flickr', $token);
+
+    // Create PhpFlickr.
+    $phpFlickr = new \Samwilson\PhpFlickr\PhpFlickr(FLICKR_KEY, FLICKR_SECRET);
+
+    // Give PhpFlickr the storage containing the access token.
+    $phpFlickr->setOauthStorage($storage);
+
+    // Make a request.
+    $description = 'An example of agate pottery. By Anonymouse512.
+    Via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Agateware_Example.JPG';
+    $result = $phpFlickr->uploader()->upload(
+            $ruta, 'Test photo', $description, 'Agateware pots', true, true, true
+    );
+    $info = $phpFlickr->photos()->getInfo($result['photoid']);
+    var_dump($info);
+    echo "The new photo is: " . $info['urls']['url'][0]['_content'] . "\n";
+    return 0;
 }
